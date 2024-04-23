@@ -21,3 +21,18 @@ void	insert_token(t_token **stack, char *content)
 		curr = curr->next;
 	curr->next = new_node;
 }
+
+void	deallocate_lst(t_token **stack)
+{
+	t_token	*curr;
+	t_token	*tmp;
+
+	curr = *stack;
+	while (curr)
+	{
+		tmp = curr;
+		curr = curr->next;
+		free (tmp);
+	}
+	*stack = NULL;
+}
