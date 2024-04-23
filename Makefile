@@ -1,5 +1,6 @@
 NAME		:= minishell
 CFLAGS		:= -Wextra -Wall -Werror -g3
+MAKEFLAGS += --silent
 
 # LIBRARIES_PATH
 LIBFT_PATH = ./libft
@@ -13,13 +14,13 @@ OBJ_PATH	:= objects
 # SOURCES
 CFILES		:= main.c
 
+#PATH_FILES
 SRCS		:= $(addprefix $(SRC_PATH)/, $(CFILES))
 OBJS		:= $(addprefix $(OBJ_PATH)/, $(CFILES:%.c=%.o))
 
+#HEADERS
 HEADERS		:= -I ./includes
 HEADER_FILE := includes/minishell.h
-
-MAKEFLAGS += --silent
 
 # COLORS
 GREEN	:=	\033[1;32m
@@ -28,6 +29,15 @@ RED		:=	\033[1;31m
 WHITE	:=	\033[1;37m
 BOLD	:=	\033[1;1m
 
+#LOADING BAR
+COMPILED_CFILES := 0
+
+define progress_bar
+	@tput cuu1
+	@tput el
+	@echo "$(GREEN)[========================================>] $(WHITE)($1/$2)"
+endef
+
 all: $(OBJ_PATH) $(NAME)
 
 $(LIBFT):
@@ -35,6 +45,9 @@ $(LIBFT):
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER_FILE) | $(OBJ_PATH)
 	@$(CC) $(CFLAGS) -o $@ -c $<
+	@echo "                                     "
+	$(eval COMPILED_CFILES := $(shell echo $$(($(COMPILED_CFILES) + 1))))
+	$(call progress_bar,$(COMPILED_CFILES),$(words $(CFILES)))
 
 $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH)
@@ -42,24 +55,22 @@ $(OBJ_PATH):
 $(NAME): $(LIBFT) $(OBJS)
 	@$(CC) $(OBJS) $(LIBFT) $(HEADERS) -o $(NAME)
 	@echo "$(GREEN)-------------------------------------------"
-	@echo "$(WHITE)     The [$(PURPLE)MINISHELL$(WHITE)] has been compiled!  "
+	@echo "$(WHITE)  ✅ The [$(GREEN)MINISHELL$(WHITE)] has been compiled! ✅ "
 	@echo "$(GREEN)-------------------------------------------"
 
 clean:
 	@rm -rf $(OBJS)
-	@echo "$(RED)-----------------------------------"
-	@echo "$(WHITE) Objects - MINISHELL - were cleaned!"
-	@echo "$(RED)-----------------------------------"
+	@echo "                                     "
+	@echo "$(WHITE)     Objects - $(RED)MINISHELL$(WHITE) - were cleaned!"
+	@echo "                                     "
 
 fclean: clean
-	@echo "$(RED)-----------------------------------"
-	@echo "$(WHITE)        Cleaning all... 🧹"
-	@echo "$(RED)-----------------------------------"
+	@echo "$(WHITE)              Cleaning all... 🧹"
+	@echo "                                     "
 	@rm -rf $(NAME)
 	@make fclean -C $(LIBFT_PATH)
-	@echo "$(RED)---------------------------------------"
-	@echo "$(WHITE) ✨ Cleaning - MINISHELL - complete! ✨"
-	@echo "$(RED)---------------------------------------"
+	@echo "$(WHITE)    ✨ Cleaning - MINISHELL - complete! ✨"
+	@echo "                                     "
 
 re: fclean all
 

@@ -6,7 +6,7 @@
 #    By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/16 15:55:15 by bda-mota          #+#    #+#              #
-#    Updated: 2024/04/22 15:44:44 by bda-mota         ###   ########.fr        #
+#    Updated: 2024/04/23 11:42:43 by bda-mota         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,18 +47,12 @@ $(OBJ_DIR):
 
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
-	@echo "$(PURPLE)-------------------------------------------"
-	@echo "$(WHITE)   [Success] Done the compilation Libft.$(BOLD) "
-	@echo "$(PURPLE)-------------------------------------------"
 
 clean:
 	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
-	@echo "$(RED)---------------------------------------"
-	@echo "$(WHITE)  ✨ Cleaning - LIBFT - complete! ✨"
-	@echo "$(RED)---------------------------------------"
 
 re: fclean all
 
