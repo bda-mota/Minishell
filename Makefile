@@ -12,7 +12,7 @@ SRC_PATH 	:= sources
 OBJ_PATH	:= objects
 
 # SOURCES
-CFILES		:= main.c
+CFILES		:= main.c token/token.c
 
 #PATH_FILES
 SRCS		:= $(addprefix $(SRC_PATH)/, $(CFILES))
@@ -20,7 +20,7 @@ OBJS		:= $(addprefix $(OBJ_PATH)/, $(CFILES:%.c=%.o))
 
 #HEADERS
 HEADERS		:= -I ./includes
-HEADER_FILE := includes/minishell.h
+HEADER_FILE := includes/structs.h includes/minishell.h
 
 # COLORS
 GREEN	:=	\033[1;32m
@@ -30,12 +30,13 @@ WHITE	:=	\033[1;37m
 BOLD	:=	\033[1;1m
 
 #LOADING BAR
+TOTAL_FILES := $(words $(CFILES))
 COMPILED_CFILES := 0
 
 define progress_bar
 	@tput cuu1
 	@tput el
-	@echo "$(GREEN)[========================================>] $(WHITE)($1/$2)"
+	@echo "$(GREEN)[========================================>] $(WHITE)($1/$(TOTAL_FILES))"
 endef
 
 all: $(OBJ_PATH) $(NAME)
@@ -44,6 +45,7 @@ $(LIBFT):
 	@make -C $(LIBFT_PATH)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER_FILE) | $(OBJ_PATH)
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -o $@ -c $<
 	@echo "                                     "
 	$(eval COMPILED_CFILES := $(shell echo $$(($(COMPILED_CFILES) + 1))))
