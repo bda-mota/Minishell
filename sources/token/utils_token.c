@@ -1,8 +1,18 @@
 #include "../../includes/minishell.h"
 
-void	insert_token(t_token **token, char *content)
+void	init_token(t_token **tail, t_token **head)
 {
-	t_token	*curr;
+	*tail = malloc(sizeof(t_token));
+	if (!*tail)
+		return ;
+	(*tail)->content = NULL;
+	(*tail)->next = NULL;
+	(*tail)->prev = NULL;
+	*head = *tail;
+}
+
+void	insert_token(t_token **token_tail, char *content)
+{
 	t_token	*new_node;
 
 	new_node = malloc(sizeof(t_token));
@@ -10,29 +20,31 @@ void	insert_token(t_token **token, char *content)
 		return ;
 	new_node->content = ft_strdup(content);
 	new_node->next = NULL;
-	if (*token == NULL)
+	if (*token_tail == NULL)
 	{
-		*token = new_node;
-		return ;
+		new_node->prev = NULL;
+		*token_tail = new_node;
 	}
-	curr = *token;
-	while (curr->next != NULL)
-		curr = curr->next;
-	curr->next = new_node;
+	new_node->prev = (*token_tail);
+	(*token_tail)->next = new_node;
+	(*token_tail) = new_node;
 }
 
-void	deallocate_lst(t_token **token)
+void	deallocate_lst(t_token **tail, t_token **head)
 {
 	t_token	*curr;
-	t_token	*tmp;
+	t_token	*temp;
 
-	curr = *token;
-	while (curr)
+	if (*tail == NULL)
+		return ;
+	curr = *tail;
+	while (curr != NULL)
 	{
-		tmp = curr;
-		curr = curr->next;
-		free(tmp->content);
-		free (tmp);
+		temp = curr->prev;
+		free(curr->content);
+		free(curr);
+		curr = temp;
 	}
-	*token = NULL;
+	*tail = NULL;
+	*head = NULL;
 }
