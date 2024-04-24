@@ -3,6 +3,7 @@
 
 # include "../libft/src/libft.h"
 # include "structs.h"
+# include "token.h"
 # include <stdio.h>
 
 void	insert_token(t_token **stack, char *content);

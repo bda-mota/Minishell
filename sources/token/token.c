@@ -32,6 +32,7 @@ void	deallocate_lst(t_token **stack)
 	{
 		tmp = curr;
 		curr = curr->next;
+		free(tmp->content);
 		free (tmp);
 	}
 	*stack = NULL;

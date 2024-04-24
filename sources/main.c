@@ -3,7 +3,6 @@
 int	main(int argc, char **argv)
 {
 	t_token	*token;
-	t_token	*curr;
 	int		i;
 
 	i = 1;
@@ -14,11 +13,6 @@ int	main(int argc, char **argv)
 		insert_token(&token, argv[i]);
 		i++;
 	}
-	curr = token;
-	while (curr)
-	{
-		printf("arg: %s \n", curr->content);
-		curr = curr->next;
-	}
+	deallocate_lst(&token);
 	return (0);
 }
