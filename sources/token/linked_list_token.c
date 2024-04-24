@@ -11,7 +11,7 @@ void	init_token(t_token **tail, t_token **head)
 	*head = *tail;
 }
 
-void	insert_token(t_token **token_tail, char *content)
+void	insert_token(t_token **token_head, char *content)
 {
 	t_token	*new_node;
 
@@ -20,14 +20,9 @@ void	insert_token(t_token **token_tail, char *content)
 		return ;
 	new_node->content = ft_strdup(content);
 	new_node->next = NULL;
-	if (*token_tail == NULL)
-	{
-		new_node->prev = NULL;
-		*token_tail = new_node;
-	}
-	new_node->prev = (*token_tail);
-	(*token_tail)->next = new_node;
-	(*token_tail) = new_node;
+	new_node->prev = *token_head;
+	(*token_head)->next = new_node;
+	*token_head = new_node;
 }
 
 void	deallocate_lst(t_token **tail, t_token **head)
@@ -40,7 +35,7 @@ void	deallocate_lst(t_token **tail, t_token **head)
 	curr = *tail;
 	while (curr != NULL)
 	{
-		temp = curr->prev;
+		temp = curr->next;
 		free(curr->content);
 		free(curr);
 		curr = temp;

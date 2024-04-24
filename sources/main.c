@@ -6,10 +6,10 @@ int	main(void)
 	t_token	*token_h;
 
 	init_token(&token_t, &token_h);
-	insert_token(&token_t, "bia");
-	insert_token(&token_t, "B1");
-	insert_token(&token_t, "B2");
-	print_list(&token_h);
+	insert_token(&token_h, "bia");
+	insert_token(&token_h, "B1");
+	insert_token(&token_h, "B2");
+	print_list(&token_t);
 	deallocate_lst(&token_t, &token_h);
 	exit(1);
 }
