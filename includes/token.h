@@ -3,9 +3,10 @@
 
 # include "../libft/src/libft.h"
 # include "structs.h"
-# include <stdio.h>
 
-void	deallocate_lst(t_token **stack);
+void	insert_token(t_token **token, char *content);
+void	deallocate_lst(t_token **token);
+void	classifier_inputs(t_token **token);
 
 #endif
 

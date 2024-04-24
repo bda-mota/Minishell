@@ -1,7 +1,7 @@
 
 #include "../../includes/minishell.h"
 
-void	insert_token(t_token **stack, char *content)
+void	insert_token(t_token **token, char *content)
 {
 	t_token	*curr;
 	t_token	*new_node;
@@ -11,23 +11,23 @@ void	insert_token(t_token **stack, char *content)
 		return ;
 	new_node->content = ft_strdup(content);
 	new_node->next = NULL;
-	if (*stack == NULL)
+	if (*token == NULL)
 	{
-		*stack = new_node;
+		*token = new_node;
 		return ;
 	}
-	curr = *stack;
+	curr = *token;
 	while (curr->next != NULL)
 		curr = curr->next;
 	curr->next = new_node;
 }
 
-void	deallocate_lst(t_token **stack)
+void	deallocate_lst(t_token **token)
 {
 	t_token	*curr;
 	t_token	*tmp;
 
-	curr = *stack;
+	curr = *token;
 	while (curr)
 	{
 		tmp = curr;
@@ -35,5 +35,18 @@ void	deallocate_lst(t_token **stack)
 		free(tmp->content);
 		free (tmp);
 	}
-	*stack = NULL;
+	*token = NULL;
+}
+
+void	classifier_inputs(t_token **token)
+{
+	t_token	*curr;
+
+	curr = *token;
+	while (curr)
+	{
+		if (ft_strcmp((curr)->content, "|") == 0)
+			(curr)->type = PIPE;
+		curr = (curr)->next;
+	}
 }

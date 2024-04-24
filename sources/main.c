@@ -1,18 +1,25 @@
 #include "../includes/minishell.h"
 
-int	main(int argc, char **argv)
+int	main(void)
 {
 	t_token	*token;
-	int		i;
+	char	*retorno;
 
-	i = 1;
-	(void)argc;
 	token = NULL;
-	while (argv[i])
+	while (1)
 	{
-		insert_token(&token, argv[i]);
-		i++;
+		retorno = readline("$minishell: ");
+		if (retorno == NULL)
+		{
+			printf("Erro ao ler a linha\n");
+			continue ;
+		}
+		if (ft_strcmp(retorno, "exit") == 0)
+			break ;
+		insert_token(&token, retorno);
+		printf("%s\n", retorno);
+		free(retorno);
 	}
 	deallocate_lst(&token);
-	return (0);
+	exit(1);
 }

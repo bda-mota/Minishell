@@ -5,7 +5,10 @@
 # include "structs.h"
 # include "token.h"
 # include <stdio.h>
+# include <readline/readline.h>
 
-void	insert_token(t_token **stack, char *content);
+/* EXCLUIR AO FINAL DO PROJETO */
+# include <unistd.h>
+void	print_list(t_token **lst);
 
 #endif

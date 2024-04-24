@@ -1,5 +1,6 @@
 NAME		:= minishell
 CFLAGS		:= -Wextra -Wall -Werror -g3
+LFLAGS		:= -lreadline
 MAKEFLAGS += --silent
 
 # LIBRARIES_PATH
@@ -20,7 +21,7 @@ OBJS		:= $(addprefix $(OBJ_PATH)/, $(CFILES:%.c=%.o))
 
 #HEADERS
 HEADERS		:= -I ./includes
-HEADER_FILE := includes/structs.h includes/minishell.h
+HEADER_FILE := includes/structs.h includes/minishell.h includes/token.h
 
 # COLORS
 GREEN	:=	\033[1;32m
@@ -55,7 +56,7 @@ $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH)
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(OBJS) $(LIBFT) $(HEADERS) -o $(NAME)
+	@$(CC) $(OBJS) $(LIBFT) $(LFLAGS) $(HEADERS) -o $(NAME)
 	@echo "$(GREEN)-------------------------------------------"
 	@echo "$(WHITE)  ✅ The [$(GREEN)MINISHELL$(WHITE)] has been compiled! ✅ "
 	@echo "$(GREEN)-------------------------------------------"
