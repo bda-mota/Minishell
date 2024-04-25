@@ -14,7 +14,7 @@ OBJ_PATH	:= objects
 
 # SOURCES
 CFILES		:= trash.c main.c \
-				token/token.c token/linked_list_token.c
+				token/token.c token/linked_list_token.c token/separators.c
 
 #PATH_FILES
 SRCS		:= $(addprefix $(SRC_PATH)/, $(CFILES))

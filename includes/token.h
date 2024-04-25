@@ -12,5 +12,8 @@ void	insert_token(t_token **token_head, char *content);
 //TOKEN
 void	course_inputs(t_token **token_h, char *input);
 
+//SEPARATORS
+int		ft_handle_quote(char *input, size_t *i);
+
 #endif
 

@@ -1,36 +1,37 @@
 #include "../../includes/minishell.h"
 
-// static void	catalog_inputs(t_token **token_h, char c)
+// static int	catalog_inputs(char c)
 // {
-// 	t_token	*curr;
-
-// 	curr = *token_h;
-
 // 	if (ft_isspace(c) == 1)
-// 		(*token_h)->type = SPACE;
+// 		return (SSPACE);
 // 	else if (c == '|')
-// 		(*token_h)->type = PIPE;
+// 		return (PIPE);
 // 	else if (c == '<')
-// 		(*token_h)->type = INPUT;
+// 		return (INPUT);
 // 	else if (c == '>')
-// 		(*token_h)->type = OUTPUT;
+// 		return (OUTPUT);
 // 	else
-// 		(*token_h)->type = WORD;
+// 		return (WORD);
 // }
 
 void	course_inputs(t_token **token_h, char *input)
 {
-	t_token	*curr;
-	char	*token;
-	int		i;
-	int		size;
+	size_t		i;
+	size_t		size;
 
 	i = 0;
 	size = 0;
-	curr = *token_h;
-	while (input[i])
+	while (input[i] && (i != ft_strlen(input)))
 	{
-		if (input[i] == ' ' || input[i] == '\0')
+		size = ft_handle_quote(input, &i);
+		if (size > 0)
+			insert_token(token_h, input);
+		i++;
+	}
+}
+
+/*
+if (input[i] == ' ' || input[i] == '\0')
 		{
 			token = ft_substr(input, (i - size), size);
 			insert_token(token_h, token);
@@ -38,13 +39,4 @@ void	course_inputs(t_token **token_h, char *input)
 			size = 0;
 			i++;
 		}
-		i++;
-		size++;
-	}
-	if (size > 0)
-	{
-		token = strndup(input + i - size, size);
-		insert_token(token_h, token);
-		free(token);
-	}
-}
+*/
