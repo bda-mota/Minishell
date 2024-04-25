@@ -5,13 +5,16 @@
 
 enum e_numerator {
 	PIPE,
-	REDIRECT,
+	INPUT,
+	OUTPUT,
 	WORD,
-	ARCHIVE,
 	HEREDOC,
+	APPEND,
 	DOUBLE,
 	SIMPLE,
-	BLOCK
+	BLOCK,
+	SPACE,
+	ARCHIVE
 };
 
 typedef struct s_token {

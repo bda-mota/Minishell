@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:54:03 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/04/04 16:45:46 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/04/25 16:17:35 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int			ft_isalnum(int c);
 int			ft_isalpha(int c);
 int			ft_isascii(int c);
 int			ft_isdigit(int c);
+int			ft_isspace(char c);
 int			ft_isprint(int c);
 int			ft_memcmp(const void *ptr1, const void *ptr2, size_t num);
 int			ft_strcmp(char *s1, char *s2);
@@ -116,7 +117,7 @@ int			ft_p_address(unsigned long p);
 int			ft_strlen_print(char *ptr);
 char		*ft_strchr_print(const char *s, int c);
 
-/* 
+/*
 *******************************************************************************
 								GET NEXT LINE
 */

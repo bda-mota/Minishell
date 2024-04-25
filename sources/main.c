@@ -7,7 +7,6 @@ int	main(void)
 	t_token	*token_t;
 	t_token	*token_h;
 
-
 	init_token(&token_t, &token_h);
 	read_line(&token_t, &token_h);
 	print_list(&token_t);
@@ -33,7 +32,7 @@ static void	read_line(t_token **token_t, t_token **token_h)
 			free(input);
 			return ;
 		}
-		insert_token(token_h, input);
+		course_inputs(token_h, input);
 		free(input);
 	}
 }

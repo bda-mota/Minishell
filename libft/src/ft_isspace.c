@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   trash.c                                            :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/24 14:17:58 by bsantana          #+#    #+#             */
-/*   Updated: 2024/04/25 16:17:02 by bda-mota         ###   ########.fr       */
+/*   Created: 2024/04/25 15:54:31 by bda-mota          #+#    #+#             */
+/*   Updated: 2024/04/25 16:05:24 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-void	print_list(t_token **lst)
+int	ft_isspace(char c)
 {
-	t_token	*current;
-
-	current = *lst;
-	while (current)
-	{
-		printf("- - - - - - - - - - - - - - \n");
-		printf("token: %s\n", current->content);
-		printf("type: %d\n", current->type);
-		current = current->next;
-	}
+	return (c == ' ' || (c >= 9 && c <= 13));
 }
