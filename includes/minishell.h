@@ -5,6 +5,7 @@
 # include "structs.h"
 # include "token.h"
 # include <stdio.h>
+# include <signal.h>
 # include <readline/readline.h>
 
 /* EXCLUIR AO FINAL DO PROJETO */
