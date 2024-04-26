@@ -4,11 +4,11 @@ int	catalog_inputs(char c)
 {
 	if (ft_isspace(c) == 1)
 		return (SSPACE);
-	else if (ft_strcmp(&c, "|") == 0)
+	else if (c == '|')
 		return (PIPE);
-	else if (ft_strcmp(&c, "<") == 0)
+	else if (c == '<')
 		return (INPUT);
-	else if (ft_strcmp(&c, ">") == 0)
+	else if (c == '>')
 		return (OUTPUT);
 	else
 		return (WORD);
@@ -16,20 +16,20 @@ int	catalog_inputs(char c)
 
 void	course_inputs(t_token **token_h, char *input)
 {
-	size_t		i;
-	size_t		size;
+	size_t	i;
+	size_t	size;
 
 	i = 0;
-	size = 0;
 	while (input[i] && (i != ft_strlen(input)))
 	{
 		size = ft_handle_quote(input, i);
 		if (size != 0)
-			handle_word(token_h, input, &i);
-		//criar função para criar a substr e malocar a palavra
-		//mandar o resultado para insert_token
+			handle_word(token_h, input, &i, size);
+		else if (catalog_inputs(input[i]) == WORD)
+			handle_word(token_h, input, &i, size);
+		else if (catalog_inputs(input[i]) == PIPE)
+			handle_pipe(token_h, input, &i);
 		//serão vários if, para cada if faz uma ação e volta o loop
-		//retirar as vírgulas
 		i++;
 	}
 }
