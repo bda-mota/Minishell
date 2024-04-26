@@ -54,7 +54,7 @@ void	handle_word(t_token **token_h, char *input, size_t *i, size_t size)
 	insert_token(token_h, token);
 }
 
-void	handle_pipe(t_token **token_h, char *input, size_t *i)
+void	handle_inputs(t_token **token_h, char *input, size_t *i)
 {
 	int		j;
 	char	*token;
@@ -62,6 +62,13 @@ void	handle_pipe(t_token **token_h, char *input, size_t *i)
 	j = 0;
 	token = ft_strdup("");
 	if (input[*i] && catalog_inputs(input[*i]) == PIPE)
+	{
+		token[j] = input[*i];
+		(*i)++;
+		j++;
+	}
+	if (input[*i] && (catalog_inputs(input[*i]) == INPUT
+			|| catalog_inputs(input[*i]) == OUTPUT))
 	{
 		token[j] = input[*i];
 		(*i)++;

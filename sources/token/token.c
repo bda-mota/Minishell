@@ -28,7 +28,11 @@ void	course_inputs(t_token **token_h, char *input)
 		else if (catalog_inputs(input[i]) == WORD)
 			handle_word(token_h, input, &i, size);
 		else if (catalog_inputs(input[i]) == PIPE)
-			handle_pipe(token_h, input, &i);
+			handle_inputs(token_h, input, &i);
+		else if (catalog_inputs(input[i]) == INPUT)
+			handle_inputs(token_h, input, &i);
+		else if (catalog_inputs(input[i]) == OUTPUT)
+			handle_inputs(token_h, input, &i);
 		//serão vários if, para cada if faz uma ação e volta o loop
 		i++;
 	}
