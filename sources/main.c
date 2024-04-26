@@ -35,16 +35,11 @@ static void	read_line(t_token **token_h)
 	siga = (struct sigaction){0};
 	siga.sa_handler = signal_handler;
 	sigaction(SIGINT, &siga, NULL);
-	sigaction(SIGQUIT, &siga, NULL);
+	sigaction(SIGQUIT, &(struct sigaction){.sa_handler = SIG_IGN}, NULL);
 	while (1)
 	{
 		input = readline("$minishell: ");
-		if (input == NULL)
-		{
-			free(input);
-			return ;
-		}
-		if (ft_strcmp(input, "exit") == 0)
+		if (input == NULL || (ft_strcmp(input, "exit") == 0))
 		{
 			free(input);
 			return ;

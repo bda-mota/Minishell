@@ -1,45 +1,55 @@
 #include "../../includes/minishell.h"
 
-static void	check_quote(int quote)
+static int	check_quote(int quote)
 {
 	if (quote != 2)
+	{
 		printf("Syntax error\n");
+		return (0);
+	}
+	return (1);
 }
 
-int	ft_handle_quote(char *input, size_t *i)
+int	ft_handle_quote(char *input, size_t i)
 {
 	size_t	j;
 	int		quote;
 
 	j = 0;
 	quote = 0;
-	if (input[*i] && input[*i] == 34)
+	if (input[i] && input[i] == 34)
 	{
 		quote++;
-		(*i)++;
-		while (input[*i] && input[*i] != '"')
+		i++;
+		while (input[i] && input[i] != '"')
 		{
 			j++;
-			(*i)++;
+			i++;
 		}
-		if (input[*i] == '"')
+		if (input[i] == '"')
 			quote++;
-		check_quote(quote);
+		if (check_quote(quote) == 0)
+			return (0);
 	}
 	return (j);
 }
 
-char	*handle_word(t_token **token_h, char *input, size_t *i)
+void	handle_word(t_token **token_h, char *input, size_t *i)
 {
 	int		j;
 	char	*token;
 
 	j = 0;
-	while (input[*i] == WORD)
+	token = ft_strdup("");
+	if (input[*i] == 34)
+		(*i)++;
+	while (input[*i] && input[*i] != '"' && (catalog_inputs(input[*i]) == WORD
+			|| catalog_inputs(input[*i]) == SSPACE))
 	{
 		token[j] = input[*i];
-		*i++;
+		(*i)++;
 		j++;
 	}
+	token[j] = '\0';
 	insert_token(token_h, token);
 }
