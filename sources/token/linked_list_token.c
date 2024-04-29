@@ -23,6 +23,7 @@ void	insert_token(t_token **token_head, char *content)
 	new_node->prev = *token_head;
 	(*token_head)->next = new_node;
 	*token_head = new_node;
+	free(content);
 }
 
 void	deallocate_lst(t_token **tail, t_token **head)

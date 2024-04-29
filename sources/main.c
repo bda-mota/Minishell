@@ -43,6 +43,7 @@ static void	read_line(t_token **token_h)
 		if (input == NULL || (ft_strcmp(input, "exit") == 0))
 		{
 			free(input);
+			rl_clear_history();
 			return ;
 		}
 		course_inputs(token_h, input);
