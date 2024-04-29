@@ -11,10 +11,10 @@ void	insert_token(t_token **token_head, char *content);
 
 //TOKEN
 void	course_inputs(t_token **token_h, char *input);
-int		catalog_inputs(char *c);
+int		catalog_inputs(char *c, size_t *i);
 
 //SEPARATORS
-int		ft_handle_quote(char *input);
+int		ft_handle_quote(char *input, size_t *i);
 void	handle_quote(t_token **token_h, char *input, size_t *i, size_t size);
 void	handle_word(t_token **token_h, char *input, size_t *i);
 void	handle_inputs(t_token **token_h, char *input, size_t *i);
