@@ -7,6 +7,7 @@
 # include <stdio.h>
 # include <signal.h>
 # include <readline/readline.h>
+# include <readline/history.h>
 
 /* EXCLUIR AO FINAL DO PROJETO */
 # include <unistd.h>
