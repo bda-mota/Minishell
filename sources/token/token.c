@@ -24,7 +24,7 @@ void	course_inputs(t_token **token_h, char *input)
 	{
 		size = ft_handle_quote(input, i);
 		if (size != 0)
-			handle_quote(token_h, input, &i);
+			handle_quote(token_h, input, &i, size);
 		else if (catalog_inputs(input[i]) == WORD)
 			handle_word(token_h, input, &i);
 		else if (catalog_inputs(input[i]) == PIPE)
@@ -36,14 +36,3 @@ void	course_inputs(t_token **token_h, char *input)
 		i++;
 	}
 }
-
-/*
-if (input[i] == ' ' || input[i] == '\0')
-		{
-			token = ft_substr(input, (i - size), size);
-			insert_token(token_h, token);
-			free(token);
-			size = 0;
-			i++;
-		}
-*/

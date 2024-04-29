@@ -38,8 +38,8 @@ static void	read_line(t_token **token_h)
 	sigaction(SIGQUIT, &(struct sigaction){.sa_handler = SIG_IGN}, NULL);
 	while (1)
 	{
-		add_history(input);
 		input = readline("$minishell: ");
+		add_history(input);
 		if (input == NULL || (ft_strcmp(input, "exit") == 0))
 		{
 			free(input);

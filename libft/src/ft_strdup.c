@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 18:50:08 by bda-mota          #+#    #+#             */
-/*   Updated: 2023/10/28 15:08:12 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/04/29 13:13:12 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_strdup(const char *s)
 		return (NULL);
 	else
 	{
-		while (s[i])
+		while (s[i] && i < size)
 		{
 			dest[i] = s[i];
 			i++;
