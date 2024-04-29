@@ -10,24 +10,24 @@ static int	check_quote(int quote)
 	return (1);
 }
 
-int	ft_handle_quote(char *input, size_t i)
+int	ft_handle_quote(char *input)
 {
 	size_t	j;
 	int		quote;
 
 	j = 0;
 	quote = 0;
-	if (input[i] && input[i] == 34)
+	if (*input && *input == 34)
 	{
 		quote++;
-		i++;
+		input++;
 		j++;
-		while (input[i] && input[i] != '"')
+		while (*input && *input != '"')
 		{
 			j++;
-			i++;
+			input++;
 		}
-		if (input[i] == '"')
+		if (*input == '"')
 			quote++;
 		if (check_quote(quote) == 0)
 			return (0);
@@ -61,8 +61,8 @@ void	handle_word(t_token **token_h, char *input, size_t *i)
 
 	j = 0;
 	token = ft_strdup("");
-	while (input[*i] && (catalog_inputs(input[*i]) == WORD
-			&& catalog_inputs(input[*i]) != SSPACE))
+	while (input[*i] && (catalog_inputs(input) == WORD
+			&& input[*i] != 32))
 	{
 		token[j] = input[*i];
 		(*i)++;
@@ -81,14 +81,14 @@ void	handle_inputs(t_token **token_h, char *input, size_t *i)
 
 	j = 0;
 	token = ft_strdup("");
-	if (input[*i] && catalog_inputs(input[*i]) == PIPE)
+	if (input[*i] && catalog_inputs(input) == PIPE)
 	{
 		token[j] = input[*i];
 		(*i)++;
 		j++;
 	}
-	if (input[*i] && (catalog_inputs(input[*i]) == INPUT
-			|| catalog_inputs(input[*i]) == OUTPUT))
+	else if (input[*i] && (catalog_inputs(input) == INPUT
+			|| catalog_inputs(input) == OUTPUT))
 	{
 		token[j] = input[*i];
 		(*i)++;
