@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:54:03 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/04/29 13:54:00 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:18:52 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char		*ft_strrchr(const char *s, int c);
 char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_strstr(const char *big, const char *little);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
+char		*ft_strndup(const char *s, size_t len);
 char		**ft_split(char const *s, char c);
 int			ft_strnchr(char *str, char c, int len);
 int			ft_atoi(const char *nptr);

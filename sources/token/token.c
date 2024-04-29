@@ -35,8 +35,6 @@ void	course_inputs(t_token **token_h, char *input)
 			handle_inputs(token_h, input, &i);
 		else if (catalog_inputs(input, &i) == OUTPUT)
 			handle_inputs(token_h, input, &i);
-		else if (catalog_inputs(input, &i) == SSPACE)
-			continue ;
 		i++;
 	}
 }

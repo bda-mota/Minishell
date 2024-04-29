@@ -54,19 +54,28 @@ void	handle_quote(t_token **token_h, char *input, size_t *i, size_t size)
 
 void	handle_word(t_token **token_h, char *input, size_t *i)
 {
-	int		j;
+	size_t	len;
+	size_t	j;
 	char	*token;
 
 	j = 0;
-	token = ft_strdup("");
+	len = 0;
 	while (input[*i] && catalog_inputs(input, i) == WORD)
 	{
-		token[j] = input[*i];
 		(*i)++;
+		len++;
+	}
+	token = ft_calloc(sizeof(char), len + 1);
+	if (!token)
+		return ;
+	(*i) = (*i) - len;
+	while (input[*i] && j <= len)
+	{
+		token[j] = input[*i];
 		j++;
+		(*i)++;
 	}
 	(*i)--;
-	token[j] = '\0';
 	insert_token(token_h, token);
 }
 
