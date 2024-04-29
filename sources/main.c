@@ -21,6 +21,7 @@ int	main(void)
 	t_token	*token_h;
 
 	init_token(&token_t, &token_h);
+	//remover primeiro nó na lista 
 	read_line(&token_h);
 	print_list(&token_t);
 	deallocate_lst(&token_t, &token_h);

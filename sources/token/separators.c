@@ -69,7 +69,7 @@ void	handle_word(t_token **token_h, char *input, size_t *i)
 	if (!token)
 		return ;
 	(*i) = (*i) - len;
-	while (input[*i] && j <= len)
+	while (input[*i] && j < len)
 	{
 		token[j] = input[*i];
 		j++;
