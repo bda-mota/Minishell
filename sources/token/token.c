@@ -27,13 +27,13 @@ void	course_inputs(t_token **token_h, char *input)
 			handle_quote(token_h, input, &i, size);
 		else if (catalog_inputs(input) == WORD)
 			handle_word(token_h, input, &i);
-		else if (catalog_inputs(input) == PIPE)
+		else if (catalog_inputs(*input) == PIPE)
 			handle_inputs(token_h, input, &i);
-		else if (catalog_inputs(input) == INPUT)
+		else if (catalog_inputs(*input) == INPUT)
 			handle_inputs(token_h, input, &i);
-		else if (catalog_inputs(input) == OUTPUT)
+		else if (catalog_inputs(*input) == OUTPUT)
 			handle_inputs(token_h, input, &i);
-		else if (catalog_inputs(input) == SSPACE)
+		else if (catalog_inputs(*input) == SSPACE)
 			continue ;
 		i++;
 	}

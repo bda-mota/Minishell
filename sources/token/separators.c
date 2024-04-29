@@ -61,8 +61,7 @@ void	handle_word(t_token **token_h, char *input, size_t *i)
 
 	j = 0;
 	token = ft_strdup("");
-	while (input[*i] && (catalog_inputs(input) == WORD
-			&& input[*i] != 32))
+	while (input[*i] && catalog_inputs(input) == WORD)
 	{
 		token[j] = input[*i];
 		(*i)++;
