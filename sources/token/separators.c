@@ -67,6 +67,7 @@ void	handle_pipe(t_token **token_h, char *input, size_t *i)
 
 	j = 0;
 	token = ft_calloc(sizeof(char), 2);
+	token = ft_calloc(sizeof(char), 2);
 	if (!token)
 		return ;
 	if (input[*i] && catalog_inputs(input, i) == PIPE)
