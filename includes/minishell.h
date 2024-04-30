@@ -10,6 +10,8 @@
 # include <readline/history.h>
 
 # define WARNING_SINTAXE "syntax error near unexpected token "
+# define WARNING_OR "The minishell do not work with '||'\n"
+
 
 //UTILS
 void	display_error(char *error, char c);

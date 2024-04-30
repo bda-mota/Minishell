@@ -44,33 +44,3 @@ void	handle_hp(t_token **token_h, char *input, size_t *i)
 	(*i)--;
 	insert_token(token_h, token);
 }
-
-void	handle_input(t_token **token_h, char *input, size_t *i)
-{
-	size_t		j;
-	char		*token;
-
-	j = 0;
-	token = ft_calloc(sizeof(char), 2);
-	if (!token)
-		return ;
-	if (input[*i] && (catalog_inputs(input, i) == INPUT))
-		token[j++] = input[(*i)++];
-	(*i)--;
-	insert_token(token_h, token);
-}
-
-void	handle_output(t_token **token_h, char *input, size_t *i)
-{
-	size_t		j;
-	char		*token;
-
-	j = 0;
-	token = ft_calloc(sizeof(char), 2);
-	if (!token)
-		return ;
-	if (input[*i] && (catalog_inputs(input, i) == OUTPUT))
-		token[j++] = input[(*i)++];
-	(*i)--;
-	insert_token(token_h, token);
-}
