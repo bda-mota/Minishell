@@ -38,9 +38,10 @@ void	course_inputs(t_token **token_h, char *input)
 			handle_word(token_h, input, &i);
 		else if (catalog_inputs(input, &i) == PIPE)
 			handle_pipe(token_h, input, &i);
-		else if (catalog_inputs(input, &i) == OUTPUT
-			|| catalog_inputs(input, &i) == INPUT)
-			handle_io_input(token_h, input, &i);
+		else if (catalog_inputs(input, &i) == INPUT)
+			handle_output(token_h, input, &i);
+		else if (catalog_inputs(input, &i) == OUTPUT)
+			handle_input(token_h, input, &i);
 		else if (catalog_inputs(input, &i) == HEREDOC
 			|| catalog_inputs(input, &i) == APPEND)
 			handle_hp(token_h, input, &i);
