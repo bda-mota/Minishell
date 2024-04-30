@@ -23,7 +23,7 @@ int	catalog_inputs(char *c, size_t *i)
 		return (WORD);
 }
 
-void	course_inputs(t_token **token_h, char *input)
+void	course_inputs(t_token **token_h, t_token **token_t, char *input)
 {
 	size_t	i;
 	size_t	size;
@@ -46,7 +46,7 @@ void	course_inputs(t_token **token_h, char *input)
 			|| catalog_inputs(input, &i) == APPEND)
 			handle_hp(token_h, input, &i);
 		else if (catalog_inputs(input, &i) == ERROR)
-			found_sintaxe(input);
+			found_sintaxe(input, token_h, token_t);
 		i++;
 	}
 }

@@ -15,8 +15,10 @@ void	display_error(char *error, char c)
 	exit(1);
 }
 
-void	found_sintaxe(char *str)
+void	found_sintaxe(char *str, t_token **token_h, t_token **token_t)
 {
+	deallocate_lst(token_t, token_h);
+	rl_clear_history();
 	if (ft_strstr(str, "|||"))
 		display_error("sintaxe", '|');
 	else if (ft_strstr(str, "<<<"))

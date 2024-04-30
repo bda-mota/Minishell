@@ -10,7 +10,7 @@ void	deallocate_lst(t_token **tail, t_token **head);
 void	insert_token(t_token **token_head, char *content);
 
 //TOKEN
-void	course_inputs(t_token **token_h, char *input);
+void	course_inputs(t_token **token_h, t_token **token_t, char *input);
 int		catalog_inputs(char *c, size_t *i);
 
 //SEPARATORS
