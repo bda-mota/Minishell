@@ -23,7 +23,7 @@ int	catalog_inputs(char *c, size_t *i)
 		return (WORD);
 }
 
-void	course_inputs(t_token **token_h, t_token **token_t, char *input)
+void	course_inputs(t_token **token_t, t_token **token_h, char *input)
 {
 	size_t	i;
 	size_t	size;
