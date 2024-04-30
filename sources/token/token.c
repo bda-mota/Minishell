@@ -30,11 +30,11 @@ void	course_inputs(t_token **token_h, char *input)
 		else if (catalog_inputs(input, &i) == WORD)
 			handle_word(token_h, input, &i);
 		else if (catalog_inputs(input, &i) == PIPE)
-			handle_inputs(token_h, input, &i);
+			handle_pipe(token_h, input, &i);
 		else if (catalog_inputs(input, &i) == INPUT)
-			handle_inputs(token_h, input, &i);
+			handle_io_input(token_h, input, &i);
 		else if (catalog_inputs(input, &i) == OUTPUT)
-			handle_inputs(token_h, input, &i);
+			handle_io_input(token_h, input, &i);
 		i++;
 	}
 }

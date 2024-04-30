@@ -79,20 +79,52 @@ void	handle_word(t_token **token_h, char *input, size_t *i)
 	insert_token(token_h, token);
 }
 
-void	handle_inputs(t_token **token_h, char *input, size_t *i)
+void	handle_pipe(t_token **token_h, char *input, size_t *i)
 {
-	int		j;
-	char	*token;
+	size_t		len;
+	size_t		j;
+	char		*token;
 
 	j = 0;
-	token = ft_strdup("");
+	len = 0;
+	if (input[*i] && (catalog_inputs(input, i) == PIPE))
+	{
+		(*i)++;
+		len++;
+	}
+	token = ft_calloc(sizeof(char), len + 1);
+	if (!token)
+		return ;
+	(*i) = (*i) - len;
 	if (input[*i] && catalog_inputs(input, i) == PIPE)
 	{
 		token[j] = input[*i];
 		(*i)++;
 		j++;
 	}
-	else if (input[*i] && (catalog_inputs(input, i) == INPUT
+	(*i)--;
+	insert_token(token_h, token);
+}
+
+void	handle_io_input(t_token **token_h, char *input, size_t *i)
+{
+	size_t		len;
+	size_t		j;
+	char		*token;
+
+	j = 0;
+	len = 0;
+	if (input[*i] && ((catalog_inputs(input, i) == INPUT
+				|| catalog_inputs(input, i) == OUTPUT)))
+	{
+		(*i)++;
+		len++;
+	}
+	token = ft_calloc(sizeof(char), len + 1);
+	if (!token)
+		return ;
+	(*i) = (*i) - len;
+	if (input[*i] && (catalog_inputs(input, i) == INPUT
 			|| catalog_inputs(input, i) == OUTPUT))
 	{
 		token[j] = input[*i];
@@ -100,6 +132,5 @@ void	handle_inputs(t_token **token_h, char *input, size_t *i)
 		j++;
 	}
 	(*i)--;
-	token[j] = '\0';
 	insert_token(token_h, token);
 }

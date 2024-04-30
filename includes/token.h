@@ -17,7 +17,8 @@ int		catalog_inputs(char *c, size_t *i);
 int		ft_handle_quote(char *input, size_t *i);
 void	handle_quote(t_token **token_h, char *input, size_t *i, size_t size);
 void	handle_word(t_token **token_h, char *input, size_t *i);
-void	handle_inputs(t_token **token_h, char *input, size_t *i);
+void	handle_pipe(t_token **token_h, char *input, size_t *i);
+void	handle_io_input(t_token **token_h, char *input, size_t *i);
 
 #endif
 
