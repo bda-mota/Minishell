@@ -13,7 +13,7 @@ SRC_PATH 	:= sources
 OBJ_PATH	:= objects
 
 # SOURCES
-CFILES		:= trash.c main.c \
+CFILES		:= trash.c main.c  utils.c\
 				token/token.c token/linked_list_token.c token/separators.c token/separators_utils.c
 
 #PATH_FILES

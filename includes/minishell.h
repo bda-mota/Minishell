@@ -9,6 +9,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# define WARNING_SINTAXE "syntax error near unexpected token "
+
+//UTILS
+void	display_error(char *error, char c);
+void	found_sintaxe(char *str);
+
+
 /* EXCLUIR AO FINAL DO PROJETO */
 # include <unistd.h>
 void	print_list(t_token **lst);

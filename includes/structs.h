@@ -4,17 +4,18 @@
 # include "../libft/src/libft.h"
 
 enum e_numerator {
-	SSPACE = 0,
-	PIPE = 1,
-	INPUT = 2,
-	OUTPUT = 3,
-	WORD = 4,
-	HEREDOC = 5,
-	APPEND = 6,
-	DOUBLE = 7,
-	SIMPLE = 8,
-	BLOCK = 9,
-	ARCHIVE = 10
+	SSPACE,
+	PIPE,
+	INPUT,
+	OUTPUT,
+	WORD,
+	HEREDOC,
+	APPEND,
+	DOUBLE,
+	SIMPLE,
+	BLOCK,
+	ARCHIVE,
+	ERROR
 };
 
 typedef struct s_token {

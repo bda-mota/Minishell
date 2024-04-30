@@ -4,6 +4,9 @@ int	catalog_inputs(char *c, size_t *i)
 {
 	if (ft_isspace(c[*i]) == 1)
 		return (SSPACE);
+	else if (!ft_strcmp(&c[*i], "<<<") || !ft_strcmp(&c[*i], ">>>")
+		|| !ft_strcmp(&c[*i], "|||"))
+		return (ERROR);
 	else if (ft_strnchr(&c[*i], '|', 1) == 1)
 		return (PIPE);
 	else if (ft_strnchr(&c[*i], '<', 2) == 1)
@@ -41,6 +44,8 @@ void	course_inputs(t_token **token_h, char *input)
 		else if (catalog_inputs(input, &i) == HEREDOC
 			|| catalog_inputs(input, &i) == APPEND)
 			handle_hp(token_h, input, &i);
+		else if (catalog_inputs(input, &i) == ERROR)
+			found_sintaxe(input);
 		i++;
 	}
 }
