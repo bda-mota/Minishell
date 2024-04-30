@@ -62,47 +62,14 @@ void	handle_word(t_token **token_h, char *input, size_t *i)
 
 void	handle_pipe(t_token **token_h, char *input, size_t *i)
 {
-	size_t		len;
 	size_t		j;
 	char		*token;
 
 	j = 0;
-	len = 0;
-	if (input[*i] && (catalog_inputs(input, i) == PIPE))
-	{
-		(*i)++;
-		len++;
-	}
-	token = ft_calloc(sizeof(char), len + 1);
+	token = ft_calloc(sizeof(char), 2);
 	if (!token)
 		return ;
-	(*i) -= len;
 	if (input[*i] && catalog_inputs(input, i) == PIPE)
-		token[j++] = input[(*i)++];
-	(*i)--;
-	insert_token(token_h, token);
-}
-
-void	handle_io_input(t_token **token_h, char *input, size_t *i)
-{
-	size_t		len;
-	size_t		j;
-	char		*token;
-
-	j = 0;
-	len = 0;
-	if (input[*i] && ((catalog_inputs(input, i) == INPUT
-				|| catalog_inputs(input, i) == OUTPUT)))
-	{
-		(*i)++;
-		len++;
-	}
-	token = ft_calloc(sizeof(char), len + 1);
-	if (!token)
-		return ;
-	(*i) -= len;
-	if (input[*i] && (catalog_inputs(input, i) == INPUT
-			|| catalog_inputs(input, i) == OUTPUT))
 		token[j++] = input[(*i)++];
 	(*i)--;
 	insert_token(token_h, token);
