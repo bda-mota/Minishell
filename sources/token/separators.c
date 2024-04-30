@@ -1,15 +1,5 @@
 #include "../../includes/minishell.h"
 
-// static int	check_quote(int quote)
-// {
-// 	if (quote != 2)
-// 	{
-// 		printf("Syntax error\n");
-// 		return (0);
-// 	}
-// 	return (1);
-// }
-
 int	ft_handle_quote(char *input, size_t *i)
 {
 	size_t	j;
@@ -38,17 +28,12 @@ void	handle_quote(t_token **token_h, char *input, size_t *i, size_t size)
 	char	*token;
 
 	j = 0;
-	token = malloc(sizeof(char) * (size + 1));
+	token = ft_calloc(sizeof(char), (size + 1));
 	if (!token)
 		return ;
 	while (input[*i] && j < size)
-	{
-		token[j] = input[*i];
-		(*i)++;
-		j++;
-	}
+		token[j++] = input[(*i)++];
 	(*i)--;
-	token[j] = '\0';
 	insert_token(token_h, token);
 }
 
@@ -68,13 +53,9 @@ void	handle_word(t_token **token_h, char *input, size_t *i)
 	token = ft_calloc(sizeof(char), len + 1);
 	if (!token)
 		return ;
-	(*i) = (*i) - len;
+	(*i) -= len;
 	while (input[*i] && j < len)
-	{
-		token[j] = input[*i];
-		j++;
-		(*i)++;
-	}
+		token[j++] = input[(*i)++];
 	(*i)--;
 	insert_token(token_h, token);
 }
@@ -95,13 +76,9 @@ void	handle_pipe(t_token **token_h, char *input, size_t *i)
 	token = ft_calloc(sizeof(char), len + 1);
 	if (!token)
 		return ;
-	(*i) = (*i) - len;
+	(*i) -= len;
 	if (input[*i] && catalog_inputs(input, i) == PIPE)
-	{
-		token[j] = input[*i];
-		(*i)++;
-		j++;
-	}
+		token[j++] = input[(*i)++];
 	(*i)--;
 	insert_token(token_h, token);
 }
@@ -123,14 +100,10 @@ void	handle_io_input(t_token **token_h, char *input, size_t *i)
 	token = ft_calloc(sizeof(char), len + 1);
 	if (!token)
 		return ;
-	(*i) = (*i) - len;
+	(*i) -= len;
 	if (input[*i] && (catalog_inputs(input, i) == INPUT
 			|| catalog_inputs(input, i) == OUTPUT))
-	{
-		token[j] = input[*i];
-		(*i)++;
-		j++;
-	}
+		token[j++] = input[(*i)++];
 	(*i)--;
 	insert_token(token_h, token);
 }
