@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-static void	read_line(t_token **token_h);
+static void	read_line(t_token **token_t, t_token **token_h);
 
 static void	signal_handler(int signal)
 {
@@ -21,14 +21,13 @@ int	main(void)
 	t_token	*token_h;
 
 	init_token(&token_t, &token_h);
-	//remover primeiro nó na lista 
-	read_line(&token_h);
+	read_line(&token_t, &token_h);
 	print_list(&token_t);
 	deallocate_lst(&token_t, &token_h);
 	exit(1);
 }
 
-static void	read_line(t_token **token_h)
+static void	read_line(t_token **token_t, t_token **token_h)
 {
 	char				*input;
 	struct sigaction	siga;
@@ -48,6 +47,7 @@ static void	read_line(t_token **token_h)
 			return ;
 		}
 		course_inputs(token_h, input);
+		remove_first(token_t);
 		free(input);
 	}
 	while (1)
