@@ -44,6 +44,7 @@ static char	*prompt(void)
 	{
 		init_token(&token_tail, &token_h);
 		input = readline("$minishell: ");
+		add_history(input);
 		if (input == NULL || !ft_strcmp(input, "exit"))
 		{
 			free(input);
@@ -51,11 +52,10 @@ static char	*prompt(void)
 			deallocate_lst(&token_tail, &token_h);
 			return (NULL);
 		}
-		add_history(input);
 		course_inputs(&token_tail, &token_h, input);
 		remove_first(&token_tail);
-		free(input);
 		print_list(&token_tail);
+		free(input);
 		deallocate_lst(&token_tail, &token_h);
 	}
 	return (NULL);
