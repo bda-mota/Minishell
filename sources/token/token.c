@@ -5,7 +5,7 @@ int	catalog_inputs(char *c, size_t *i)
 	if (ft_isspace(c[*i]) == 1)
 		return (SSPACE);
 	else if (!ft_strcmp(&c[*i], "<<<") || !ft_strcmp(&c[*i], ">>>")
-		|| !ft_strcmp(&c[*i], "|||") || !ft_strcmp(&c[*i], "||") 
+		|| !ft_strcmp(&c[*i], "|||") || !ft_strcmp(&c[*i], "||")
 		|| !ft_strcmp(&c[*i], "&&"))
 		return (ERROR);
 	else if (ft_strnchr(&c[*i], '|', 1) == 1)

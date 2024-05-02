@@ -1,6 +1,6 @@
 #include "../includes/minishell.h"
 
-static void	read_line(t_token **token_tail, t_token **token_h);
+static char	*prompt(void);
 
 static void	signal_handler(int signal)
 {
@@ -17,39 +17,46 @@ static void	signal_handler(int signal)
 
 int	main(void)
 {
-	t_token	*token_tail;
-	t_token	*token_h;
+	char	*input;
 
-	init_token(&token_tail, &token_h);
-	read_line(&token_tail, &token_h);
-	print_list(&token_tail);
-	deallocate_lst(&token_tail, &token_h);
-	exit(1);
-}
-
-static void	read_line(t_token **token_tail, t_token **token_h)
-{
-	char				*input;
-	struct sigaction	siga;
-
-	siga = (struct sigaction){0};
-	siga.sa_handler = signal_handler;
-	sigaction(SIGINT, &siga, NULL);
-	sigaction(SIGQUIT, &(struct sigaction){.sa_handler = SIG_IGN}, NULL);
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
+		input = prompt();
+		if (input == NULL)
+		{
+			ft_putstr_fd("exit\n", 1);
+			return (EXIT_SUCCESS);
+		}
+		pause();
+	}
+	return (EXIT_SUCCESS);
+}
+
+static char	*prompt(void)
+{
+	t_token	*token_tail;
+	t_token	*token_h;
+	char	*input;
+
+	while (1)
+	{
+		init_token(&token_tail, &token_h);
 		input = readline("$minishell: ");
-		add_history(input);
-		if (input == NULL || (ft_strcmp(input, "exit") == 0))
+		if (input == NULL || !ft_strcmp(input, "exit"))
 		{
 			free(input);
 			rl_clear_history();
-			return ;
+			deallocate_lst(&token_tail, &token_h);
+			return (NULL);
 		}
-		course_inputs(token_tail, token_h, input);
-		remove_first(token_tail);
+		add_history(input);
+		course_inputs(&token_tail, &token_h, input);
+		remove_first(&token_tail);
 		free(input);
+		print_list(&token_tail);
+		deallocate_lst(&token_tail, &token_h);
 	}
-	while (1)
-		pause();
+	return (NULL);
 }

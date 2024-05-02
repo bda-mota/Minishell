@@ -42,6 +42,8 @@ void	deallocate_lst(t_token **tail, t_token **head)
 		free(curr);
 		curr = temp;
 	}
+	(void)tail;
+	(void)head;
 	*tail = NULL;
 	*head = NULL;
 }
@@ -50,6 +52,8 @@ void	remove_first(t_token **token)
 {
 	t_token	*curr;
 
+	if (*token == NULL)
+		return ;
 	if ((*token)->content != NULL)
 		return ;
 	curr = *token;
