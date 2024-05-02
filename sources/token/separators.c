@@ -34,7 +34,7 @@ void	handle_quote(t_token **token_h, char *input, size_t *i, size_t size)
 	while (input[*i] && j < size)
 		token[j++] = input[(*i)++];
 	(*i)--;
-	insert_token(token_h, token);
+	insert_token(token_h, token, DOUBLE);
 }
 
 void	handle_word(t_token **token_h, char *input, size_t *i)
@@ -57,7 +57,7 @@ void	handle_word(t_token **token_h, char *input, size_t *i)
 	while (input[*i] && j < len)
 		token[j++] = input[(*i)++];
 	(*i)--;
-	insert_token(token_h, token);
+	insert_token(token_h, token, WORD);
 }
 
 void	handle_pipe(t_token **token_h, char *input, size_t *i)
@@ -67,11 +67,10 @@ void	handle_pipe(t_token **token_h, char *input, size_t *i)
 
 	j = 0;
 	token = ft_calloc(sizeof(char), 2);
-	token = ft_calloc(sizeof(char), 2);
 	if (!token)
 		return ;
 	if (input[*i] && catalog_inputs(input, i) == PIPE)
 		token[j++] = input[(*i)++];
 	(*i)--;
-	insert_token(token_h, token);
+	insert_token(token_h, token, PIPE);
 }

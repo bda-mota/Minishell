@@ -11,7 +11,7 @@ void	init_token(t_token **tail, t_token **head)
 	*head = *tail;
 }
 
-void	insert_token(t_token **token_head, char *content)
+void	insert_token(t_token **token_head, char *content, int type)
 {
 	t_token	*new_node;
 
@@ -19,6 +19,7 @@ void	insert_token(t_token **token_head, char *content)
 	if (!new_node)
 		return ;
 	new_node->content = ft_strdup(content);
+	new_node->type = type;
 	new_node->next = NULL;
 	new_node->prev = *token_head;
 	(*token_head)->next = new_node;

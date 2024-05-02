@@ -25,7 +25,7 @@ void	deallocate_lst(t_token **tail, t_token **head);
  * token_head: pointer to the head pointer of the token list.
  * content: content to be inserted into the new node.
  */
-void	insert_token(t_token **token_head, char *content);
+void	insert_token(t_token **token_head, char *content, int type);
 
 /*
  * Removes the first node from the token list.
