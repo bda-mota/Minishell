@@ -49,18 +49,10 @@ int		catalog_inputs(char *c, size_t *i);
 /*
  * Identifies the type of entry to insert into the token list.
  */
-void	course_inputs(t_token **token_h, t_token **token_t, char *input);
+void	course_inputs(t_token **token_tail, t_token **token_h, char *input);
 
-/**** separators ****/
+/**** SEPARATORS ****/
 
-/*
- * Checks if there is a double quote (") in the current
- * position in the 'input' string. If a double quote is found,
- * the function counts the number of characters between the double
- * quotes, including the quotes themselves.
- * The total length of the string is returned.
- */
-int		ft_handle_quote(char *input, size_t *i);
 
 /*
  * Handle the processing of a quote in the
@@ -72,8 +64,22 @@ void	handle_word(t_token **token_h, char *input, size_t *i);
 void	handle_pipe(t_token **token_h, char *input, size_t *i);
 void	handle_input(t_token **token_h, char *input, size_t *i);
 void	handle_output(t_token **token_h, char *input, size_t *i);
-void	handle_hp(t_token **token_h, char *input, size_t *i);
-void	handle_input(t_token **token_h, char *input, size_t *i);
-void	handle_output(t_token **token_h, char *input, size_t *i);
+void	handle_append(t_token **token_h, char *input, size_t *i);
+void	handle_heredoc(t_token **token_h, char *input, size_t *i);
+void	handle_block(t_token **token_h, char *input, size_t *i);
+
+/**** SEPARATORS - UXILIARS ****/
+int		check_sintax(char *input, t_token **token_tail, t_token **token_h);
+int		check_blocks(char *input, t_token **token_tail, t_token **token_h);
+int		check_double_quotes(char *input, t_token **token_tail, t_token **token_h);
+
+/*
+ * Checks if there is a double quote (") in the current
+ * position in the 'input' string. If a double quote is found,
+ * the function counts the number of characters between the double
+ * quotes, including the quotes themselves.
+ * The total length of the string is returned.
+*/
+int		count_quote(char *input, size_t *i);
 
 #endif

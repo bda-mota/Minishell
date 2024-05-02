@@ -10,11 +10,11 @@
 # include <readline/history.h>
 
 # define WARNING_SINTAXE "syntax error near unexpected token "
-# define WARNING_OR "The minishell do not work with '||'\n"
+# define WARNING_OR "The minishell do not work with '||' or '&&'\n"
 
 //UTILS
 void	display_error(char *error, char c);
-void	found_sintaxe(char *str, t_token **token_h, t_token **token_t);
+void	found_sintaxe(char *str, t_token **token_tail, t_token **token_h);
 
 /* EXCLUIR AO FINAL DO PROJETO */
 # include <unistd.h>

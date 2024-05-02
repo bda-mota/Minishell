@@ -5,7 +5,8 @@ int	catalog_inputs(char *c, size_t *i)
 	if (ft_isspace(c[*i]) == 1)
 		return (SSPACE);
 	else if (!ft_strcmp(&c[*i], "<<<") || !ft_strcmp(&c[*i], ">>>")
-		|| !ft_strcmp(&c[*i], "|||") || !ft_strcmp(&c[*i], "||"))
+		|| !ft_strcmp(&c[*i], "|||") || !ft_strcmp(&c[*i], "||") 
+		|| !ft_strcmp(&c[*i], "&&"))
 		return (ERROR);
 	else if (ft_strnchr(&c[*i], '|', 1) == 1)
 		return (PIPE);
@@ -19,19 +20,23 @@ int	catalog_inputs(char *c, size_t *i)
 		return (INPUT);
 	else if (ft_strnchr(&c[*i], '>', 1) == 1)
 		return (OUTPUT);
+	else if (ft_strnchr(&c[*i], '(', 1) == 1 || ft_strnchr(&c[*i], ')', 1) == 1)
+		return (BLOCK);
 	else
 		return (WORD);
 }
 
-void	course_inputs(t_token **token_t, t_token **token_h, char *input)
+void	course_inputs(t_token **token_tail, t_token **token_h, char *input)
 {
 	size_t	i;
 	size_t	size;
 
 	i = 0;
+	if (check_sintax(input, token_tail, token_h) == 1)
+		return ;
 	while (input[i] && (i != ft_strlen(input)))
 	{
-		size = ft_handle_quote(input, &i);
+		size = count_quote(input, &i);
 		if (size != 0)
 			handle_quote(token_h, input, &i, size);
 		else if (catalog_inputs(input, &i) == WORD)
@@ -42,11 +47,15 @@ void	course_inputs(t_token **token_t, t_token **token_h, char *input)
 			handle_output(token_h, input, &i);
 		else if (catalog_inputs(input, &i) == OUTPUT)
 			handle_input(token_h, input, &i);
-		else if (catalog_inputs(input, &i) == HEREDOC
-			|| catalog_inputs(input, &i) == APPEND)
-			handle_hp(token_h, input, &i);
+		else if (catalog_inputs(input, &i) == HEREDOC)
+			handle_heredoc(token_h, input, &i);
+		else if (catalog_inputs(input, &i) == APPEND)
+			handle_append(token_h, input, &i);
 		else if (catalog_inputs(input, &i) == ERROR)
-			found_sintaxe(input, token_h, token_t);
+		{
+			found_sintaxe(input, token_tail, token_h);
+			return ;
+		}
 		i++;
 	}
 }
