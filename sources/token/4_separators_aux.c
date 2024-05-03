@@ -8,8 +8,8 @@ int	check_sintax(char *input)
 		return (1);
 	else if (!check_double_quotes(input))
 		return (1);
-	// else if (!check_simple_quotes(input))
-	// 	return (1);
+	else if (!check_simple_quotes(input))
+		return (1);
 	return (0);
 }
 

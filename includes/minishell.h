@@ -9,6 +9,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+# define PURPLE	"\033[1;35m"
+# define WHITE	"\033[1;37m"
 # define WARNING_SINTAXE "syntax error near unexpected token "
 # define WARNING_OR "The minishell do not work with '||' or '&&'\n"
 

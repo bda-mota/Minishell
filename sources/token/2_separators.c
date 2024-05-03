@@ -1,10 +1,10 @@
 #include "../../includes/minishell.h"
 
-void	handle_block(t_token **token_h, char *input, size_t *i)
+void	handle_block(t_token **token, char *input, size_t *i)
 {
 	size_t	j;
 	size_t	len;
-	char	*token;
+	char	*content;
 
 	j = 0;
 	len = 0;
@@ -13,21 +13,21 @@ void	handle_block(t_token **token_h, char *input, size_t *i)
 		(*i)++;
 		len++;
 	}
-	token = ft_calloc(sizeof(char), len + 2);
-	if (!token)
+	content = ft_calloc(sizeof(char), len + 2);
+	if (!content)
 		return ;
 	(*i) -= len;
 	while (input[*i] && j <= len)
-		token[j++] = input[(*i)++];
+		content[j++] = input[(*i)++];
 	(*i)--;
-	insert_token(token_h, token, BLOCK);
+	insert_token(token, create_token(content, BLOCK));
 }
 
-void	handle_word(t_token **token_h, char *input, size_t *i)
+void	handle_word(t_token **token, char *input, size_t *i)
 {
 	size_t	len;
 	size_t	j;
-	char	*token;
+	char	*content;
 
 	j = 0;
 	len = 0;
@@ -36,42 +36,42 @@ void	handle_word(t_token **token_h, char *input, size_t *i)
 		(*i)++;
 		len++;
 	}
-	token = ft_calloc(sizeof(char), len + 1);
-	if (!token)
+	content = ft_calloc(sizeof(char), len + 1);
+	if (!content)
 		return ;
 	(*i) -= len;
 	while (input[*i] && j < len)
-		token[j++] = input[(*i)++];
+		content[j++] = input[(*i)++];
 	(*i)--;
-	insert_token(token_h, token, WORD);
+	insert_token(token, create_token(content, WORD));
 }
 
-void	handle_double_quote(t_token **token_h, char *input, size_t *i, size_t size)
+void	handle_double_quote(t_token **token, char *input, size_t *i, size_t size)
 {
 	size_t	j;
-	char	*token;
+	char	*content;
 
 	j = 0;
-	token = ft_calloc(sizeof(char), (size + 1));
-	if (!token)
+	content = ft_calloc(sizeof(char), (size + 1));
+	if (!content)
 		return ;
 	while (input[*i] && j < size)
-		token[j++] = input[(*i)++];
+		content[j++] = input[(*i)++];
 	(*i)--;
-	insert_token(token_h, token, DOUBLE);
+	insert_token(token, create_token(content, DOUBLE));
 }
 
-void	handle_simple_quote(t_token **token_h, char *input, size_t *i, size_t size)
+void	handle_simple_quote(t_token **token, char *input, size_t *i, size_t size)
 {
 	size_t	j;
-	char	*token;
+	char	*content;
 
 	j = 0;
-	token = ft_calloc(sizeof(char), (size + 1));
-	if (!token)
+	content = ft_calloc(sizeof(char), (size + 1));
+	if (!content)
 		return ;
 	while (input[*i] && j < size)
-		token[j++] = input[(*i)++];
+		content[j++] = input[(*i)++];
 	(*i)--;
-	insert_token(token_h, token, DOUBLE);
+	insert_token(token, create_token(content, SIMPLE));
 }

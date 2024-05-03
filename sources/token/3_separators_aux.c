@@ -35,6 +35,12 @@ int	check_double_quotes(char *input)
 	quotes = 0;
 	while (input[i])
 	{
+		if (input[i] == '\'')
+		{
+			i++;
+			//while (input[i] && input[i] != '"')
+			//	i++;
+		}
 		if (input[i] == '"')
 			quotes++;
 		i++;
@@ -54,8 +60,9 @@ int	check_simple_quotes(char *input)
 	quotes = 0;
 	while (input[i])
 	{
-		if (input[i++] == '"')
+		if (input[i] == '"')
 		{
+			i++;
 			while (input[i] && input[i] != '"')
 				i++;
 		}
@@ -76,7 +83,7 @@ int	count_double_quote(char *input, size_t *i)
 
 	j = 0;
 	k = *i;
-	if (input[k] && input[k] == 34)
+	if (input[k] && input[k] == '"')
 	{
 		k++;
 		j++;

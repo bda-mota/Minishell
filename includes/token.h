@@ -4,6 +4,10 @@
 # include "../libft/src/libft.h"
 # include "structs.h"
 
+
+void	insert_token(t_token **token, t_token *new_node);
+t_token	*create_token(char *content, int type);
+
 /**** linked list ****/
 
 /*
@@ -25,7 +29,7 @@ void	deallocate_lst(t_token **token);
  * token_head: pointer to the head pointer of the token list.
  * content: content to be inserted into the new node.
  */
-void	insert_token(t_token **token, char *content, int type);
+//void	insert_token(t_token **token, char *content, int type);
 
 /*
  * Removes the first node from the token list.
@@ -59,15 +63,15 @@ void	course_inputs(t_token **token, char *input);
  * input and insert it into the token list.
  */
 
-void	handle_double_quote(t_token **token_h, char *input, size_t *i, size_t size);
-void	handle_simple_quote(t_token **token_h, char *input, size_t *i, size_t size);
-void	handle_word(t_token **token_h, char *input, size_t *i);
-void	handle_pipe(t_token **token_h, char *input, size_t *i);
-void	handle_input(t_token **token_h, char *input, size_t *i);
-void	handle_output(t_token **token_h, char *input, size_t *i);
-void	handle_append(t_token **token_h, char *input, size_t *i);
-void	handle_heredoc(t_token **token_h, char *input, size_t *i);
-void	handle_block(t_token **token_h, char *input, size_t *i);
+void	handle_double_quote(t_token **token, char *input, size_t *i, size_t size);
+void	handle_simple_quote(t_token **token, char *input, size_t *i, size_t size);
+void	handle_word(t_token **token, char *input, size_t *i);
+void	handle_pipe(t_token **token, char *input, size_t *i);
+void	handle_input(t_token **token, char *input, size_t *i);
+void	handle_output(t_token **token, char *input, size_t *i);
+void	handle_append(t_token **token, char *input, size_t *i);
+void	handle_heredoc(t_token **token, char *input, size_t *i);
+void	handle_block(t_token **token, char *input, size_t *i);
 
 /**** SEPARATORS - AUXILIARS ****/
 int		check_sintax(char *input);

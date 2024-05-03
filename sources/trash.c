@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:17:58 by bsantana          #+#    #+#             */
-/*   Updated: 2024/05/03 13:43:32 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/05/03 18:58:50 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	print_list(t_token **lst)
 	current = *lst;
 	while (current)
 	{
-		printf("- - - - - - - - - - - - - - \n");
 		printf("token: %s\n", current->content);
 		type = find_type(current->type);
 		printf("type: %s\n", type);
+		printf("- - - - - - - - - - - - - - \n");
 		current = current->next;
 	}
 }

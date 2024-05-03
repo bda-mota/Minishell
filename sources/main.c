@@ -41,8 +41,8 @@ static char	*prompt(void)
 
 	while (1)
 	{
-		init_token(&token);
-		input = readline("$minishell: ");
+		token = NULL;
+		input = readline(PURPLE"$BaByshell: "WHITE);
 		add_history(input);
 		if (input == NULL || !ft_strcmp(input, "exit"))
 		{

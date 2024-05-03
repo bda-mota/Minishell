@@ -16,6 +16,8 @@ int	catalog_inputs(char *c, size_t *i)
 		return (PIPE);
 	else if (!ft_strnchr(&c[*i], '"', 1))
 		return (DOUBLE);
+	else if (!ft_strnchr(&c[*i], '\'', 1))
+		return (SIMPLE);
 	else if (!ft_strnchr(&c[*i], '(', 1))
 		return (BLOCK);
 	else
@@ -34,10 +36,10 @@ void	course_inputs(t_token **token, char *input)
 	while (input[i] && (i != ft_strlen(input)))
 	{
 		size_double = count_double_quote(input, &i);
-		if(size_double != 0)
+		if (size_double != 0)
 			handle_double_quote(token, input, &i, size_double);
 		size_simple = count_simple_quote(input, &i);
-		if(size_simple != 0)
+		if (size_simple != 0)
 			handle_simple_quote(token, input, &i, size_simple);
 		if (catalog_inputs(input, &i) == WORD)
 			handle_word(token, input, &i);
