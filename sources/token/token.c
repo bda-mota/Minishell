@@ -4,10 +4,6 @@ int	catalog_inputs(char *c, size_t *i)
 {
 	if (ft_isspace(c[*i]) == 1)
 		return (SSPACE);
-	else if (!ft_strnchr(&c[*i], '<', 3) || !ft_strnchr(&c[*i], '>', 3)
-		|| !ft_strnchr(&c[*i], '|', 3) || !ft_strnchr(&c[*i], '|', 2)
-		|| !ft_strnchr(&c[*i], '&', 2))
-		return (ERROR);
 	else if (!ft_strnchr(&c[*i], '<', 2))
 		return (HEREDOC);
 	else if (!ft_strnchr(&c[*i], '>', 2))
@@ -26,41 +22,37 @@ int	catalog_inputs(char *c, size_t *i)
 		return (WORD);
 }
 
-void	course_inputs(t_token **token_tail, t_token **token_h, char *input)
+void	course_inputs(t_token **token, char *input)
 {
 	size_t	i;
 	size_t	size_double;
 	size_t	size_simple;
 
 	i = 0;
-	if (check_sintax(input, token_tail, token_h) == 1)
+	if (check_sintax(input) == 1)
 		return ;
 	while (input[i] && (i != ft_strlen(input)))
 	{
 		size_double = count_double_quote(input, &i);
-		if (size_double != 0)
-			handle_double_quote(token_h, input, &i, size_double);
-		size_simple =count_simple_quote(input, &i);
-
-		else if (catalog_inputs(input, &i) == WORD)
-			handle_word(token_h, input, &i);
+		if(size_double != 0)
+			handle_double_quote(token, input, &i, size_double);
+		size_simple = count_simple_quote(input, &i);
+		if(size_simple != 0)
+			handle_simple_quote(token, input, &i, size_simple);
+		if (catalog_inputs(input, &i) == WORD)
+			handle_word(token, input, &i);
 		else if (catalog_inputs(input, &i) == PIPE)
-			handle_pipe(token_h, input, &i);
+			handle_pipe(token, input, &i);
 		else if (catalog_inputs(input, &i) == INPUT)
-			handle_input(token_h, input, &i);
+			handle_input(token, input, &i);
 		else if (catalog_inputs(input, &i) == OUTPUT)
-			handle_output(token_h, input, &i);
+			handle_output(token, input, &i);
 		else if (catalog_inputs(input, &i) == HEREDOC)
-			handle_heredoc(token_h, input, &i);
+			handle_heredoc(token, input, &i);
 		else if (catalog_inputs(input, &i) == APPEND)
-			handle_append(token_h, input, &i);
+			handle_append(token, input, &i);
 		else if (catalog_inputs(input, &i) == BLOCK)
-			handle_block(token_h, input, &i);
-		else if (catalog_inputs(input, &i) == ERROR)
-		{
-			found_sintaxe(input, token_tail, token_h);
-			return ;
-		}
+			handle_block(token, input, &i);
 		i++;
 	}
 }

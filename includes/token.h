@@ -12,12 +12,12 @@
  * tail: pointer to the pointer to the last node in the list of tokens.
  * head: pointer to the head pointer of the token list.
  */
-void	init_token(t_token **tail, t_token **head);
+void	init_token(t_token **token);
 
 /*
  * Releases the memory allocated to each node in the list and the list itself.
  */
-void	deallocate_lst(t_token **tail, t_token **head);
+void	deallocate_lst(t_token **token);
 
 /*
  * Adds a new node to the token list.
@@ -25,7 +25,7 @@ void	deallocate_lst(t_token **tail, t_token **head);
  * token_head: pointer to the head pointer of the token list.
  * content: content to be inserted into the new node.
  */
-void	insert_token(t_token **token_head, char *content, int type);
+void	insert_token(t_token **token, char *content, int type);
 
 /*
  * Removes the first node from the token list.
@@ -49,7 +49,7 @@ int		catalog_inputs(char *c, size_t *i);
 /*
  * Identifies the type of entry to insert into the token list.
  */
-void	course_inputs(t_token **token_tail, t_token **token_h, char *input);
+void	course_inputs(t_token **token, char *input);
 
 /**** SEPARATORS ****/
 
@@ -69,10 +69,12 @@ void	handle_append(t_token **token_h, char *input, size_t *i);
 void	handle_heredoc(t_token **token_h, char *input, size_t *i);
 void	handle_block(t_token **token_h, char *input, size_t *i);
 
-/**** SEPARATORS - UXILIARS ****/
-int		check_sintax(char *input, t_token **token_tail, t_token **token_h);
-int		check_blocks(char *input, t_token **token_tail, t_token **token_h);
-int		check_double_quotes(char *input, t_token **token_tail, t_token **token_h);
+/**** SEPARATORS - AUXILIARS ****/
+int		check_sintax(char *input);
+int		check_blocks(char *input);
+int		check_double_quotes(char *input);
+int		check_simple_quotes(char *input);
+int		check_untreatable(char *input);
 
 /*
  * Checks if there is a double quote (") in the current
@@ -82,5 +84,6 @@ int		check_double_quotes(char *input, t_token **token_tail, t_token **token_h);
  * The total length of the string is returned.
 */
 int		count_double_quote(char *input, size_t *i);
+int		count_simple_quote(char *input, size_t *i);
 
 #endif

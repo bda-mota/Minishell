@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-int	check_blocks(char *input, t_token **token_tail, t_token **token_h)
+int	check_blocks(char *input)
 {
 	int	i;
 	int	block;
@@ -22,12 +22,11 @@ int	check_blocks(char *input, t_token **token_tail, t_token **token_h)
 	}
 	if (block >= 0 && block % 2 == 0)
 		return (1);
-	deallocate_lst(token_tail, token_h);
 	display_error("sintaxe", '(');
 	return (0);
 }
 
-int	check_double_quotes(char *input, t_token **token_tail, t_token **token_h)
+int	check_double_quotes(char *input)
 {
 	int	i;
 	int	quotes;
@@ -42,12 +41,11 @@ int	check_double_quotes(char *input, t_token **token_tail, t_token **token_h)
 	}
 	if (quotes % 2 == 0)
 		return (1);
-	deallocate_lst(token_tail, token_h);
 	display_error("sintaxe", '"');
 	return (0);
 }
 
-int	check_simple_quotes(char *input, t_token **token_tail, t_token **token_h)
+int	check_simple_quotes(char *input)
 {
 	int	i;
 	int	quotes;
@@ -67,7 +65,6 @@ int	check_simple_quotes(char *input, t_token **token_tail, t_token **token_h)
 	}
 	if (quotes % 2 == 0)
 		return (1);
-	deallocate_lst(token_tail, token_h);
 	display_error("sintaxe", '\'');
 	return (0);
 }

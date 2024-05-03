@@ -1,14 +1,31 @@
 #include "../../includes/minishell.h"
 
-int	check_sintax(char *input, t_token **token_tail, t_token **token_h)
+int	check_sintax(char *input)
 {
-	size_t size_simple;
-	size_t	size_double;
-
-	size_simple = 
-	if (!check_blocks(input, token_tail, token_h))
+	if (!check_untreatable(input))
 		return (1);
-	if (!check_double_quotes(input, token_tail, token_h))
+	else if (!check_blocks(input))
+		return (1);
+	else if (!check_double_quotes(input))
+		return (1);
+	// else if (!check_simple_quotes(input))
+	// 	return (1);
+	return (0);
+}
+
+int	check_untreatable(char *input)
+{
+	if (ft_strstr(input, "<<<"))
+		display_error("sintaxe", '<');
+	else if (ft_strstr(input, ">>>"))
+		display_error("sintaxe", '>');
+	else if (ft_strstr(input, "||"))
+		display_error("||", '|');
+	else if (ft_strstr(input, "|||"))
+		display_error("sintaxe", '|');
+	else if (ft_strstr(input, "&&"))
+		display_error("&&", '&');
+	else
 		return (1);
 	return (0);
 }

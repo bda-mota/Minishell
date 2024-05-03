@@ -26,7 +26,7 @@ int	main(void)
 		input = prompt();
 		if (input == NULL)
 		{
-			ft_putstr_fd("exit\n", 1);
+			ft_putstr_fd("\n", 1);
 			return (EXIT_SUCCESS);
 		}
 		pause();
@@ -36,27 +36,25 @@ int	main(void)
 
 static char	*prompt(void)
 {
-	t_token	*token_tail;
-	t_token	*token_h;
+	t_token	*token;
 	char	*input;
 
 	while (1)
 	{
-		init_token(&token_tail, &token_h);
+		init_token(&token);
 		input = readline("$minishell: ");
 		add_history(input);
 		if (input == NULL || !ft_strcmp(input, "exit"))
 		{
 			free(input);
 			rl_clear_history();
-			deallocate_lst(&token_tail, &token_h);
+			deallocate_lst(&token);
 			return (NULL);
 		}
-		course_inputs(&token_tail, &token_h, input);
-		remove_first(&token_tail);
-		print_list(&token_tail);
+		course_inputs(&token, input);
+		print_list(&token);
 		free(input);
-		deallocate_lst(&token_tail, &token_h);
+		deallocate_lst(&token);
 	}
 	return (NULL);
 }
