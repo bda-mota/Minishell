@@ -6,28 +6,55 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:17:58 by bsantana          #+#    #+#             */
-/*   Updated: 2024/05/03 13:35:40 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/05/03 13:43:32 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+static char	*find_type(int type);
+
 void	print_list(t_token **lst)
 {
 	t_token	*current;
+	char	*type;
 
+	type = NULL;
 	current = *lst;
 	while (current)
 	{
 		printf("- - - - - - - - - - - - - - \n");
 		printf("token: %s\n", current->content);
-		printf("type: %s\n", current->type);
-		printf("- - - - - - - - - - - - - - \n");
+		type = find_type(current->type);
+		printf("type: %s\n", type);
 		current = current->next;
 	}
 }
 
-// static char *find_type(int type)
-// {
+static char	*find_type(int type)
+{
+	char	*str;
 
-// }
+	str = NULL;
+	if (type == PIPE)
+		str = "PIPE";
+	else if (type == INPUT)
+		str = "INPUT";
+	else if (type == OUTPUT)
+		str = "OUTPUT";
+	else if (type == WORD)
+		str = "WORD";
+	else if (type == HEREDOC)
+		str = "HEREDOC";
+	else if (type == APPEND)
+		str = "APPEND";
+	else if (type == DOUBLE)
+		str = "DOUBLE";
+	else if (type == SIMPLE)
+		str = "SIMPLE";
+	else if (type == BLOCK)
+		str = "BLOCK";
+	else if (type == ARCHIVE)
+		str = "ARCHIVE";
+	return (str);
+}
