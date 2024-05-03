@@ -21,7 +21,7 @@ void	deallocate_lst(t_token **tail, t_token **head);
 
 /*
  * Adds a new node to the token list.
- * 
+ *
  * token_head: pointer to the head pointer of the token list.
  * content: content to be inserted into the new node.
  */
@@ -36,7 +36,7 @@ void	remove_first(t_token **token);
 
 /*
  * Checks and classifies the type of input supplied.
- * 
+ *
  * Parameters:
  * c: pointer to the string containing the input to be sorted.
  * i: pointer to the current index within the input string.
@@ -59,7 +59,8 @@ void	course_inputs(t_token **token_tail, t_token **token_h, char *input);
  * input and insert it into the token list.
  */
 
-void	handle_quote(t_token **token_h, char *input, size_t *i, size_t size);
+void	handle_double_quote(t_token **token_h, char *input, size_t *i, size_t size);
+void	handle_simple_quote(t_token **token_h, char *input, size_t *i, size_t size);
 void	handle_word(t_token **token_h, char *input, size_t *i);
 void	handle_pipe(t_token **token_h, char *input, size_t *i);
 void	handle_input(t_token **token_h, char *input, size_t *i);
@@ -80,6 +81,6 @@ int		check_double_quotes(char *input, t_token **token_tail, t_token **token_h);
  * quotes, including the quotes themselves.
  * The total length of the string is returned.
 */
-int		count_quote(char *input, size_t *i);
+int		count_double_quote(char *input, size_t *i);
 
 #endif

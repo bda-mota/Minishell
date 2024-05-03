@@ -16,6 +16,7 @@ void	handle_block(t_token **token_h, char *input, size_t *i)
 	token = ft_calloc(sizeof(char), len + 2);
 	if (!token)
 		return ;
+	(*i) -= len;
 	while (input[*i] && j <= len)
 		token[j++] = input[(*i)++];
 	(*i)--;
@@ -45,7 +46,7 @@ void	handle_word(t_token **token_h, char *input, size_t *i)
 	insert_token(token_h, token, WORD);
 }
 
-void	handle_quote(t_token **token_h, char *input, size_t *i, size_t size)
+void	handle_double_quote(t_token **token_h, char *input, size_t *i, size_t size)
 {
 	size_t	j;
 	char	*token;
@@ -60,4 +61,17 @@ void	handle_quote(t_token **token_h, char *input, size_t *i, size_t size)
 	insert_token(token_h, token, DOUBLE);
 }
 
+void	handle_simple_quote(t_token **token_h, char *input, size_t *i, size_t size)
+{
+	size_t	j;
+	char	*token;
 
+	j = 0;
+	token = ft_calloc(sizeof(char), (size + 1));
+	if (!token)
+		return ;
+	while (input[*i] && j < size)
+		token[j++] = input[(*i)++];
+	(*i)--;
+	insert_token(token_h, token, DOUBLE);
+}

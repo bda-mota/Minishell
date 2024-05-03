@@ -9,13 +9,18 @@ int	check_blocks(char *input, t_token **token_tail, t_token **token_h)
 	block = 0;
 	while (input[i])
 	{
-		if (input[i] == '(')
+		if (block == 0 && input[i] == '(')
 			block++;
-		if (input[i] == ')')
+		if (block == 0 && input[i] == ')')
+		{
+			block -= 1;
+			break ;
+		}
+		if (block == 1 && input[i] == ')')
 			block--;
 		i++;
 	}
-	if (block % 2 == 0)
+	if (block >= 0 && block % 2 == 0)
 		return (1);
 	deallocate_lst(token_tail, token_h);
 	display_error("sintaxe", '(');
@@ -51,8 +56,11 @@ int	check_simple_quotes(char *input, t_token **token_tail, t_token **token_h)
 	quotes = 0;
 	while (input[i])
 	{
-		if (input[i] == '"') //para lidar com as aspas simples dentro das aspas duplas -> devem ser ignoradas
-			while (input[i] && input[i++] != '"')
+		if (input[i++] == '"')
+		{
+			while (input[i] && input[i] != '"')
+				i++;
+		}
 		if (input[i] == '\'')
 			quotes++;
 		i++;
@@ -64,7 +72,7 @@ int	check_simple_quotes(char *input, t_token **token_tail, t_token **token_h)
 	return (0);
 }
 
-int	count_quote(char *input, size_t *i)
+int	count_double_quote(char *input, size_t *i)
 {
 	size_t	j;
 	size_t	k;
@@ -86,11 +94,25 @@ int	count_quote(char *input, size_t *i)
 	return (j);
 }
 
-int	check_sintax(char *input, t_token **token_tail, t_token **token_h)
+int	count_simple_quote(char *input, size_t *i)
 {
-	if (!check_blocks(input, token_tail, token_h))
-		return (1);
-	if (!check_double_quotes(input, token_tail, token_h))
-		return (1);
-	return (0);
+	size_t	j;
+	size_t	k;
+
+	j = 0;
+	k = *i;
+	if (input[k] && input[k] == 39)
+	{
+		k++;
+		j++;
+		while (input[k] && input[k] != 39)
+		{
+			j++;
+			k++;
+		}
+		if (input[k] == 39)
+			j++;
+	}
+	return (j);
 }
+
