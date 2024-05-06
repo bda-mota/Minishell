@@ -24,23 +24,29 @@ int	catalog_inputs(char *c, size_t *i)
 		return (WORD);
 }
 
+void	handle_quotes(t_token **token, char *input, size_t *i)
+{
+	size_t	size_double;
+	size_t	size_simple;
+
+	size_double = count_double_quote(input, &(*i));
+	if (size_double != 0)
+		handle_double(token, input, &(*i), size_double);
+	size_simple = count_simple_quote(input, &(*i));
+	if (size_simple != 0)
+		handle_simple(token, input, &(*i), size_simple);
+}
+
 void	course_inputs(t_token **token, char *input)
 {
 	size_t	i;
-	size_t	size_double;
-	size_t	size_simple;
 
 	i = 0;
 	if (check_sintax(input) == 1)
 		return ;
 	while (input[i] && (i != ft_strlen(input)))
 	{
-		size_double = count_double_quote(input, &i);
-		if (size_double != 0)
-			handle_double_quote(token, input, &i, size_double);
-		size_simple = count_simple_quote(input, &i);
-		if (size_simple != 0)
-			handle_simple_quote(token, input, &i, size_simple);
+		handle_quotes(token, input, &i);
 		if (catalog_inputs(input, &i) == WORD)
 			handle_word(token, input, &i);
 		else if (catalog_inputs(input, &i) == PIPE)

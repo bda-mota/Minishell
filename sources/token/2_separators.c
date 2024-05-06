@@ -13,12 +13,12 @@ static int	count_len_block(char *input, size_t i)
 			block++;
 		if (input[i] == ')')
 			block--;
-		if (block == 0)
-			break ;
 		i++;
 		len++;
+		if (block == 0)
+			break ;
 	}
-	return (len + 1);
+	return (len);
 }
 
 void	handle_block(t_token **token, char *input, size_t *i)
@@ -32,7 +32,7 @@ void	handle_block(t_token **token, char *input, size_t *i)
 	content = ft_calloc(sizeof(char), len + 1);
 	if (!content)
 		return ;
-	while (input[*i] && j <= len)
+	while (input[*i] && j < len)
 		content[j++] = input[(*i)++];
 	(*i)--;
 	insert_token(token, create_token(content, BLOCK));
