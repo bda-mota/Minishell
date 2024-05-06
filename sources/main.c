@@ -26,7 +26,7 @@ int	main(void)
 		input = prompt();
 		if (input == NULL)
 		{
-			ft_putstr_fd("\n", 1);
+			ft_printf_fd("\n", 1);
 			return (EXIT_SUCCESS);
 		}
 		pause();

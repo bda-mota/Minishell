@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: bsantana <bsantana@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:54:03 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/04/30 16:35:17 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:45:20 by bsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ int			ft_strcmp(char *s1, char *s2);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_tolower(int c);
 int			ft_toupper(int c);
+int			ft_putchar_fd(char c, int fd);
+int			ft_putstr_fd(char *s, int fd);
+int			ft_printf_fd(const char *type_format, ...);
+int			ft_flags(char flag, va_list args);
 void		ft_bzero(void *s, size_t n);
 void		*ft_calloc(size_t nmemb, size_t size);
 void		ft_free_matrix(char **matrix);
@@ -71,10 +75,8 @@ void		*ft_memchr(const void *s, int c, size_t n);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
 void		*ft_memmove(void *dest, const void *src, size_t n);
 void		*ft_memset(void *ptr, int value, size_t num);
-void		ft_putchar_fd(char c, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
-void		ft_putstr_fd(char *s, int fd);
 void		ft_striteri(char *s, void (*f)(unsigned int, char*));
 size_t		ft_strlcat(char *dst, const char *src, size_t size);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
