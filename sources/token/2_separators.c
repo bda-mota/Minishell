@@ -1,5 +1,26 @@
 #include "../../includes/minishell.h"
 
+static int	count_len_block(char *input, size_t i)
+{
+	size_t	block;
+	size_t	len;
+
+	block = 0;
+	len = 0;
+	while (input[i])
+	{
+		if (input[i] == '(')
+			block++;
+		if (input[i] == ')')
+			block--;
+		if (block == 0)
+			break ;
+		i++;
+		len++;
+	}
+	return (len + 1);
+}
+
 void	handle_block(t_token **token, char *input, size_t *i)
 {
 	size_t	j;
@@ -7,16 +28,10 @@ void	handle_block(t_token **token, char *input, size_t *i)
 	char	*content;
 
 	j = 0;
-	len = 0;
-	while (input[*i] && input[*i] != ')')
-	{
-		(*i)++;
-		len++;
-	}
-	content = ft_calloc(sizeof(char), len + 2);
+	len = count_len_block(input, *i);
+	content = ft_calloc(sizeof(char), len + 1);
 	if (!content)
 		return ;
-	(*i) -= len;
 	while (input[*i] && j <= len)
 		content[j++] = input[(*i)++];
 	(*i)--;
