@@ -63,8 +63,8 @@ void	course_inputs(t_token **token, char *input);
  * input and insert it into the token list.
  */
 
-void	handle_double_quote(t_token **token, char *input, size_t *i, size_t size);
-void	handle_simple_quote(t_token **token, char *input, size_t *i, size_t size);
+void	handle_double(t_token **token, char *input, size_t *i, size_t size);
+void	handle_simple(t_token **token, char *input, size_t *i, size_t size);
 void	handle_word(t_token **token, char *input, size_t *i);
 void	handle_pipe(t_token **token, char *input, size_t *i);
 void	handle_input(t_token **token, char *input, size_t *i);
@@ -74,11 +74,13 @@ void	handle_heredoc(t_token **token, char *input, size_t *i);
 void	handle_block(t_token **token, char *input, size_t *i);
 
 /**** SEPARATORS - AUXILIARS ****/
-int		check_sintax(char *input);
 int		check_blocks(char *input);
-int		check_double_quotes(char *input);
-int		check_simple_quotes(char *input);
+int		check_blocks_aux(char *input);
+int		check_sintax(char *input);
 int		check_untreatable(char *input);
+int		check_quotes(char *input);
+int		check_quotes_aux(char *input, int *i, char c);
+
 
 /*
  * Checks if there is a double quote (") in the current

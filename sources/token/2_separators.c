@@ -61,7 +61,7 @@ void	handle_word(t_token **token, char *input, size_t *i)
 	insert_token(token, create_token(content, WORD));
 }
 
-void	handle_double_quote(t_token **token, char *input, size_t *i, size_t size)
+void	handle_double(t_token **token, char *input, size_t *i, size_t size)
 {
 	size_t	j;
 	char	*content;
@@ -76,7 +76,7 @@ void	handle_double_quote(t_token **token, char *input, size_t *i, size_t size)
 	insert_token(token, create_token(content, DOUBLE));
 }
 
-void	handle_simple_quote(t_token **token, char *input, size_t *i, size_t size)
+void	handle_simple(t_token **token, char *input, size_t *i, size_t size)
 {
 	size_t	j;
 	char	*content;

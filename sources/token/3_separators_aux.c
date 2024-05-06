@@ -1,99 +1,52 @@
 #include "../../includes/minishell.h"
 
-int	validate_block(char *input)
+int	check_quotes_aux(char *input, int *i, char c)
 {
-	int	i;
-	int	block;
+	int	quote;
 
-	i = 0;
-	block = 0;
-	while (input[i])
+	quote = 1;
+	(*i)++;
+	if (c == '"')
 	{
-		if (input[i] == '(')
-			block++;
-		if (block == 0 && input[i] == ')')
-			return (-1);
-		if (block != 0 && input[i] == ')')
-			block--;
-		i++;
+		while (input[*i] && input[*i] != '"')
+			(*i)++;
+		if (input[*i] == '"')
+				quote++;
 	}
-	return (block);
+	else if (c == '\'')
+	{
+		while (input[*i] && input[*i] != '\'')
+			(*i)++;
+		if (input[*i] == '\'')
+				quote++;
+	}
+	return (quote);
 }
 
-int	check_blocks(char *input)
+int	check_quotes(char *input)
 {
 	int	i;
-	int	block;
+	int	d_quotes;
+	int	s_quotes;
 
 	i = 0;
-	block = 0;
-	while (input[i])
-	{
-		if (input[i] == '(')
-		{
-			block = validate_block(&input[i]);
-			break ;
-		}
-		else if (input[i] == ')')
-		{
-			block -= 1;
-			break ;
-		}
-		i++;
-	}
-	if (block == 0 && block % 2 == 0)
-		return (1);
-	display_error("sintaxe", '(');
-	return (0);
-}
-
-int	check_double_quotes(char *input)
-{
-	int	i;
-	int	quotes;
-
-	i = 0;
-	quotes = 0;
-	while (input[i])
-	{
-		if (input[i] == '\'')
-		{
-			i++;
-			//while (input[i] && input[i] != '"')
-			//	i++;
-		}
-		if (input[i] == '"')
-			quotes++;
-		i++;
-	}
-	if (quotes % 2 == 0)
-		return (1);
-	display_error("sintaxe", '"');
-	return (0);
-}
-
-int	check_simple_quotes(char *input)
-{
-	int	i;
-	int	quotes;
-
-	i = 0;
-	quotes = 0;
+	d_quotes = 0;
+	s_quotes = 0;
 	while (input[i])
 	{
 		if (input[i] == '"')
-		{
-			i++;
-			// while (input[i] && input[i] != '"')
-			// 	i++;
-		}
+			d_quotes = check_quotes_aux(input, &i, '"');
 		if (input[i] == '\'')
-			quotes++;
-		i++;
+			s_quotes = check_quotes_aux(input, &i, '\'');
+		if (input[i])
+			i++;
 	}
-	if (quotes % 2 == 0)
+	if (d_quotes % 2 != 0)
+		display_error("sintaxe", '"');
+	else if (s_quotes % 2 != 0)
+		display_error("sintaxe", '\'');
+	else
 		return (1);
-	display_error("sintaxe", '\'');
 	return (0);
 }
 
@@ -140,4 +93,3 @@ int	count_simple_quote(char *input, size_t *i)
 	}
 	return (j);
 }
-
