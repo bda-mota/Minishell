@@ -1,6 +1,60 @@
-#include <stdio.h>
-int main(void)
+#include "../includes/minishell.h"
+
+static char	*prompt(void);
+
+static void	signal_handler(int signal)
 {
-	printf("Hello World");
-	return (0);
+	if (signal == SIGINT)
+	{
+		ft_putchar_fd('\n', 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	if (signal == SIGQUIT)
+		return ;
+}
+
+int	main(void)
+{
+	char	*input;
+
+	signal(SIGINT, signal_handler);
+	signal(SIGQUIT, SIG_IGN);
+	while (1)
+	{
+		input = prompt();
+		if (input == NULL)
+		{
+			ft_putstr_fd("\n", 1);
+			return (EXIT_SUCCESS);
+		}
+		pause();
+	}
+	return (EXIT_SUCCESS);
+}
+
+static char	*prompt(void)
+{
+	t_token	*token;
+	char	*input;
+
+	while (1)
+	{
+		token = NULL;
+		input = readline(PURPLE"$BaByshell: "WHITE);
+		add_history(input);
+		if (input == NULL || !ft_strcmp(input, "exit"))
+		{
+			free(input);
+			rl_clear_history();
+			deallocate_lst(&token);
+			return (NULL);
+		}
+		course_inputs(&token, input);
+		print_list(&token);
+		free(input);
+		deallocate_lst(&token);
+	}
+	return (NULL);
 }

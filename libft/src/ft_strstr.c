@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/27 13:51:46 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/04/23 15:05:27 by bda-mota         ###   ########.fr       */
+/*   Created: 2024/04/30 16:28:44 by bda-mota          #+#    #+#             */
+/*   Updated: 2024/05/06 14:47:38 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+int	ft_strstr(char *str, char *to_find)
 {
-	t_list	*list;
+	int	i;
+	int	j;
 
-	list = malloc(sizeof(t_list));
-	if (!list)
-		return (NULL);
-	list->content = content;
-	list->next = NULL;
-	return (list);
+	i = 0;
+	j = 0;
+	if (to_find == NULL)
+		return (0);
+	while (str[i])
+	{
+		j = 0;
+		while (to_find[j] && str[i + j] && to_find[j] == str[i + j])
+			j++;
+		if (to_find[j] == '\0')
+			return (1);
+		i++;
+	}
+	return (0);
 }

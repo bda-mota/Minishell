@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/27 13:51:46 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/04/23 15:05:27 by bda-mota         ###   ########.fr       */
+/*   Created: 2024/04/25 15:54:31 by bda-mota          #+#    #+#             */
+/*   Updated: 2024/04/25 16:05:24 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(void *content)
+int	ft_isspace(char c)
 {
-	t_list	*list;
-
-	list = malloc(sizeof(t_list));
-	if (!list)
-		return (NULL);
-	list->content = content;
-	list->next = NULL;
-	return (list);
+	return (c == ' ' || (c >= 9 && c <= 13));
 }
