@@ -57,12 +57,10 @@ void	course_inputs(t_token **token, char *input);
 
 /**** SEPARATORS ****/
 
-
 /*
  * Handle the processing of a quote in the
  * input and insert it into the token list.
  */
-
 void	handle_quotes(t_token **token, char *input, size_t *i);
 void	handle_double(t_token **token, char *input, size_t *i, size_t size);
 void	handle_simple(t_token **token, char *input, size_t *i, size_t size);

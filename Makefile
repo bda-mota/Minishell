@@ -13,8 +13,9 @@ SRC_PATH 	:= sources
 OBJ_PATH	:= objects
 
 # SOURCES
-CFILES		:= trash.c main.c  utils.c\
-				token/token.c token/linked_list_token.c token/1_separators.c token/2_separators.c token/3_separators_aux.c token/4_separators_aux.c
+CFILES		:= trash.c main.c \
+				token/token.c token/linked_list_token.c token/1_separators.c token/2_separators.c token/3_separators_aux.c token/4_separators_aux.c \
+				utils/error.c utils/get_last_node.c utils/get_list_size.c
 
 #PATH_FILES
 SRCS		:= $(addprefix $(SRC_PATH)/, $(CFILES))
@@ -22,7 +23,7 @@ OBJS		:= $(addprefix $(OBJ_PATH)/, $(CFILES:%.c=%.o))
 
 #HEADERS
 HEADERS		:= -I ./includes
-HEADER_FILE := includes/structs.h includes/minishell.h includes/token.h
+HEADER_FILE := includes/structs.h includes/minishell.h includes/token.h includes/ast.h
 
 # COLORS
 GREEN	:=	\033[1;32m

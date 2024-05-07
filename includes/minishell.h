@@ -11,12 +11,13 @@
 
 # define PURPLE	"\033[1;35m"
 # define WHITE	"\033[1;37m"
-# define WARNING_SINTAXE "syntax error near unexpected token "
 # define WARNING_OR "The minishell do not work with '||' or '&&'\n"
 
 //UTILS
 void	display_error(char *error, char c);
 void	found_sintaxe(char *str, t_token **token_tail, t_token **token_h);
+t_token	*get_last_node(t_token **list);
+int		get_list_size(t_token *list);
 
 /* EXCLUIR AO FINAL DO PROJETO */
 # include <unistd.h>

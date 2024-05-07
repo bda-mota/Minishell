@@ -15,14 +15,27 @@ enum e_numerator {
 	SIMPLE,
 	BLOCK,
 	ARCHIVE,
-	ERROR
 };
 
+/* ======= TOKEN ======== */
 typedef struct s_token {
 	int				type;
 	char			*content;
 	struct s_token	*next;
 	struct s_token	*prev;
 }	t_token;
+
+/* ======== AST ======== */
+typedef struct s_data_token {
+	int		size;
+	t_token	*first;
+	t_token	*last;
+}	t_data_token;
+
+typedef struct s_tree {
+	struct s_tree	*right;
+	struct s_tree	*left;
+	t_token			*tokens;
+}	t_tree;
 
 #endif
