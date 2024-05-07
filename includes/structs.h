@@ -33,9 +33,10 @@ typedef struct s_data_token {
 }	t_data_token;
 
 typedef struct s_tree {
+	int				type;
+	char			*content;
 	struct s_tree	*right;
 	struct s_tree	*left;
-	t_token			*tokens;
 }	t_tree;
 
 #endif

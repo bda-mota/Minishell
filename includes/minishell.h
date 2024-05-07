@@ -11,7 +11,7 @@
 
 # define PURPLE	"\033[1;35m"
 # define WHITE	"\033[1;37m"
-# define WARNING_OR "The minishell do not work with '||' or '&&'\n"
+# define WARNING_OR "The BaBy do not work with '||' or '&&'\n"
 
 //UTILS
 void	display_error(char *error, char c);
