@@ -4,8 +4,9 @@
 # include "../libft/src/libft.h"
 # include "structs.h"
 # include "token.h"
-# include <stdio.h>
 # include <signal.h>
+# include <stdio.h>
+# include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -20,7 +21,6 @@ t_token	*get_last_node(t_token **list);
 int		get_list_size(t_token *list);
 
 /* EXCLUIR AO FINAL DO PROJETO */
-# include <unistd.h>
 void	print_list(t_token **lst);
 
 #endif
