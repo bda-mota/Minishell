@@ -17,6 +17,11 @@ enum e_numerator {
 	ARCHIVE,
 };
 
+enum e_size {
+	LEFT,
+	RIGHT
+};
+
 /* ======= TOKEN ======== */
 typedef struct s_token {
 	int				type;
