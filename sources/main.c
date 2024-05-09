@@ -54,8 +54,8 @@ static char	*prompt(void)
 			return (NULL);
 		}
 		course_inputs(&token, input);
-		// build_tree(token, root);
-		print_list(&token);
+		build_tree(&root, &token, LEFT);
+		//print_list(&token);
 		free(input);
 		deallocate_lst(&token);
 	}

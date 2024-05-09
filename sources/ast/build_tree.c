@@ -1,20 +1,27 @@
 #include "../../includes/minishell.h"
 
-t_tree	*build_tree(t_token **tokens, t_tree **root)
+t_token	*search_delimiter(t_token **tokens)
 {
-	t_tree	*new;
-	int		delimiter;
+	t_token	*curr;
 
-	if (find_delimiter(*tokens, PIPE) == 1)
-		delimiter = PIPE;
-	else
-		delimiter = INPUT;
-
-	// percorrendo e se for search -> PIPE bloom_tree
-
-	new = search_delimiter(create_root(*tokens), delimiter);
-	bloom_tree(*root, new, LEFT);
+	curr = get_last_node(tokens);
+	while (curr)
+	{
+		if (curr->type == PIPE)
+			return (curr);
+		curr = curr->prev;
+	}
+	curr = get_last_node(tokens);
+	while (curr)
+	{
+		if (curr->type == APPEND || curr->type == HEREDOC
+			|| curr->type == INPUT || curr->type == OUTPUT)
+			return (curr);
+		curr = curr->prev;
+	}
+	return (*tokens);
 }
+
 
 t_tree	*create_root(t_token *tokens)
 {
@@ -30,53 +37,50 @@ t_tree	*create_root(t_token *tokens)
 	return (new_root);
 }
 
-int	find_delimiter(t_token **tokens, int delimiter)
-{
-	t_token	*curr;
-
-	curr = get_last_node(*tokens);
-	while (curr)
-	{
-		if (curr->type == delimiter)
-			return (1);
-		curr = curr->prev;
-	}
-	return (0);
-}
-
-t_tree	*search_delimiter(t_token **tokens, int delimiter)
-{
-	t_token	*curr;
-
-	curr = get_last_node(*tokens);
-	while (curr)
-	{
-		if (curr->type == delimiter)
-			return (curr);
-		curr = curr->prev;
-	}
-	return (NULL);
-}
-// lembrar de n mandar a raíz da árvore , mas sim o nó onde queremos adicionar à direita ou à esquerda
-
+//precisa sempre retornar root para não perder a referência dela
 void	bloom_tree(t_tree **root, t_tree *new_branch, int side)
 {
-	t_tree	*curr;
+	t_tree	*parent;
 
-	curr = *root;
+	parent = *root;
 	if (*root == NULL)
 		*root = new_branch;
 	else if (side == LEFT)
 	{
-		while (curr->left != NULL)
-			curr = curr->left;
-		curr->left = new_branch;
+		while (parent->left != NULL)
+			parent = parent->left;
+		parent->left = new_branch;
 	}
 	else
 	{
-		while (curr->right != NULL)
-			curr = curr->right;
-		curr->right = new_branch;
+		while (parent->right != NULL)
+			parent = parent->right;
+		parent->right = new_branch;
 	}
 	return ;
+}
+
+void	build_tree(t_tree **root, t_token **tokens, int side)
+{
+	t_token	*new_node;
+	t_token	*left;
+	t_token	*right;
+	t_tree	*new_branch;
+
+	new_node = search_delimiter(tokens);
+	new_branch = create_root(new_node);
+	bloom_tree(root, new_branch, side);
+
+	right = new_node->next;
+	right->prev = NULL;
+	left = new_node->prev;
+	left->next = NULL;
+	free(new_node->content);
+	free(new_node);
+	if (left == NULL)
+		return ;
+	build_tree(&new_branch, &left, LEFT);
+	if (right == NULL)
+		return ;
+	build_tree(&new_branch, &right, RIGHT);
 }

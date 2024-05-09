@@ -18,6 +18,10 @@ void	display_error(char *error, char c);
 void	found_sintaxe(char *str, t_token **token_tail, t_token **token_h);
 t_token	*get_last_node(t_token **list);
 int		get_list_size(t_token *list);
+t_token	*search_delimiter(t_token **tokens);;
+t_tree	*create_root(t_token *tokens);
+void	bloom_tree(t_tree **root, t_tree *new_branch, int side);
+void	build_tree(t_tree **root, t_token **tokens, int side);
 
 /* EXCLUIR AO FINAL DO PROJETO */
 # include <unistd.h>
