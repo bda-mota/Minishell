@@ -22,7 +22,6 @@ t_token	*search_delimiter(t_token **tokens)
 	return (*tokens);
 }
 
-
 t_tree	*create_root(t_token *tokens)
 {
 	t_tree	*new_root;
@@ -37,7 +36,6 @@ t_tree	*create_root(t_token *tokens)
 	return (new_root);
 }
 
-//precisa sempre retornar root para não perder a referência dela
 void	bloom_tree(t_tree **root, t_tree *new_branch, int side)
 {
 	t_tree	*parent;
@@ -72,9 +70,11 @@ void	build_tree(t_tree **root, t_token **tokens, int side)
 	bloom_tree(root, new_branch, side);
 
 	right = new_node->next;
-	right->prev = NULL;
+	if (right != NULL)
+		right->prev = NULL;
 	left = new_node->prev;
-	left->next = NULL;
+	if (left != NULL)
+		left->next = NULL;
 	free(new_node->content);
 	free(new_node);
 	if (left == NULL)
