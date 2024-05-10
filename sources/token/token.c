@@ -74,7 +74,8 @@ int significant_tokens(t_token *tokens)
     curr = tokens;
     while (curr != NULL)
     {
-        if (curr->type != WORD)
+        if (curr->type != WORD && curr->type != SIMPLE
+			&& curr->type != DOUBLE && curr->type != BLOCK)
             count++;
         curr = curr->next;
     }
