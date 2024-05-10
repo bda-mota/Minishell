@@ -68,15 +68,15 @@ void	course_inputs(t_token **token, char *input)
 int significant_tokens(t_token *tokens)
 {
     int count;
-    t_token *current;
+    t_token *curr;
 
 	count = 0;
-    current = tokens;
-    while (current != NULL)
+    curr = tokens;
+    while (curr != NULL)
     {
-        if (current->type != WORD)
+        if (curr->type != WORD)
             count++;
-        current = current->next;
+        curr = curr->next;
     }
     return (count);
 }
