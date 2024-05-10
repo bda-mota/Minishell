@@ -40,10 +40,10 @@ static char	*prompt(void)
 	char	*input;
 	t_tree	*root;
 
+	root = NULL;
 	while (1)
 	{
 		token = NULL;
-		root = NULL;
 		input = readline(PURPLE"$BaByshell: "WHITE);
 		add_history(input);
 		if (input == NULL || !ft_strcmp(input, "exit"))
@@ -55,14 +55,15 @@ static char	*prompt(void)
 		}
 		course_inputs(&token, input);
 		build_tree(&root, &token, LEFT);
+		free_tree(root);
 		// if (significant_tokens(token) > 0)
 		// {
 		// 	build_tree(&root, &token, LEFT);
 		// 	free_tree(root);
 		// }
 		//print_list(&token);
-		//deallocate_lst(&token);
 		free(input);
+		//deallocate_lst(&token);
 	}
 	return (NULL);
 }
