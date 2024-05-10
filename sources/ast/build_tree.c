@@ -73,8 +73,8 @@ void	build_tree(t_tree **root, t_token **tokens, int side)
 	left = new_node->prev;
 	if (left != NULL)
 		left->next = NULL;
-	//free(new_node->content);
-	//free(new_node);
+	free(new_node->content);
+	free(new_node);
 	if (left == NULL)
 		return ;
 	build_tree(&new_branch, &left, LEFT);

@@ -64,3 +64,19 @@ void	course_inputs(t_token **token, char *input)
 		i++;
 	}
 }
+
+int significant_tokens(t_token *tokens)
+{
+    int count;
+    t_token *current;
+
+	count = 0;
+    current = tokens;
+    while (current != NULL)
+    {
+        if (current->type != WORD)
+            count++;
+        current = current->next;
+    }
+    return (count);
+}

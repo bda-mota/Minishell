@@ -22,6 +22,8 @@ t_token	*search_delimiter(t_token **tokens);;
 t_tree	*create_root(t_token *tokens);
 void	bloom_tree(t_tree **root, t_tree *new_branch, int side);
 void	build_tree(t_tree **root, t_token **tokens, int side);
+void    free_leaves(t_tree *root);
+void    free_tree(t_tree *root);
 
 /* EXCLUIR AO FINAL DO PROJETO */
 # include <unistd.h>

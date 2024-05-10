@@ -90,5 +90,6 @@ int		check_quotes_aux(char *input, int *i, char c);
 */
 int		count_double_quote(char *input, size_t *i);
 int		count_simple_quote(char *input, size_t *i);
+int     significant_tokens(t_token *tokens);
 
 #endif
