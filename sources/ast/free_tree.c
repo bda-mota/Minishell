@@ -21,5 +21,6 @@ void    free_tree(t_tree *root)
     if (!root)
         return ;
     free_leaves(root);
+    free(root->content);
     free(root);
 }
