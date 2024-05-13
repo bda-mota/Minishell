@@ -4,6 +4,7 @@
 # include "../libft/src/libft.h"
 # include "structs.h"
 # include "token.h"
+# include "ast.h"
 # include <signal.h>
 # include <stdio.h>
 # include <unistd.h>
