@@ -5,7 +5,6 @@ void	handle_pipe(t_token **token, char *input, size_t *i)
 	size_t	j;
 	char	*content;
 
-
 	j = 0;
 	content = ft_calloc(sizeof(char), 2);
 	if (!content)

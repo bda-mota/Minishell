@@ -15,6 +15,7 @@ enum e_numerator {
 	SIMPLE,
 	BLOCK,
 	ARCHIVE,
+	COMMAND
 };
 
 enum e_size {
