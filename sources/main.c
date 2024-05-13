@@ -55,19 +55,22 @@ static char	*prompt(void)
 		}
 		executable_building(&token, &root, input);
 		free(input);
-		//print_list(&token);
 	}
 	return (NULL);
 }
 
 void	executable_building(t_token **token, t_tree	**root, char *input)
 {
+	(void)root;
 	course_inputs(token, input);
-	if (significant_tokens(*token) > 0)
+	/*if (significant_tokens(*token) > 0)
 	{
 		build_tree(root, token, LEFT);
 		down_tree(*root);
 	}
-	else
-		deallocate_lst(token);
+	else*/
+	//print_list(token);
+	inspect_types(token);
+	print_list(token);
+	deallocate_lst(token);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trash.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsantana <bsantana@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:17:58 by bsantana          #+#    #+#             */
-/*   Updated: 2024/05/13 14:05:00 by bsantana         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:26:21 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,9 @@ static char	*find_type(int type)
 		str = "BLOCK";
 	else if (type == ARCHIVE)
 		str = "ARCHIVE";
+	else if (type == COMMAND)
+		str = "COMMAND";
+	else if (type == DEMILITER)
+		str = "DEMILITER";
 	return (str);
 }

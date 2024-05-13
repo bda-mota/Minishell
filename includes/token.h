@@ -90,4 +90,7 @@ int		count_double_quote(char *input, size_t *i);
 int		count_simple_quote(char *input, size_t *i);
 int		significant_tokens(t_token *tokens);
 
+/* REARRANGE */
+void	inspect_types(t_token **tokens);
+
 #endif
