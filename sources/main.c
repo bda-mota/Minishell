@@ -54,16 +54,15 @@ static char	*prompt(void)
 			return (NULL);
 		}
 		course_inputs(&token, input);
-		build_tree(&root, &token, LEFT);
-		free_tree(root);
-		// if (significant_tokens(token) > 0)
-		// {
-		// 	build_tree(&root, &token, LEFT);
-		// 	free_tree(root);
-		// }
+		if (significant_tokens(token) > 0)
+		{
+			build_tree(&root, &token, LEFT);
+			down_tree(root);
+		}
+		else
+			deallocate_lst(&token);
 		//print_list(&token);
 		free(input);
-		//deallocate_lst(&token);
 	}
 	return (NULL);
 }

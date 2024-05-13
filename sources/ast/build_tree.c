@@ -66,7 +66,6 @@ void	build_tree(t_tree **root, t_token **tokens, int side)
 	new_node = search_delimiter(tokens);
 	new_branch = create_root(new_node);
 	bloom_tree(root, new_branch, side);
-
 	right = new_node->next;
 	if (right != NULL)
 		right->prev = NULL;
