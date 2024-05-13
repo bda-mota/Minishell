@@ -7,19 +7,23 @@ void	inspect_types(t_token **tokens)
 	curr = *tokens;
 	while (curr)
 	{
-		if (curr->type == INPUT)
-			curr->prev->type = ARCHIVE;
-		else if (curr->type == OUTPUT)
-			curr->next->type = ARCHIVE;
-		else if (curr->type == APPEND)
-			curr->prev->type = ARCHIVE;
+		if (curr->type == INPUT || curr->type == OUTPUT || curr->type == APPEND)
+		{
+			if (curr->next)
+				curr->next->type = ARCHIVE;
+		}
 		else if (curr->type == PIPE)
 		{
-			curr->prev->type = COMMAND;
-			curr->next->type = COMMAND;
+			if (curr->prev)
+				curr->prev->type = COMMAND;
+			if (curr->next)
+				curr->next->type = COMMAND;
 		}
 		else if (curr->type == HEREDOC)
-			curr->next->type = DEMILITER;
+		{
+			if (curr->next)
+				curr->next->type = DELIMITER;
+		}
 		curr = curr->next;
 	}
 }

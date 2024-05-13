@@ -16,7 +16,7 @@ enum e_numerator {
 	BLOCK,
 	ARCHIVE,
 	COMMAND,
-	DEMILITER
+	DELIMITER
 };
 
 enum e_size {
