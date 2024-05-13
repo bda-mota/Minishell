@@ -5,8 +5,8 @@
 # include "structs.h"
 # include "token.h"
 # include "ast.h"
-# include <signal.h>
 # include <stdio.h>
+# include <signal.h>
 # include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
