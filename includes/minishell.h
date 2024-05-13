@@ -15,6 +15,8 @@
 # define WHITE	"\033[1;37m"
 # define WARNING_OR "The BaBy do not work with '||' or '&&'\n"
 
+void	executable_building(t_token **token, t_tree	**root, char *input);
+
 //UTILS
 void	display_error(char *error, char c);
 void	found_sintaxe(char *str, t_token **token_tail, t_token **token_h);

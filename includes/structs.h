@@ -15,6 +15,12 @@ enum e_numerator {
 	SIMPLE,
 	BLOCK,
 	ARCHIVE,
+	COMMAND
+};
+
+enum e_size {
+	LEFT,
+	RIGHT
 };
 
 /* ======= TOKEN ======== */
@@ -26,7 +32,7 @@ typedef struct s_token {
 }	t_token;
 
 /* ======== AST ======== */
-typedef struct s_data_token {
+typedef struct s_data_token { // struct não implementada ainda
 	int		size;
 	t_token	*first;
 	t_token	*last;

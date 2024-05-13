@@ -38,7 +38,9 @@ static char	*prompt(void)
 {
 	t_token	*token;
 	char	*input;
+	t_tree	*root;
 
+	root = NULL;
 	while (1)
 	{
 		token = NULL;
@@ -51,10 +53,21 @@ static char	*prompt(void)
 			deallocate_lst(&token);
 			return (NULL);
 		}
-		course_inputs(&token, input);
-		print_list(&token);
+		executable_building(&token, &root, input);
 		free(input);
-		deallocate_lst(&token);
+		//print_list(&token);
 	}
 	return (NULL);
+}
+
+void	executable_building(t_token **token, t_tree	**root, char *input)
+{
+	course_inputs(token, input);
+	if (significant_tokens(*token) > 0)
+	{
+		build_tree(root, token, LEFT);
+		down_tree(*root);
+	}
+	else
+		deallocate_lst(token);
 }

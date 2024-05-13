@@ -4,7 +4,6 @@
 # include "../libft/src/libft.h"
 # include "structs.h"
 
-
 void	insert_token(t_token **token, t_token *new_node);
 t_token	*create_token(char *content, int type);
 
@@ -80,7 +79,6 @@ int		check_untreatable(char *input);
 int		check_quotes(char *input);
 int		check_quotes_aux(char *input, int *i, char c);
 
-
 /*
  * Checks if there is a double quote (") in the current
  * position in the 'input' string. If a double quote is found,
@@ -90,5 +88,6 @@ int		check_quotes_aux(char *input, int *i, char c);
 */
 int		count_double_quote(char *input, size_t *i);
 int		count_simple_quote(char *input, size_t *i);
+int		significant_tokens(t_token *tokens);
 
 #endif
