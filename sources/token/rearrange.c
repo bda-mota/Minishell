@@ -48,6 +48,7 @@ static t_token	*rearrange_more_than_one(t_token **tokens)
 	new->prev = first;
 	first->next = new;
 	new->next = output;
+	output->prev = new;
 	return (word);
 }
 
@@ -66,4 +67,25 @@ t_token	*split_list(t_token **tokens)
 	new_node->prev = NULL;
 	new_node->next = NULL;
 	return (new_node);
+}
+
+void	inspect_types(t_token **tokens)
+{
+	t_token	*curr;
+
+	curr = *tokens;
+	while (curr)
+	{
+		if (curr->type == INPUT || curr->type == OUTPUT || curr->type == APPEND)
+		{
+			if (curr->next)
+				curr->next->type = ARCHIVE;
+		}
+		else if (curr->type == HEREDOC)
+		{
+			if (curr->next)
+				curr->next->type = DELIMITER;
+		}
+		curr = curr->next;
+	}
 }

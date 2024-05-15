@@ -53,24 +53,23 @@ static char	*prompt(void)
 			deallocate_lst(&token);
 			return (NULL);
 		}
-		executable_building(&token, &root, input);
+		manipulate_tokens(&token, &root, input);
 		free(input);
 	}
 	return (NULL);
 }
 
-void	executable_building(t_token **token, t_tree	**root, char *input)
+void	manipulate_tokens(t_token **token, t_tree **root, char *input)
 {
-	(void)root;
 	course_inputs(token, input);
 	inspect_types(token);
-	rearrange_tokens(token);
-	print_list(token);
-	// if (significant_tokens(*token) > 0)
-	// {
-	// 	build_tree(root, token, LEFT);
-	// 	down_tree(*root);
-	// }
-	//else
-	deallocate_lst(token);
+	if (significant_tokens(*token) > 0)
+	{
+		rearrange_tokens(token);
+		print_list(token);
+		build_tree(root, token, LEFT);
+		down_tree(root);
+	}
+	else
+		deallocate_lst(token);
 }
