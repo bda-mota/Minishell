@@ -63,14 +63,14 @@ void	executable_building(t_token **token, t_tree	**root, char *input)
 {
 	(void)root;
 	course_inputs(token, input);
-	/*if (significant_tokens(*token) > 0)
-	{
-		build_tree(root, token, LEFT);
-		down_tree(*root);
-	}
-	else*/
-	//print_list(token);
 	inspect_types(token);
+	rearrange_tokens(token);
 	print_list(token);
+	// if (significant_tokens(*token) > 0)
+	// {
+	// 	build_tree(root, token, LEFT);
+	// 	down_tree(*root);
+	// }
+	//else
 	deallocate_lst(token);
 }
