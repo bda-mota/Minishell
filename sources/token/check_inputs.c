@@ -74,3 +74,4 @@ int	check_untreatable(char *input)
 		return (1);
 	return (0);
 }
+

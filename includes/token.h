@@ -90,4 +90,16 @@ int		count_double_quote(char *input, size_t *i);
 int		count_simple_quote(char *input, size_t *i);
 int		significant_tokens(t_token *tokens);
 
+/* REARRANGE */
+void	inspect_types(t_token **tokens);
+void	rearrange_tokens(t_token **tokens);
+int		check_redirects_on_pipeline(t_token **tokens);
+int		check_pipeline(t_token **tokens);
+t_token	*get_last_node_of_pipeline(t_token **tokens);
+t_token	*get_first_node_of_pipeline(t_token **tokens);
+t_token	*split_list(t_token **tokens);
+t_token	*get_first_word(t_token **tokens);
+
+
+
 #endif

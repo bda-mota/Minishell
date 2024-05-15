@@ -64,20 +64,22 @@ void	build_tree(t_tree **root, t_token **tokens, int side)
 	t_tree	*new_branch;
 
 	new_node = search_delimiter(tokens);
+	if (new_node == NULL)
+		return ;
 	new_branch = create_root(new_node);
 	bloom_tree(root, new_branch, side);
-	right = new_node->next;
-	if (right != NULL)
-		right->prev = NULL;
 	left = new_node->prev;
 	if (left != NULL)
+	{
 		left->next = NULL;
+		build_tree(&new_branch, &left, LEFT);
+	}
+	right = new_node->next;
+	if (right != NULL)
+	{
+		right->prev = NULL;
+		build_tree(&new_branch, &right, RIGHT);
+	}
 	free(new_node->content);
 	free(new_node);
-	if (left == NULL)
-		return ;
-	build_tree(&new_branch, &left, LEFT);
-	if (right == NULL)
-		return ;
-	build_tree(&new_branch, &right, RIGHT);
 }
