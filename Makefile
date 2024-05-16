@@ -18,7 +18,7 @@ CFILES		:= trash.c main.c \
 				token/quotes_aux.c token/check_inputs.c token/rearrange.c token/rearrange_utils.c\
 				utils/error.c utils/get_last_node.c utils/get_list_size.c \
 				ast/build_tree.c ast/down_tree.c \
-				exec/execution.c exec/path.c
+				exec/execution.c exec/path.c exec/variable_expansion.c
 
 #PATH_FILES
 SRCS		:= $(addprefix $(SRC_PATH)/, $(CFILES))
