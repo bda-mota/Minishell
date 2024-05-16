@@ -8,7 +8,6 @@ void	insert_token(t_token **token, t_token *new_node);
 t_token	*create_token(char *content, int type);
 
 /**** linked list ****/
-
 /*
  * Initializes a list of tokens.
  *
@@ -36,7 +35,6 @@ void	deallocate_lst(t_token **token);
 void	remove_first(t_token **token);
 
 /**** inputs ****/
-
 /*
  * Checks and classifies the type of input supplied.
  *
@@ -53,9 +51,7 @@ int		catalog_inputs(char *c, size_t *i);
  * Identifies the type of entry to insert into the token list.
  */
 void	course_inputs(t_token **token, char *input);
-
 /**** SEPARATORS ****/
-
 /*
  * Handle the processing of a quote in the
  * input and insert it into the token list.
@@ -99,7 +95,5 @@ t_token	*get_last_node_of_pipeline(t_token **tokens);
 t_token	*get_first_node_of_pipeline(t_token **tokens);
 t_token	*split_list(t_token **tokens);
 t_token	*get_first_word(t_token **tokens);
-
-
 
 #endif

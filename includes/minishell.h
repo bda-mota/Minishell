@@ -5,6 +5,7 @@
 # include "structs.h"
 # include "token.h"
 # include "ast.h"
+# include "exec.h"
 # include <stdio.h>
 # include <signal.h>
 # include <unistd.h>

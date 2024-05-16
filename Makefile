@@ -18,6 +18,7 @@ CFILES		:= trash.c main.c \
 				token/quotes_aux.c token/check_inputs.c token/rearrange.c token/rearrange_utils.c\
 				utils/error.c utils/get_last_node.c utils/get_list_size.c \
 				ast/build_tree.c ast/down_tree.c \
+				exec/execution.c exec/path.c
 
 #PATH_FILES
 SRCS		:= $(addprefix $(SRC_PATH)/, $(CFILES))
@@ -25,7 +26,7 @@ OBJS		:= $(addprefix $(OBJ_PATH)/, $(CFILES:%.c=%.o))
 
 #HEADERS
 HEADERS		:= -I ./includes
-HEADER_FILE := includes/structs.h includes/minishell.h includes/token.h includes/ast.h
+HEADER_FILE := includes/structs.h includes/minishell.h includes/token.h includes/ast.h includes/exec.h
 
 # COLORS
 GREEN	:=	\033[1;32m
