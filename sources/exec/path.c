@@ -16,7 +16,6 @@ void	find_path(t_exec **execution)
 		i++;
 	}
 	(*execution)->env = environ;
-	printf("PATH: %s\n", (*execution)->complete_path);
 	build_path(execution);
 }
 
@@ -39,12 +38,6 @@ void	build_path(t_exec **execution)
 		free(aux);
 		i++;
 	}
-	i = 0;
-	while ((*execution)->paths[i])
-	{
-		printf("PATH[%d]: %s\n", i, (*execution)->paths[i]);
-		i++;
-	}
 }
 
 char	*add_command_to_path(t_exec **execution, char *cmd)
@@ -54,7 +47,7 @@ char	*add_command_to_path(t_exec **execution, char *cmd)
 	char	**take_first;
 
 	i = 0;
-	take_first = ft_split(cmd, ' '); // aqui é o split do comando
+	take_first = ft_split(cmd, ' ');
 	if (take_first == NULL)
 		printf("error\n");
 	while ((*execution)->paths[i])

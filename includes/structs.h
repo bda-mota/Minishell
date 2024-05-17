@@ -56,6 +56,7 @@ typedef struct s_exec
 	char	*complete_path;
 	char	**paths;
 	char	**env;
+	char	**command_child;
 }	t_exec;
 
 #endif

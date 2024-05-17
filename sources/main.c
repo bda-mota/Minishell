@@ -62,7 +62,9 @@ static char	*prompt(void)
 void	manipulate_tokens(t_token **token, t_tree **root, char *input)
 {
 	t_exec	*execution;
+	t_token	*curr;
 
+	curr = *token;
 	execution = ft_calloc(sizeof(t_exec), 1);
 	if (!execution)
 		return ;
@@ -71,7 +73,11 @@ void	manipulate_tokens(t_token **token, t_tree **root, char *input)
 	inspect_types(token);
 	rearrange_tokens(token);
 	find_path(&execution);
-	//execution
+	while (curr)
+	{
+		implement(&execution, curr->content);
+		curr = curr->next;
+	}
 	deallocate_lst(token);
 	(void)root;
 }

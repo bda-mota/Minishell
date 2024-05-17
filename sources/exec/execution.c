@@ -1,16 +1,31 @@
 #include "../../includes/minishell.h"
-<<<<<<< HEAD
+
+void	implement(t_exec **execution, char *command)
+{
+	char	*executable;
+	//int		pid;
+
+	//pid = fork();
+	//if (pid == 0)
+	//{
+		(*execution)->command_child = ft_split(command, ' ');
+		if ((*execution)->command_child == NULL)
+			printf("Error\n");
+		executable = check_command((*execution));
+		if (executable == NULL)
+			printf("Error\n");
+		execve(executable, (*execution)->command_child, (*execution)->env);
+	//}
+}
 
 char	*check_command(t_exec *execution)
 {
 	char	*command;
 	char	*complete_command;
 
-	command = execution->argv_child[0];
+	command = execution->command_child[0];
 	if (access(command, X_OK) == 0)
 		return (command);
-	complete_command = add_cmd_env(execution, command);
+	complete_command = add_command_to_path(&execution, command);
 	return (complete_command);
 }
-=======
->>>>>>> 6c29cc85d39cefacb9ecf996700fd7c6f849e5d1
