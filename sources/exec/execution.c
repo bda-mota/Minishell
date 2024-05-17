@@ -3,19 +3,14 @@
 void	implement(t_exec **execution, char *command)
 {
 	char	*executable;
-	//int		pid;
 
-	//pid = fork();
-	//if (pid == 0)
-	//{
-		(*execution)->command_child = ft_split(command, ' ');
-		if ((*execution)->command_child == NULL)
-			printf("Error\n");
-		executable = check_command((*execution));
-		if (executable == NULL)
-			printf("Error\n");
-		execve(executable, (*execution)->command_child, (*execution)->env);
-	//}
+	(*execution)->command_child = ft_split(command, ' ');
+	if ((*execution)->command_child == NULL)
+		printf("Error\n");
+	executable = check_command((*execution));
+	if (executable == NULL)
+		printf("Error\n");
+	execve(executable, (*execution)->command_child, (*execution)->env);
 }
 
 char	*check_command(t_exec *execution)

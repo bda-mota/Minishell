@@ -64,7 +64,6 @@ void	manipulate_tokens(t_token **token, t_tree **root, char *input)
 	t_exec	*execution;
 	t_token	*curr;
 
-	curr = *token;
 	execution = ft_calloc(sizeof(t_exec), 1);
 	if (!execution)
 		return ;
@@ -72,6 +71,7 @@ void	manipulate_tokens(t_token **token, t_tree **root, char *input)
 	get_expand_variable(token);
 	inspect_types(token);
 	rearrange_tokens(token);
+	curr = *token;
 	find_path(&execution);
 	while (curr)
 	{
