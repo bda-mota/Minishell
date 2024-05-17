@@ -16,8 +16,8 @@ OBJ_PATH	:= objects
 CFILES		:= trash.c main.c \
 				token/token.c token/linked_list_token.c token/1_handle_inputs.c token/2_handle_inputs.c \
 				token/quotes_aux.c token/check_inputs.c token/rearrange.c token/rearrange_utils.c\
-				utils/error.c utils/get_last_node.c utils/get_list_size.c \
-				ast/build_tree.c ast/down_tree.c \
+				utils/error.c utils/get_last_node.c utils/get_first_node.c utils/get_list_size.c \
+				ast/build_tree.c ast/tree_utils.c \
 
 #PATH_FILES
 SRCS		:= $(addprefix $(SRC_PATH)/, $(CFILES))

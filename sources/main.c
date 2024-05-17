@@ -63,13 +63,10 @@ void	manipulate_tokens(t_token **token, t_tree **root, char *input)
 {
 	course_inputs(token, input);
 	inspect_types(token);
-	if (significant_tokens(*token) > 0)
-	{
-		rearrange_tokens(token);
-		print_list(token);
-		build_tree(root, token, LEFT);
-		down_tree(root);
-	}
-	else
-		deallocate_lst(token);
+	rearrange_tokens(token);
+	print_list(token);
+	build_tree(root, token, LEFT);
+	down_tree(root);
+	//else
+	//	deallocate_lst(token);
 }
