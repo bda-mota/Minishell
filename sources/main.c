@@ -67,15 +67,14 @@ void	manipulate_tokens(t_token **token, t_tree **root, char *input)
 	if (!execution)
 		return ;
 	course_inputs(token, input);
+	get_expand_variable(token);
 	inspect_types(token);
 	rearrange_tokens(token);
 	find_path(&execution);
 	//execution
 	deallocate_lst(token);
 	(void)root;
-
 }
-
 
 	//if (significant_tokens(*token) > 0)
 	//{

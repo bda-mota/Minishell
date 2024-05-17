@@ -1,4 +1,5 @@
 #include "../../includes/minishell.h"
+<<<<<<< HEAD
 
 char	*check_command(t_exec *execution)
 {
@@ -11,3 +12,5 @@ char	*check_command(t_exec *execution)
 	complete_command = add_cmd_env(pipex, command);
 	return (complete_command);
 }
+=======
+>>>>>>> 6c29cc85d39cefacb9ecf996700fd7c6f849e5d1
