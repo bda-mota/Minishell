@@ -23,6 +23,8 @@ void	display_error(char *error, char c);
 void	found_sintaxe(char *str, t_token **token_tail, t_token **token_h);
 t_token	*get_last_node(t_token **list);
 int		get_list_size(t_token *list);
+t_token	*get_first_node(t_token **list);
+
 
 /* EXCLUIR AO FINAL DO PROJETO */
 void	print_list(t_token **lst);
