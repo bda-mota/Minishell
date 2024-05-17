@@ -71,15 +71,17 @@ void	manipulate_tokens(t_token **token, t_tree **root, char *input)
 	get_expand_variable(token);
 	inspect_types(token);
 	rearrange_tokens(token);
+	build_tree(root, token, LEFT);
 	curr = *token;
-	find_path(&execution);
-	while (curr)
-	{
-		implement(&execution, curr->content);
-		curr = curr->next;
-	}
-	deallocate_lst(token);
-	(void)root;
+	//find_path(&execution);
+	//while (curr)
+	//{
+	//	implement(&execution, curr->content);
+	//	curr = curr->next;
+	//}
+	//deallocate_lst(token);
+	down_tree(root);
+	root = NULL;
 }
 
 	//if (significant_tokens(*token) > 0)
