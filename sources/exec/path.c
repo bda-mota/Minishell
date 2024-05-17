@@ -54,7 +54,7 @@ char	*add_command_to_path(t_exec **execution, char *cmd)
 	char	**take_first;
 
 	i = 0;
-	take_first = ft_split(cmd, ' ');
+	take_first = ft_split(cmd, ' '); // aqui é o split do comando
 	if (take_first == NULL)
 		printf("error\n");
 	while ((*execution)->paths[i])

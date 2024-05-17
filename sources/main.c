@@ -70,6 +70,7 @@ void	manipulate_tokens(t_token **token, t_tree **root, char *input)
 	inspect_types(token);
 	rearrange_tokens(token);
 	find_path(&execution);
+	//execution
 	deallocate_lst(token);
 	(void)root;
 
