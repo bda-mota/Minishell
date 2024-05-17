@@ -14,12 +14,11 @@ t_token	*search_delimiter(t_token **tokens)
 	curr = get_last_node(tokens);
 	while (curr)
 	{
-		if (curr->type == APPEND || curr->type == HEREDOC
-			|| curr->type == INPUT || curr->type == OUTPUT)
+		if (is_metha(curr))
 			return (curr);
 		curr = curr->prev;
 	}
-	return (*tokens);
+	return (NULL);
 }
 
 t_tree	*create_root(t_token *tokens)
@@ -65,7 +64,7 @@ void	build_tree(t_tree **root, t_token **tokens, int side)
 
 	new_node = search_delimiter(tokens);
 	if (new_node == NULL)
-		return ;
+		new_node = put_all_together(tokens);
 	new_branch = create_root(new_node);
 	bloom_tree(root, new_branch, side);
 	left = new_node->prev;
