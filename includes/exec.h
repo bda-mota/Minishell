@@ -15,6 +15,7 @@ char    **count_size_environ();
 char    **copy_environ();
 char    **create_new_environ(char **my_environ, int num_vars);
 char    **add_variable_to_environ(char **my_environ, char *new_var);
+void    free_environ(char **environ);
 
 /* EXECUTION */
 void	implement(t_exec **execution, char *command);
