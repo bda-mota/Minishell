@@ -7,6 +7,7 @@ ela não aparece como uma macro de ambiente na 42 ela aparece e deve ser modific
 do nosso BabyShell -> usar estrutura do main;
 3. Esta é apenas a estrutura da criação de novas variáveis -> ela precisa ser ajustada assim como
 as outras builtins.
+4. Ao final do arquivo há um main teste para verificar o funcionamento da export separadamente do BabyShell.
 */
 
 char    **export(char *new_variable)

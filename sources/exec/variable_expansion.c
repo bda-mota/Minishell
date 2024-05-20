@@ -2,6 +2,7 @@
 
 // Reorganizar para procurar na cópia da lista de variáveis, para que a getenv
 // aponte para esta lista não para as variáveis de ambiente __environ
+// implementar diferenças de variável passada entre '' e ""
 
 char	*get_expand_variable(t_token **token)
 {

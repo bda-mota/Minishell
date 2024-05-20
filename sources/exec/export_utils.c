@@ -11,11 +11,8 @@ char    **count_size_environ()
     env = environ;
     environ_copy = NULL;
     num_vars = 0;
-    while (*env)
-    {
+    while (env[num_vars])
         num_vars++;
-        env++;
-    }
     environ_copy = ft_calloc(num_vars + 1, sizeof(char *));
     if (!environ_copy)
         return (NULL);
