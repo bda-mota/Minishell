@@ -73,7 +73,7 @@ void	manipulate_tokens(t_token **token, t_tree **root, char *input)
 	rearrange_tokens(token);
 	build_tree(root, token, LEFT);
 	curr = *token;
-	//find_path(&execution);
+	find_path(&execution);
 	//while (curr)
 	//{
 	//	implement(&execution, curr->content);
