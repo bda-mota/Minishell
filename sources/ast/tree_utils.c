@@ -63,3 +63,13 @@ void	aux_pull_all_together(t_token **new, t_token **curr)
 		*curr = temp;
 	}
 }
+
+void	traverse_tree(t_tree **root)
+{
+	if (*root == NULL)
+		return ;
+	traverse_tree(&(*root)->left);
+	traverse_tree(&(*root)->right);
+	//if ((*root)->content)
+	//	ft_printf_fd("%s\n", (*root)->content, 1);
+}

@@ -61,32 +61,26 @@ static char	*prompt(void)
 
 void	manipulate_tokens(t_token **token, t_tree **root, char *input)
 {
-	t_exec	*execution;
-	t_tree	*curr;
+	//t_exec	*execution;
+	//t_tree	*curr;
 
-	execution = ft_calloc(sizeof(t_exec), 1);
-	if (!execution)
-		return ;
+	//execution = ft_calloc(sizeof(t_exec), 1);
+	//if (!execution)
+	//	return ;
 	course_inputs(token, input);
 	get_expand_variable(token);
 	inspect_types(token);
 	rearrange_tokens(token);
 	build_tree(root, token, LEFT);
-	curr = *root;
-	find_path(&execution);
-	while (curr)
-	{
-		implement(&execution, curr->content);
-		curr = curr->left;
-	}
+	traverse_tree(root);
+	//chamar a função que vai percorrer a árvore e executar o comandos -> tem que começar do final da árvore
+	//curr = *root;
+	//find_path(&execution);
+	//while (curr)
+	//{
+	//	implement(&execution, curr->content);
+	//	curr = curr->left;
+	//}
 	down_tree(root);
 	root = NULL;
 }
-
-	//if (significant_tokens(*token) > 0)
-	//{
-		//print_list(token);
-		//build_tree(root, token, LEFT);
-		//down_tree(root);
-	//}
-	//else
