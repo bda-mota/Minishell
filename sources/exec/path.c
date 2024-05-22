@@ -62,5 +62,5 @@ char	*add_command_to_path(t_exec **execution, char *cmd)
 		i++;
 	}
 	ft_free_matrix(take_first);
-	return (NULL);
+	return (cmd); // aqui estava retornando NULL
 }
