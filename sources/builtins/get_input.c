@@ -14,7 +14,7 @@ void	find_builtins(t_token **token)
 		if (ft_strcmp("pwd", curr->content) == 0)
 			pwd();
 		if (ft_strcmp("export", curr->content) == 0)
-			// export
+			export(&curr->next);
 		curr = curr->next;
 	}
 }
