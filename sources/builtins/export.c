@@ -7,18 +7,19 @@ do nosso BabyShell -> usar estrutura do main;
 as outras builtins.
 */
 
-void	*export(char *new_variable)
+void	export(char *new_variable)
 {
 	char	**original_environ;
 	char	**new_environ;
 	t_exec	*env;
 
+	env = NULL;
 	original_environ = copy_environ();
 	new_environ = add_variable_to_environ(original_environ, new_variable);
 	if (!new_environ)
 	{
 		ft_free_matrix(original_environ);
-		return (NULL);
+		return ;
 	}
 	env->env_copy = new_environ;
 }
