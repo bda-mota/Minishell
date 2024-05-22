@@ -6,6 +6,7 @@
 # include "token.h"
 # include "ast.h"
 # include "exec.h"
+# include "builtins.h"
 # include <stdio.h>
 # include <signal.h>
 # include <unistd.h>

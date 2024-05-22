@@ -53,6 +53,7 @@ typedef struct s_tree
 
 typedef struct s_exec
 {
+	//t_tree	*cmd;
 	char	*complete_path;
 	char	**paths;
 	char	**env;

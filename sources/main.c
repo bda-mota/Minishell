@@ -72,14 +72,12 @@ void	manipulate_tokens(t_token **token, t_tree **root, char *input)
 	inspect_types(token);
 	rearrange_tokens(token);
 	build_tree(root, token, LEFT);
-	//traverse_tree(root);
-	//chamar a função que vai percorrer a árvore e executar o comandos -> tem que começar do final da árvore
-	curr = *root;
 	find_path(&execution);
+	curr = traverse_tree(root);
 	while (curr)
 	{
 		implement(&execution, curr->content);
-		curr = curr->left;
+		curr = traverse_tree(root);
 	}
 	down_tree(root);
 	root = NULL;

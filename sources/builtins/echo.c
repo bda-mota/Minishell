@@ -7,7 +7,6 @@ void	echo(t_token **tokens)
 
 	curr = *tokens;
 	flag = 0;
-
 	while (curr && ft_strcmp("-n", curr->content) == 0)
 	{
 		flag = 1;

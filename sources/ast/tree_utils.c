@@ -64,12 +64,18 @@ void	aux_pull_all_together(t_token **new, t_token **curr)
 	}
 }
 
-void	traverse_tree(t_tree **root)
+t_tree	*traverse_tree(t_tree **root)
 {
+	t_tree	*last;
+
+	last = NULL;
 	if (*root == NULL)
-		return ;
-	traverse_tree(&(*root)->left);
-	traverse_tree(&(*root)->right);
-	//if ((*root)->content)
-	//	ft_printf_fd("%s\n", (*root)->content, 1);
+		return (NULL);
+	if ((*root)->left != NULL)
+		last = traverse_tree(&(*root)->left);
+	if (!last && (*root)->right != NULL)
+		last = traverse_tree(&(*root)->right);
+	if (!last)
+		last = *root;
+	return (last);
 }
