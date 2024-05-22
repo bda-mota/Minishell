@@ -2,7 +2,7 @@
 
 // Reformular para encontrar na árvore e identificar se é builtin a partir deste ponto
 
-void	find_builtins(t_token **token)
+void	find_builtins(t_token **token, t_exec *env_copy)
 {
 	t_token	*curr;
 
@@ -14,7 +14,9 @@ void	find_builtins(t_token **token)
 		if (ft_strcmp("pwd", curr->content) == 0)
 			pwd();
 		if (ft_strcmp("export", curr->content) == 0)
-			export(&curr->next);
+			export(curr->next->content);
+		if (ft_strcmp("env", curr->content) == 0)
+			env(env_copy);
 		curr = curr->next;
 	}
 }

@@ -4,7 +4,7 @@
 # include "../libft/src/libft.h"
 # include "structs.h"
 
-void	find_builtins(t_token **token);
+void	find_builtins(t_token **token, t_exec *env_copy);
 void	echo(t_token **tokens);
 void	env(t_exec *env);
 void	pwd(void);

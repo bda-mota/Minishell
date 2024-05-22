@@ -67,7 +67,7 @@ void	manipulate_tokens(t_token **token, t_tree **root, char *input)
 	if (!execution)
 		return ;
 	course_inputs(token, input);
-	get_expand_variable(token);
+	find_builtins(token, execution);
 	inspect_types(token);
 	rearrange_tokens(token);
 	build_tree(root, token, LEFT);
