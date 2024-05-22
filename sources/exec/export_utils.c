@@ -76,16 +76,3 @@ char	**add_variable_to_environ(char **environ_copy, char *new_var)
 	free(environ_copy);
 	return (new_environ);
 }
-
-// void    free_environ(char **environ)
-// {
-//     int i;
-
-//     i = 0;
-//     while (environ[i]) 
-//     {
-//         free(environ[i]);
-//         i++;
-//     }
-//     free(environ);
-// }

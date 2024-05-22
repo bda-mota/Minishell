@@ -22,20 +22,3 @@ char	**export(char *new_variable)
 	}
 	return (new_environ);
 }
-/*
-int	main(void)
-{
-	char	**env;
-	char	**tmp;
-
-	env = export("NEW_VALUE=42");
-	tmp = env;
-	while (*tmp)
-	{
-		printf("%s\n", *tmp);
-		tmp++;
-	}
-	free_environ(env);
-	return (0);
-}
-*/

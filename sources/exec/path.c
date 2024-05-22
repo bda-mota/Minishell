@@ -1,21 +1,19 @@
 #include "../../includes/minishell.h"
 
-extern char	**environ;
-
 void	find_path(t_exec **execution)
 {
 	int		i;
 	char	**env;
 
 	i = 0;
-	env = environ;
+	env = __environ;
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 			(*execution)->complete_path = (env[i] + 5);
 		i++;
 	}
-	(*execution)->env = environ;
+	(*execution)->env = __environ;
 	build_path(execution);
 }
 

@@ -13,7 +13,7 @@ char	*get_expand_variable(t_token **token)
 	while (curr)
 	{
 		expand_variable = getenv(curr->content + 1);
-		if(expand_variable)
+		if (expand_variable)
 			ft_printf_fd("%s\n", expand_variable);
 		curr = curr->next;
 	}
