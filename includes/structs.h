@@ -59,6 +59,8 @@ typedef struct s_exec
 	char	**env;
 	char	**env_copy;
 	char	**command_child;
+	int		tube[2];
+	int		pipe_fd;
 }	t_exec;
 
 #endif

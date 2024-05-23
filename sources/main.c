@@ -67,12 +67,12 @@ void	manipulate_tokens(t_token **token, t_tree **root, char *input)
 	if (!execution)
 		return ;
 	course_inputs(token, input);
-	find_builtins(token, &execution);
+	//find_builtins(token, &execution);
 	inspect_types(token);
 	rearrange_tokens(token);
 	build_tree(root, token, LEFT);
 	find_path(&execution);
-	direct_to_exec(root, &execution);
+	//direct_to_exec(root, &execution);
 	down_tree(root);
 	root = NULL;
 }
