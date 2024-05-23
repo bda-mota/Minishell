@@ -38,6 +38,7 @@ static char	*prompt(void)
 {
 	t_minishell	shell;
 
+	shell.env_copy = copy_environ();
 	while (1)
 	{
 		shell.exec = NULL;
@@ -60,6 +61,7 @@ static char	*prompt(void)
 void	manipulate_tokens(t_minishell *shell)
 {
 	course_inputs(shell);
+	//build_path(shell);
 	//find_builtins(&shell->token, &shell->exec);
 	inspect_types(&shell->token);
 	rearrange_tokens(&shell->token);

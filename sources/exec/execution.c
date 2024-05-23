@@ -6,13 +6,9 @@ void	direct_to_exec(t_tree **root, t_exec **execution)
 
 	aux = traverse_tree(root);
 	if (aux->type == PIPE)
-	{
 		pipe_execution(aux, execution);
-	}
 	else
-	{
 		implement(execution, aux->content);
-	}
 }
 
 void	implement(t_exec **execution, char *command)

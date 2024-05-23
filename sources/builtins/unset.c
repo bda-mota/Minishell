@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void	unset(t_exec *env, char *remove_var)
+void	unset(t_minishell *env, char *remove_var)
 {
 	int	i;
 	int	j;

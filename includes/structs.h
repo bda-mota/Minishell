@@ -47,13 +47,10 @@ typedef struct s_tree
 
 typedef struct s_exec
 {
-	//t_tree	*cmd;
 	char	*complete_path;
 	char	**paths;
 	char	**env;
-	char	**env_copy;
 	char	**command_child;
-	int		tube[2];
 	int		pipe_fd;
 }	t_exec;
 
@@ -62,6 +59,7 @@ typedef struct s_minishell
 	t_tree	*tree;
 	t_exec	*exec;
 	t_token	*token;
+	char	**env_copy;
 	char	*input;
 }	t_minishell;
 
