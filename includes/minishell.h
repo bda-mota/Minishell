@@ -19,7 +19,7 @@
 # define WHITE	"\033[1;37m"
 # define WARNING_OR "The BaBy do not work with '||' or '&&'\n"
 
-void	manipulate_tokens(t_token **token, t_tree **root, char *input);
+void	manipulate_tokens(t_minishell *shell);
 
 //UTILS
 void	display_error(char *error, char c);
@@ -30,5 +30,7 @@ int		get_list_size(t_token *list);
 
 /* EXCLUIR AO FINAL DO PROJETO */
 void	print_list(t_token **lst);
+void	print_tree(t_tree *tree);
+
 
 #endif

@@ -36,50 +36,36 @@ int	main(void)
 
 static char	*prompt(void)
 {
-	t_token	*token;
-	char	*input;
-	t_tree	*root;
+	t_minishell	shell;
 
-	root = NULL;
+	shell.token = NULL;
+	shell.tree = NULL;
+	shell.exec = NULL;
 	while (1)
 	{
-		token = NULL;
-		input = readline(PURPLE"$BaByshell: "WHITE);
-		add_history(input);
-		if (input == NULL || !ft_strcmp(input, "exit"))
+		shell.input = readline(PURPLE"$BaByshell: "WHITE);
+		add_history(shell.input);
+		if (shell.input == NULL || !ft_strcmp(shell.input, "exit"))
 		{
-			free(input);
+			free(shell.input);
 			rl_clear_history();
-			deallocate_lst(&token);
 			return (NULL);
 		}
-		manipulate_tokens(&token, &root, input);
-		free(input);
+		manipulate_tokens(&shell);
+		free(shell.input);
 	}
 	return (NULL);
 }
 
-void	manipulate_tokens(t_token **token, t_tree **root, char *input)
+void	manipulate_tokens(t_minishell *shell)
 {
-	t_exec	*execution;
-
-	execution = ft_calloc(sizeof(t_exec), 1);
-	if (!execution)
-		return ;
-	course_inputs(token, input);
-	//find_builtins(token, &execution);
-	inspect_types(token);
-	rearrange_tokens(token);
-	build_tree(root, token, LEFT);
-	find_path(&execution);
-	//direct_to_exec(root, &execution);
-	down_tree(root);
-	root = NULL;
+	course_inputs(&shell->token, shell->input);
+	//find_builtins(&shell->token, &shell->exec);
+	inspect_types(&shell->token);
+	rearrange_tokens(&shell->token);
+	build_tree(&shell->tree, &shell->token, LEFT);
+	print_tree(shell->tree);
+	//find_path(&(*shell)->exec);
+	//direct_to_exec(&(*shell)->tree, &(*shell)->exec);
+	down_tree(&shell->tree);
 }
-
-	// curr = traverse_tree(root);
-	// while (curr)
-	// {
-	// 	implement(&execution, curr->content);
-	// 	curr = traverse_tree(root);
-	// }

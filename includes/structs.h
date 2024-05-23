@@ -3,6 +3,7 @@
 
 # include "../libft/src/libft.h"
 
+/* ======= ENUMS ======== */
 enum e_numerator
 {
 	SSPACE,
@@ -36,13 +37,6 @@ typedef struct s_token
 }	t_token;
 
 /* ======== AST ======== */
-typedef struct s_data_token
-{ // struct não implementada ainda
-	int		size;
-	t_token	*first;
-	t_token	*last;
-}	t_data_token;
-
 typedef struct s_tree
 {
 	int				type;
@@ -62,5 +56,13 @@ typedef struct s_exec
 	int		tube[2];
 	int		pipe_fd;
 }	t_exec;
+
+typedef struct s_minishell
+{
+	t_tree	*tree;
+	t_exec	*exec;
+	t_token	*token;
+	char	*input;
+}	t_minishell;
 
 #endif

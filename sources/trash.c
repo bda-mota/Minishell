@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trash.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: bsantana <bsantana@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:17:58 by bsantana          #+#    #+#             */
-/*   Updated: 2024/05/15 12:06:09 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:00:22 by bsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,15 @@ void	print_list(t_token **lst)
 		printf("- - - - - - - - - - - - - - \n");
 		current = current->next;
 	}
+}
+
+void	print_tree(t_tree *tree)
+{
+	if (tree == NULL)
+		return ;
+	print_tree(tree->left);
+	printf("%s\n", tree->content);
+	print_tree(tree->right);
 }
 
 static char	*find_type(int type)
