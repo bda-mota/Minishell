@@ -50,7 +50,7 @@ int		catalog_inputs(char *c, size_t *i);
 /*
  * Identifies the type of entry to insert into the token list.
  */
-void	course_inputs(t_token **token, char *input);
+void	course_inputs(t_minishell *shell);
 /**** SEPARATORS ****/
 /*
  * Handle the processing of a quote in the

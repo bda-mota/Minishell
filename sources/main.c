@@ -38,11 +38,11 @@ static char	*prompt(void)
 {
 	t_minishell	shell;
 
-	shell.token = NULL;
-	shell.tree = NULL;
-	shell.exec = NULL;
 	while (1)
 	{
+		shell.exec = NULL;
+		shell.token = NULL;
+		shell.tree = NULL;
 		shell.input = readline(PURPLE"$BaByshell: "WHITE);
 		add_history(shell.input);
 		if (shell.input == NULL || !ft_strcmp(shell.input, "exit"))
@@ -59,13 +59,14 @@ static char	*prompt(void)
 
 void	manipulate_tokens(t_minishell *shell)
 {
-	course_inputs(&shell->token, shell->input);
+	course_inputs(shell);
 	//find_builtins(&shell->token, &shell->exec);
 	inspect_types(&shell->token);
 	rearrange_tokens(&shell->token);
 	build_tree(&shell->tree, &shell->token, LEFT);
-	print_tree(shell->tree);
+	//print_tree(shell->tree);
 	//find_path(&(*shell)->exec);
 	//direct_to_exec(&(*shell)->tree, &(*shell)->exec);
-	down_tree(&shell->tree);
+	down_tree(&(shell->tree));
+	shell->tree = NULL;
 }

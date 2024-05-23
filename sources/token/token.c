@@ -37,47 +37,30 @@ void	handle_quotes(t_token **token, char *input, size_t *i)
 		handle_simple(token, input, &(*i), size_simple);
 }
 
-void	course_inputs(t_token **token, char *input)
+void	course_inputs(t_minishell *shell)
 {
 	size_t	i;
 
 	i = 0;
-	if (check_sintax(input) == 1)
+	if (check_sintax(shell->input) == 1)
 		return ;
-	while (input[i] && (i != ft_strlen(input)))
+	while (shell->input[i] && (i != ft_strlen(shell->input)))
 	{
-		handle_quotes(token, input, &i);
-		if (catalog_inputs(input, &i) == WORD)
-			handle_word(token, input, &i);
-		else if (catalog_inputs(input, &i) == PIPE)
-			handle_pipe(token, input, &i);
-		else if (catalog_inputs(input, &i) == INPUT)
-			handle_input(token, input, &i);
-		else if (catalog_inputs(input, &i) == OUTPUT)
-			handle_output(token, input, &i);
-		else if (catalog_inputs(input, &i) == HEREDOC)
-			handle_heredoc(token, input, &i);
-		else if (catalog_inputs(input, &i) == APPEND)
-			handle_append(token, input, &i);
-		else if (catalog_inputs(input, &i) == BLOCK)
-			handle_block(token, input, &i);
+		handle_quotes(&shell->token, shell->input, &i);
+		if (catalog_inputs(shell->input, &i) == WORD)
+			handle_word(&shell->token, shell->input, &i);
+		else if (catalog_inputs(shell->input, &i) == PIPE)
+			handle_pipe(&shell->token, shell->input, &i);
+		else if (catalog_inputs(shell->input, &i) == INPUT)
+			handle_input(&shell->token, shell->input, &i);
+		else if (catalog_inputs(shell->input, &i) == OUTPUT)
+			handle_output(&shell->token, shell->input, &i);
+		else if (catalog_inputs(shell->input, &i) == HEREDOC)
+			handle_heredoc(&shell->token, shell->input, &i);
+		else if (catalog_inputs(shell->input, &i) == APPEND)
+			handle_append(&shell->token, shell->input, &i);
+		else if (catalog_inputs(shell->input, &i) == BLOCK)
+			handle_block(&shell->token, shell->input, &i);
 		i++;
 	}
 }
-
-// int	significant_tokens(t_token *tokens)
-// {
-// 	int		count;
-// 	t_token	*curr;
-
-// 	count = 0;
-// 	curr = tokens;
-// 	while (curr != NULL)
-// 	{
-// 		if (curr->type != WORD && curr->type != SIMPLE
-// 			&& curr->type != DOUBLE && curr->type != BLOCK)
-// 			count++;
-// 		curr = curr->next;
-// 	}
-// 	return (count);
-// }
