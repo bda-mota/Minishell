@@ -1,27 +1,13 @@
 #include "../../includes/minishell.h"
 
-void	env(t_minishell *env)
+void	env(t_minishell *shell)
 {
-	char	**env_original;
-	int		i;
+	int	i;
 
-	env_original = __environ;
 	i = 0;
-	if (env->env_copy)
+	while (shell->env_copy[i])
 	{
-		while (env_original[i])
-		{
-			ft_printf_fd("%s\n", env_original[i], 1);
-			i++;
-		}
-	}
-	else
-	{
-		i = 0;
-		while (env->env_copy[i])
-		{
-			ft_printf_fd("%s\n", env->env_copy[i], 1);
-			i++;
-		}
+		ft_printf_fd("%s\n", shell->env_copy[i], 1);
+		i++;
 	}
 }

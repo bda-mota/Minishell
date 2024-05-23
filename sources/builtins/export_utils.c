@@ -58,21 +58,21 @@ char	**create_new_environ(char **environ_copy, int num_vars)
 	return (new_environ);
 }
 
-char	**add_variable_to_environ(char **environ_copy, char *new_var)
+void	add_variable_to_environ(t_minishell *shell, char *new_var)
 {
 	char	**new_environ;
 	int		num_vars;
 
 	num_vars = 0;
-	while (environ_copy[num_vars])
+	while (shell->env_copy[num_vars])
 		num_vars++;
-	new_environ = create_new_environ(environ_copy, num_vars);
+	new_environ = create_new_environ(shell->env_copy, num_vars);
 	new_environ[num_vars] = ft_strdup(new_var);
 	if (!new_environ[num_vars])
 	{
 		free(new_environ);
-		return (NULL);
+		return ;
 	}
-	free(environ_copy);
-	return (new_environ);
+	free(shell->env_copy);
+	shell->env_copy = new_environ;
 }

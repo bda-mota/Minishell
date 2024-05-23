@@ -62,7 +62,7 @@ void	manipulate_tokens(t_minishell *shell)
 {
 	course_inputs(shell);
 	//build_path(shell);
-	//find_builtins(&shell->token, &shell->exec);
+	find_builtins(shell);
 	inspect_types(&shell->token);
 	rearrange_tokens(&shell->token);
 	build_tree(&shell->tree, &shell->token, LEFT);
