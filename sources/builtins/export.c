@@ -12,8 +12,10 @@ void	export(char *new_variable)
 	char	**original_environ;
 	char	**new_environ;
 	t_exec	*env;
+	int		i;
 
-	env = NULL;
+	i = 0;
+	env = ft_calloc(1, sizeof(t_exec));
 	original_environ = copy_environ();
 	new_environ = add_variable_to_environ(original_environ, new_variable);
 	if (!new_environ)
