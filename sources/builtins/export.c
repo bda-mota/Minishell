@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void	export(char *new_variable, t_minishell *shell)
+void	export(t_minishell *shell, char *new_variable)
 {
 	add_variable_to_environ(shell, new_variable);
 }
