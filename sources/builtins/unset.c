@@ -20,7 +20,6 @@ void	unset(t_minishell *shell, char *remove_var)
 				shell->env_copy[j] = shell->env_copy[j + 1];
 				j++;
 			}
-			continue ;
 		}
 		i++;
 	}

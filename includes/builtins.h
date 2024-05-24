@@ -14,5 +14,6 @@ char	**copy_environ(void);
 char	**create_new_environ(char **my_environ, int num_vars);
 void	add_variable_to_environ(t_minishell *shell, char *new_var);
 void	unset(t_minishell *env, char *remove_var);
+void	cd(char *path);
 
 #endif
