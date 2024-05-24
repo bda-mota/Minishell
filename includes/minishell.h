@@ -20,9 +20,11 @@
 # define WARNING_OR "The BaBy do not work with '||' or '&&'\n"
 
 void	manipulate_tokens(t_minishell *shell);
+void	free_minishell(t_minishell *shell);
 
 //UTILS
-void	display_error(char *error, char c);
+void	display_error_tokens(char *error, char c);
+void	display_error_exec(char *error, char *str);
 void	found_sintaxe(char *str, t_token **token_tail, t_token **token_h);
 t_token	*get_last_node(t_token **list);
 t_token	*get_first_node(t_token **list);

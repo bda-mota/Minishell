@@ -14,9 +14,12 @@ void	find_builtins(t_token **token, t_minishell **env)
 		if (ft_strcmp("pwd", curr->content) == 0)
 			pwd();
 		if (ft_strcmp("export", curr->content) == 0)
-			export(curr->next->content, (*env)->env_copy);
+			return ;
 		if (ft_strcmp("env", curr->content) == 0)
-			env((*env)->env_copy);
+			return ;
 		curr = curr->next;
+			//env((*env)->env_copy);
+			//export(curr->next->content, (*env)->env_copy);
+		(void)env;
 	}
 }

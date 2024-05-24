@@ -66,16 +66,7 @@ void	aux_pull_all_together(t_token **new, t_token **curr)
 
 t_tree	*traverse_tree(t_tree **root)
 {
-	t_tree	*last;
-
-	last = NULL;
 	if (*root == NULL)
 		return (NULL);
-	if ((*root)->left != NULL)
-		last = traverse_tree(&(*root)->left);
-	if (!last && (*root)->right != NULL)
-		last = traverse_tree(&(*root)->right);
-	if (!last)
-		last = *root;
-	return (last);
+	return (*root);
 }

@@ -37,7 +37,7 @@ void	handle_quotes(t_token **token, char *input, size_t *i)
 		handle_simple(token, input, &(*i), size_simple);
 }
 
-void	course_inputs(t_minishell *shell)
+void	tokenizer(t_minishell *shell)
 {
 	size_t	i;
 

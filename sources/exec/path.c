@@ -1,6 +1,14 @@
 #include "../../includes/minishell.h"
 
-void	find_path(t_exec **execution)
+static void	copy_path(t_minishell *shell, char *path)
+{
+	if (shell->exec == NULL)
+		shell->exec = ft_calloc(sizeof(t_exec), 1);
+	shell->exec->complete_path = path;
+	build_path(shell->exec);
+}
+
+void	find_path(t_minishell *shell)
 {
 	int		i;
 	char	**env;
@@ -10,29 +18,31 @@ void	find_path(t_exec **execution)
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			(*execution)->complete_path = (env[i] + 5);
+		{
+			copy_path(shell, (env[i] + 5));
+			break ;
+		}
 		i++;
 	}
-	(*execution)->env = __environ;
-	build_path(execution);
+	shell->exec->env = env;
 }
 
-void	build_path(t_exec **execution)
+void	build_path(t_exec *execution)
 {
 	int		i;
 	char	*aux;
 
 	i = 0;
-	(*execution)->paths = ft_split((*execution)->complete_path, ':');
-	if ((*execution)->paths == NULL)
-		printf("error\n");
-	while ((*execution)->paths[i])
+	execution->paths = ft_split(execution->complete_path, ':');
+	if (execution->paths == NULL)
+		printf("error ao dar split\n");
+	while (execution->paths[i])
 	{
-		aux = ft_strdup((*execution)->paths[i]);
+		aux = ft_strdup(execution->paths[i]);
 		if (aux == NULL)
 			break ;
-		free((*execution)->paths[i]);
-		(*execution)->paths[i] = ft_strjoin(aux, "/");
+		free(execution->paths[i]);
+		execution->paths[i] = ft_strjoin(aux, "/");
 		free(aux);
 		i++;
 	}
@@ -60,5 +70,6 @@ char	*add_command_to_path(t_exec **execution, char *cmd)
 		i++;
 	}
 	ft_free_matrix(take_first);
-	return (cmd); // aqui estava retornando NULL
+	display_error_exec("command not found", cmd);
+	return (NULL);
 }

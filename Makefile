@@ -16,7 +16,7 @@ OBJ_PATH	:= objects
 CFILES		:= trash.c main.c \
 				token/token.c token/linked_list_token.c token/1_handle_inputs.c token/2_handle_inputs.c \
 				token/quotes_aux.c token/check_inputs.c token/rearrange.c token/rearrange_utils.c\
-				utils/error.c utils/get_last_node.c utils/get_first_node.c utils/get_list_size.c \
+				utils/error.c utils/get_last_node.c utils/get_first_node.c utils/get_list_size.c utils/free_minishell.c\
 				ast/build_tree.c ast/tree_utils.c \
 				exec/execution.c exec/path.c exec/variable_expansion.c builtins/echo.c builtins/export.c exec/pipe.c \
 				builtins/export_utils.c builtins/pwd.c builtins/unset.c builtins/env.c builtins/get_input.c

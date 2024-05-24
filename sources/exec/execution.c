@@ -5,10 +5,15 @@ void	direct_to_exec(t_tree **root, t_exec **execution)
 	t_tree	*aux;
 
 	aux = traverse_tree(root);
+	(void)execution;
 	if (aux->type == PIPE)
+	{
 		pipe_execution(aux, execution);
+	}
 	else
+	{
 		implement(execution, aux->content);
+	}
 }
 
 void	implement(t_exec **execution, char *command)
@@ -21,10 +26,10 @@ void	implement(t_exec **execution, char *command)
 	{
 		(*execution)->command_child = ft_split(command, ' ');
 		if ((*execution)->command_child == NULL)
-			printf("Error\n");
+			printf("Error ao dar split\n");
 		executable = check_command((*execution));
 		if (executable == NULL)
-			printf("Error\n");
+			exit(1);
 		execve(executable, (*execution)->command_child, (*execution)->env);
 	}
 	wait(NULL);

@@ -48,27 +48,26 @@ static char	*prompt(void)
 		add_history(shell.input);
 		if (shell.input == NULL || !ft_strcmp(shell.input, "exit"))
 		{
-			free(shell.input);
 			rl_clear_history();
+			free_minishell(&shell);
 			return (NULL);
 		}
 		manipulate_tokens(&shell);
 		free(shell.input);
 	}
+	free_minishell(&shell);
 	return (NULL);
 }
 
 void	manipulate_tokens(t_minishell *shell)
 {
-	course_inputs(shell);
-	//build_path(shell);
+	tokenizer(shell);
 	//find_builtins(&shell->token, &shell->exec);
 	inspect_types(&shell->token);
 	rearrange_tokens(&shell->token);
 	build_tree(&shell->tree, &shell->token, LEFT);
-	//print_tree(shell->tree);
-	//find_path(&(*shell)->exec);
-	//direct_to_exec(&(*shell)->tree, &(*shell)->exec);
+	find_path(shell);
+	direct_to_exec(&(shell)->tree, &(shell)->exec);
 	down_tree(&(shell->tree));
 	shell->tree = NULL;
 }

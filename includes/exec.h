@@ -5,8 +5,8 @@
 # include "structs.h"
 
 /* PATH */
-void	find_path(t_exec **execution);
-void	build_path(t_exec **execution);
+void	find_path(t_minishell *shell);
+void	build_path(t_exec *execution);
 char	*add_command_to_path(t_exec **execution, char *cmd);
 
 /* EXPANSION */

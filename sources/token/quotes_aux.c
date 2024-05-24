@@ -42,9 +42,9 @@ int	check_quotes(char *input)
 			i++;
 	}
 	if (d_quotes % 2 != 0)
-		display_error("sintaxe", '"');
+		display_error_tokens("sintaxe", '"');
 	else if (s_quotes % 2 != 0)
-		display_error("sintaxe", '\'');
+		display_error_tokens("sintaxe", '\'');
 	else
 		return (1);
 	return (0);

@@ -43,7 +43,7 @@ int	check_blocks(char *input)
 	}
 	if (block == 0 && block % 2 == 0)
 		return (1);
-	display_error("sintaxe", '(');
+	display_error_tokens("sintaxe", '(');
 	return (0);
 }
 
@@ -61,15 +61,15 @@ int	check_sintax(char *input)
 int	check_untreatable(char *input)
 {
 	if (ft_strstr(input, "<<<"))
-		display_error("sintaxe", '<');
+		display_error_tokens("sintaxe", '<');
 	else if (ft_strstr(input, ">>>"))
-		display_error("sintaxe", '>');
+		display_error_tokens("sintaxe", '>');
 	else if (ft_strstr(input, "||"))
-		display_error("||", '|');
+		display_error_tokens("||", '|');
 	else if (ft_strstr(input, "|||"))
-		display_error("sintaxe", '|');
+		display_error_tokens("sintaxe", '|');
 	else if (ft_strstr(input, "&&"))
-		display_error("&&", '&');
+		display_error_tokens("&&", '&');
 	else
 		return (1);
 	return (0);
