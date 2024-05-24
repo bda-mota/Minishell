@@ -1,13 +1,5 @@
 #include "../../includes/minishell.h"
 
-static void	copy_path(t_minishell *shell, char *path)
-{
-	if (shell->exec == NULL)
-		shell->exec = ft_calloc(sizeof(t_exec), 1);
-	shell->exec->complete_path = path;
-	build_path(shell->exec);
-}
-
 void	find_path(t_minishell *shell)
 {
 	int		i;
@@ -15,61 +7,61 @@ void	find_path(t_minishell *shell)
 
 	i = 0;
 	env = __environ;
-	while (env[i])
+	if (!shell->complete_path)
 	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
+		while (env[i])
 		{
-			copy_path(shell, (env[i] + 5));
-			break ;
+			if (ft_strncmp(env[i], "PATH=", 5) == 0)
+			{
+				shell->complete_path = (env[i] + 5);
+				break ;
+			}
+			i++;
 		}
-		i++;
 	}
-	shell->exec->env = env;
+	if (!shell->paths)
+		build_path(shell);
 }
 
-void	build_path(t_exec *execution)
+void	build_path(t_minishell *shell)
 {
 	int		i;
 	char	*aux;
 
 	i = 0;
-	execution->paths = ft_split(execution->complete_path, ':');
-	if (execution->paths == NULL)
+	shell->paths = ft_split(shell->complete_path, ':');
+	if (shell->paths == NULL)
 		printf("error ao dar split\n");
-	while (execution->paths[i])
+	while (shell->paths[i])
 	{
-		aux = ft_strdup(execution->paths[i]);
+		aux = ft_strdup(shell->paths[i]);
 		if (aux == NULL)
 			break ;
-		free(execution->paths[i]);
-		execution->paths[i] = ft_strjoin(aux, "/");
+		free(shell->paths[i]);
+		shell->paths[i] = ft_strjoin(aux, "/");
 		free(aux);
 		i++;
 	}
 }
 
-char	*add_command_to_path(t_exec **execution, char *cmd)
+void	copy_path_to_exec(t_minishell *shell)
 {
-	int		i;
-	char	*aux_cmd;
-	char	**take_first;
+	int	i;
+	int	len;
 
 	i = 0;
-	take_first = ft_split(cmd, ' ');
-	if (take_first == NULL)
-		printf("error\n");
-	while ((*execution)->paths[i])
+	len = 0;
+	while (shell->paths[len])
+		len++;
+	shell->exec->path_cmd = ft_calloc(len + 1, sizeof(char *));
+	if (shell->exec->path_cmd == NULL)
+		printf("error ao alocar path_cmd\n");
+	while (shell->paths[i])
 	{
-		aux_cmd = ft_strjoin((*execution)->paths[i], take_first[0]);
-		if (access(aux_cmd, X_OK) == 0)
-		{
-			ft_free_matrix(take_first);
-			return (aux_cmd);
-		}
-		free(aux_cmd);
+		shell->exec->path_cmd[i] = ft_strdup(shell->paths[i]);
+		if (shell->exec->path_cmd[i] == NULL)
+			printf("error ao dar strdup\n");
 		i++;
 	}
-	ft_free_matrix(take_first);
-	display_error_exec("command not found", cmd);
-	return (NULL);
+	shell->exec->path_cmd[i] = NULL;
 }

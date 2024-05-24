@@ -5,18 +5,10 @@ void	free_minishell(t_minishell *shell)
 	int	i;
 
 	i = 0;
-	if (shell->exec && shell->exec->paths)
-	{
-		while (shell->exec->paths[i])
-		{
-			free(shell->exec->paths[i]);
-			i++;
-		}
-	}
-	if (shell->exec && shell->exec->complete_path)
-		free(shell->exec->complete_path);
-	if (shell->exec && shell->exec->command_child)
-		free(shell->exec->command_child);
+	if (shell->paths)
+		ft_free_matrix(shell->paths);
+	if (shell->exec && shell->complete_path)
+		free(shell->complete_path);
 	if (shell->exec)
 		free(shell->exec);
 	if (shell->input)

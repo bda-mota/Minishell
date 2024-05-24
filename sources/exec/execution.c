@@ -1,48 +1,40 @@
 #include "../../includes/minishell.h"
 
-void	direct_to_exec(t_tree **root, t_exec **execution)
+void	direct_to_exec(t_minishell *shell)
 {
 	t_tree	*aux;
 
-	aux = traverse_tree(root);
-	(void)execution;
+	aux = traverse_tree(&shell->tree);
 	if (aux->type == PIPE)
 	{
-		pipe_execution(aux, execution);
+		return ;
+		//pipe_execution(aux, shell->exec);
 	}
 	else
 	{
-		implement(execution, aux->content);
+		//checar se é builtin, se não for mandar para execute
+		execute(shell, aux->content);
 	}
 }
 
-void	implement(t_exec **execution, char *command)
+void	execute(t_minishell *shell, char *command)
 {
 	char	*executable;
 	int		pid;
 
+	shell->exec = ft_calloc(1, sizeof(t_exec));
+	if (shell->exec == NULL)
+		printf("Error ao alocar exec\n");
 	pid = fork();
 	if (pid == 0)
 	{
-		(*execution)->command_child = ft_split(command, ' ');
-		if ((*execution)->command_child == NULL)
+		shell->exec->command_child = ft_split(command, ' ');
+		if (shell->exec->command_child == NULL)
 			printf("Error ao dar split\n");
-		executable = check_command((*execution));
+		executable = check_command(shell);
 		if (executable == NULL)
-			exit(1);
-		execve(executable, (*execution)->command_child, (*execution)->env);
+			return ;
+		execve(executable, shell->exec->command_child, shell->env_copy);
 	}
 	wait(NULL);
-}
-
-char	*check_command(t_exec *execution)
-{
-	char	*command;
-	char	*complete_command;
-
-	command = execution->command_child[0];
-	if (access(command, X_OK) == 0)
-		return (command);
-	complete_command = add_command_to_path(&execution, command);
-	return (complete_command);
 }

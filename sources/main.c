@@ -39,11 +39,10 @@ static char	*prompt(void)
 	t_minishell	shell;
 
 	shell.env_copy = copy_environ();
+	init_shell(&shell);
 	while (1)
 	{
-		shell.exec = NULL;
-		shell.token = NULL;
-		shell.tree = NULL;
+		init_structs(&shell);
 		shell.input = readline(PURPLE"$BaByshell: "WHITE);
 		add_history(shell.input);
 		if (shell.input == NULL || !ft_strcmp(shell.input, "exit"))
@@ -53,7 +52,7 @@ static char	*prompt(void)
 			return (NULL);
 		}
 		manipulate_tokens(&shell);
-		free(shell.input);
+		free_execution(shell.exec, shell.input);
 	}
 	free_minishell(&shell);
 	return (NULL);
@@ -66,8 +65,9 @@ void	manipulate_tokens(t_minishell *shell)
 	inspect_types(&shell->token);
 	rearrange_tokens(&shell->token);
 	build_tree(&shell->tree, &shell->token, LEFT);
-	find_path(shell);
-	direct_to_exec(&(shell)->tree, &(shell)->exec);
+	if (!shell->complete_path)
+		find_path(shell);
+	direct_to_exec(shell);
 	down_tree(&(shell->tree));
 	shell->tree = NULL;
 }

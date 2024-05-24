@@ -47,9 +47,8 @@ typedef struct s_tree
 
 typedef struct s_exec
 {
-	char	*complete_path;
-	char	**paths;
-	char	**env;
+
+	char	**path_cmd;
 	char	**command_child;
 	int		pipe_fd;
 }	t_exec;
@@ -59,8 +58,10 @@ typedef struct s_minishell
 	t_tree	*tree;
 	t_exec	*exec;
 	t_token	*token;
-	char	**env_copy;
 	char	*input;
+	char	*complete_path; // caminho de PATH= - > dar free só no final (?)
+	char	**env_copy; // copia do env com as variáveis de ambiente -> builtins (usar no execve?)
+	char	**paths; // path splitado e com / no final -> dar free só no final
 }	t_minishell;
 
 #endif
