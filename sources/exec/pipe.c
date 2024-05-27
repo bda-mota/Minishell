@@ -35,4 +35,6 @@ void	pipe_execution(t_tree *left, t_tree *right)
 	}
 	close(tube[0]);
 	close(tube[1]);
+	waitpid(pid[0], NULL, 0);
+	waitpid(pid[1], NULL, 0);
 }
