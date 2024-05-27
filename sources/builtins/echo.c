@@ -1,23 +1,26 @@
 #include "../../includes/minishell.h"
 
-void	echo(t_token **tokens)
+void	echo(char *args)
 {
-	t_token	*curr;
-	int		flag;
+	int	i;
+	int	flag;
 
-	curr = *tokens;
+	i = 0;
 	flag = 0;
-	while (curr && ft_strcmp("-n", curr->content) == 0)
+	while (args[i] == ' ')
+		i++;
+	if (ft_strncmp(args + i, "-n", 2) == 0
+		&& (args[i + 2] == ' ' || args[i + 2] == '\0'))
 	{
 		flag = 1;
-		curr = curr->next;
+		i += 2;
+		while (args[i] == ' ')
+			i++;
 	}
-	while (curr)
+	while (args[i])
 	{
-		ft_printf_fd("%s", curr->content);
-		if (curr->next != NULL)
-			ft_printf_fd(" ");
-		curr = curr->next;
+		ft_printf_fd("%c", args[i]);
+		i++;
 	}
 	if (!flag)
 		ft_printf_fd("\n");
