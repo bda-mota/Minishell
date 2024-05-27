@@ -52,7 +52,7 @@ static char	*prompt(void)
 			return (NULL);
 		}
 		manipulate_tokens(&shell);
-		free_execution(shell.exec, shell.input);
+		free_execution(shell.tree, shell.input);
 	}
 	free_minishell(&shell);
 	return (NULL);
@@ -66,7 +66,7 @@ void	manipulate_tokens(t_minishell *shell)
 	build_tree(&shell->tree, &shell->token, LEFT);
 	if (!shell->complete_path)
 		find_path(shell);
-	direct_to_exec(shell);
+	direct_to_exec(shell->tree);
 	down_tree(&(shell->tree));
 	shell->tree = NULL;
 }

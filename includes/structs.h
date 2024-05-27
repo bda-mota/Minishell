@@ -43,7 +43,6 @@ typedef struct s_tree
 	char			*content;
 	char			**path_cmd;
 	char			**command_child;
-	char			**env_copy;
 	struct s_tree	*right;
 	struct s_tree	*left;
 }	t_tree;

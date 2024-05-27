@@ -21,7 +21,7 @@
 
 /* ==== LIBERAR MEMÓRIA ==== */
 void	free_minishell(t_minishell *shell);
-void	free_execution(t_exec *execution, char *input);
+void	free_execution(t_tree *tree, char *input);
 
 /* ===== ERRORS =====*/
 void	display_error_tokens(char *error, char c);

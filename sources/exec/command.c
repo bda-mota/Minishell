@@ -1,19 +1,24 @@
 #include "../../includes/minishell.h"
 
-char	*check_command(t_minishell *shell)
+char	*check_command(t_tree *tree)
 {
 	char	*command;
 	char	*complete_command;
 
-	command = shell->exec->command_child[0];
+	command = tree->command_child[0];
 	if (access(command, X_OK) == 0)
 		return (command);
-	copy_path_to_exec(shell);
-	complete_command = find_command(shell->exec, command);
+	copy_path_to_exec(tree);
+	complete_command = find_command(tree, command);
+	if (complete_command == NULL)
+	{
+		ft_free_matrix(tree->path_cmd);
+		ft_free_matrix(tree->command_child);
+	}
 	return (complete_command);
 }
 
-char	*find_command(t_exec *execution, char *cmd)
+char	*find_command(t_tree *tree, char *cmd)
 {
 	int		i;
 	char	*aux_cmd;
@@ -23,9 +28,9 @@ char	*find_command(t_exec *execution, char *cmd)
 	take_first = ft_split(cmd, ' ');
 	if (take_first == NULL)
 		printf("error\n");
-	while (execution->path_cmd[i])
+	while (tree->path_cmd[i])
 	{
-		aux_cmd = ft_strjoin(execution->path_cmd[i], take_first[0]);
+		aux_cmd = ft_strjoin(tree->path_cmd[i], take_first[0]);
 		if (access(aux_cmd, X_OK) == 0)
 		{
 			ft_free_matrix(take_first);

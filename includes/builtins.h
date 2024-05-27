@@ -4,7 +4,7 @@
 # include "../libft/src/libft.h"
 # include "structs.h"
 
-void	find_builtins(t_minishell *shell);
+void	find_builtins(t_tree *tree);
 void	echo(t_token **tokens);
 void	env(t_minishell *env);
 void	pwd(void);
