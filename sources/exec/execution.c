@@ -24,7 +24,6 @@ void	execute(t_tree *tree, char *command)
 	pid = fork();
 	if (pid == 0)
 	{
-		//fprintf(stderr, "oi");
 		tree->command_child = ft_split(command, ' ');
 		if (tree->command_child == NULL)
 			printf("Error ao dar split\n");
@@ -32,7 +31,8 @@ void	execute(t_tree *tree, char *command)
 		if (executable == NULL)
 			return ;
 		execve(executable, tree->command_child, get_copy(NULL));
-		//exit(0);
+		//tratamento se o execve dar b.o;
 	}
+	//free_execution(tree, NULL);
 	wait(NULL);
 }

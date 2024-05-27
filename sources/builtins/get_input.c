@@ -40,7 +40,7 @@ void	find_builtins(t_minishell *shell, t_tree *tree)
 	command = cmd_args[0];
 	args = cmd_args[1];
 
-	if (is_bultin(command))
+	if (is_builtin(command))
 	{
 		if (ft_strcmp("echo", command) == 0)
 			echo(args);

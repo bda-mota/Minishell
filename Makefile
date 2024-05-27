@@ -82,6 +82,13 @@ fclean: clean
 	@echo "$(WHITE)    ✨ Cleaning - MINISHELL - complete! ✨"
 	@echo "                                     "
 
+val: $(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=.readline.supp ./$(NAME)
+
+clear:
+	clear
+	$(MAKE) all
+
 re: fclean all
 
 .PHONY: all, clean, fclean, re
