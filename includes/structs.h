@@ -47,10 +47,8 @@ typedef struct s_tree
 
 typedef struct s_exec
 {
-
 	char	**path_cmd;
 	char	**command_child;
-	int		pipe_fd;
 }	t_exec;
 
 typedef struct s_minishell

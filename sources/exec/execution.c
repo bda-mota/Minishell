@@ -1,23 +1,22 @@
 #include "../../includes/minishell.h"
 
-void	direct_to_exec(t_minishell *shell)
+int	direct_to_exec(t_tree *tree)
 {
-	t_tree	*aux;
-
-	aux = traverse_tree(&shell->tree);
-	if (aux->type == PIPE)
+	if (tree->type == PIPE)
 	{
+		pipe_execution(tree->left, tree->right);
 		return ;
-		//pipe_execution(aux, shell->exec);
+		//return (pipe_execution(tree->left, tree->right));
 	}
 	else
 	{
 		//checar se é builtin, se não for mandar para execute
-		execute(shell, aux->content);
+		execute(tree, tree->content);
 	}
 }
 
-void	execute(t_minishell *shell, char *command)
+//mudar
+void	execute(t_tree *tree, char *command)
 {
 	char	*executable;
 	int		pid;

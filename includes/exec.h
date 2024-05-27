@@ -9,8 +9,11 @@ char	*check_command(t_minishell *shell);
 char	*find_command(t_exec *execution, char *cmd);
 
 /* EXECUTION */
-void	direct_to_exec(t_minishell *shell);
-void	execute(t_minishell *shell, char *command);
+int		direct_to_exec(t_tree *tree);
+void	execute(t_tree *tree, char *command);
+
+/* PIPE */
+void	pipe_execution(t_tree *left, t_tree *right);
 
 /* EXPANSION */
 char	*get_expand_variable(t_token **token);
