@@ -7,20 +7,16 @@ void	find_path(t_minishell *shell)
 
 	i = 0;
 	env = __environ;
-	if (!shell->complete_path)
+	while (env[i])
 	{
-		while (env[i])
+		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 		{
-			if (ft_strncmp(env[i], "PATH=", 5) == 0)
-			{
-				shell->complete_path = (env[i] + 5);
-				break ;
-			}
-			i++;
+			shell->complete_path = get_path(env[i] + 5);
+			break ;
 		}
+		i++;
 	}
-	if (!shell->paths)
-		build_path(shell);
+	build_path(shell);
 }
 
 void	build_path(t_minishell *shell)
@@ -42,6 +38,7 @@ void	build_path(t_minishell *shell)
 		free(aux);
 		i++;
 	}
+	get_paths(shell->paths);
 }
 
 void	copy_path_to_exec(t_minishell *shell)

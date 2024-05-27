@@ -61,7 +61,6 @@ static char	*prompt(void)
 void	manipulate_tokens(t_minishell *shell)
 {
 	tokenizer(shell);
-	//find_builtins(&shell->token, &shell->exec);
 	inspect_types(&shell->token);
 	rearrange_tokens(&shell->token);
 	build_tree(&shell->tree, &shell->token, LEFT);

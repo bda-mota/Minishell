@@ -27,6 +27,11 @@ void	free_execution(t_exec *execution, char *input);
 void	display_error_tokens(char *error, char c);
 void	display_error_exec(char *error, char *str);
 
+/* ==== GET_SET ==== */
+char	*get_path(char *path);
+char	**get_copy(char **copy);
+char	**get_paths(char **paths);
+
 //UTILS
 void	init_shell(t_minishell *shell);
 void	init_structs(t_minishell *shell);

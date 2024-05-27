@@ -38,6 +38,7 @@ char	**copy_environ(void)
 		}
 		i++;
 	}
+	get_copy(environ_copy);
 	return (environ_copy);
 }
 
