@@ -4,18 +4,19 @@
 # include "../libft/src/libft.h"
 # include "structs.h"
 
-int		is_builtin(char *command);
+int		is_builtin(char *content);
+void	free_split_command(char **cmd_args);
 char	**split_command(char *content);
-void	find_builtins(t_minishell *shell, t_tree *tree);
+void	execute_builtins(t_tree *tree);
 void	echo(char *args);
-void	env(t_minishell *env);
+void	env(char **env_copy);
 void	pwd(void);
-void	export(t_minishell *shell, char *new_variable);
+void	export(char **env_copy, char *new_variable);
 char	**count_size_environ(void);
 char	**copy_environ(void);
 char	**create_new_environ(char **my_environ, int num_vars);
-void	add_variable_to_environ(t_minishell *shell, char *new_var);
-void	unset(t_minishell *env, char *remove_var);
+void	add_variable_to_environ(char **env_copy, char *new_var);
+void	unset(char **env_copy, char *remove_var);
 void	cd(char *path);
 
 #endif

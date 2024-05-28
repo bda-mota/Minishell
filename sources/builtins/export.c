@@ -2,7 +2,7 @@
 
 // Ao mandar apenas o export sem argumento deixar na ordem e printar "declare -x"
 
-void	export(t_minishell *shell, char *new_variable)
+void	export(char **env_copy, char *new_variable)
 {
-	add_variable_to_environ(shell, new_variable);
+	add_variable_to_environ(env_copy, new_variable);
 }

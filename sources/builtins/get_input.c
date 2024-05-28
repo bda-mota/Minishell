@@ -1,12 +1,36 @@
 #include "../../includes/minishell.h"
 
-int	is_builtin(char *command)
+void	free_split_command(char **cmd_args)
 {
+	int	i;
+
+	i = 0;
+	while (cmd_args[i] != NULL)
+	{
+		free(cmd_args[i]);
+		i++;
+	}
+	free(cmd_args);
+}
+
+int	is_builtin(char *content)
+{
+	char	*command;
+	size_t	len;
+
+	len = ft_strcspn(content, " ");
+	if (len == 0)
+		return (0);
+	command = ft_strndup(content, len);
 	if (ft_strcmp(command, "echo") == 0 || ft_strcmp(command, "pwd") == 0
 		|| ft_strcmp(command, "export") == 0 || ft_strcmp(command, "env") == 0
 		|| ft_strcmp(command, "unset") == 0 || ft_strcmp(command, "cd") == 0
 		|| ft_strcmp(command, "exit") == 0)
+	{
+		free(command);
 		return (1);
+	}
+	free(command);
 	return (0);
 }
 
@@ -15,12 +39,15 @@ char	**split_command(char *content)
 	char	**result;
 	char	*space;
 
-	result = malloc(2 * sizeof(char *));
+	result = malloc(3 * sizeof(char *));
+	if (!result)
+		return (NULL);
 	space = ft_strchr(content, ' ');
 	if (space)
 	{
 		result[0] = ft_strndup(content, space - content);
 		result[1] = ft_strdup(space + 1);
+		result[2] = NULL;
 	}
 	else
 	{
@@ -30,29 +57,28 @@ char	**split_command(char *content)
 	return (result);
 }
 
-void	find_builtins(t_minishell *shell, t_tree *tree)
+void	execute_builtins(t_tree *tree)
 {
 	char	**cmd_args;
 	char	*command;
 	char	*args;
+	char	**environ;
 
 	cmd_args = split_command(tree->content);
 	command = cmd_args[0];
 	args = cmd_args[1];
-
-	if (is_builtin(command))
-	{
-		if (ft_strcmp("echo", command) == 0)
-			echo(args);
-		else if (ft_strcmp("pwd", command) == 0)
-			pwd();
-		else if (ft_strcmp("export", command) == 0)
-			export(shell, args);
-		else if (ft_strcmp("env", command) == 0)
-			env(shell);
-		else if (ft_strcmp("unset", command) == 0)
-			unset(shell, args);
-		else if (ft_strcmp("cd", command) == 0)
-			cd(args);
-	}
+	environ = *get_copy(NULL);
+	if (ft_strcmp("echo", command) == 0)
+		echo(args);
+	else if (ft_strcmp("pwd", command) == 0)
+		pwd();
+	else if (ft_strcmp("export", command) == 0)
+		export(environ, args);
+	else if (ft_strcmp("env", command) == 0)
+		env(environ);
+	else if (ft_strcmp("unset", command) == 0)
+		unset(environ, args);
+	else if (ft_strcmp("cd", command) == 0)
+		cd(args);
+	free_split_command(cmd_args);
 }

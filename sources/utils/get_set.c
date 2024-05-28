@@ -9,13 +9,13 @@ char	*get_path(char *path)
 	return (new_path);
 }
 
-char	**get_copy(char **copy)
+char	***get_copy(char **copy)
 {
 	static char	**s_copy;
 
 	if (copy != NULL)
 		s_copy = &*copy;
-	return (s_copy);
+	return (&s_copy);
 }
 
 char	**get_paths(char **paths)

@@ -29,7 +29,7 @@ void	display_error_exec(char *error, char *str);
 
 /* ==== GET_SET ==== */
 char	*get_path(char *path);
-char	**get_copy(char **copy);
+char	***get_copy(char **copy);
 char	**get_paths(char **paths);
 
 //UTILS

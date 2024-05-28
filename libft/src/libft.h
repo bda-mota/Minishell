@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: bsantana <bsantana@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 11:41:49 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/05/08 11:41:51 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/05/28 10:07:48 by bsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ size_t		ft_strlcat(char *dst, const char *src, size_t size);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 size_t		ft_strlen(const char *s);
 size_t		ft_strcat(char *dst, const char *src);
+size_t		ft_strcspn(char *s, char	*reject);
 long int	ft_atol(const char *nptr);
 
 /*

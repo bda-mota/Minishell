@@ -10,10 +10,14 @@ int	direct_to_exec(t_tree *tree)
 	}
 	else
 	{
-		//checar se é builtin, se não for mandar para execute
+		if (is_builtin(tree->content))
+		{
+			execute_builtins(tree);
+			return (0);
+		}
 		execute(tree, tree->content);
-		return (0);
 	}
+	return (0);
 }
 
 void	execute(t_tree *tree, char *command)
@@ -30,7 +34,7 @@ void	execute(t_tree *tree, char *command)
 		executable = check_command(tree);
 		if (executable == NULL)
 			return ;
-		execve(executable, tree->command_child, get_copy(NULL));
+		execve(executable, tree->command_child, *get_copy(NULL));
 		//tratamento se o execve dar b.o;
 	}
 	//free_execution(tree, NULL);
