@@ -19,4 +19,8 @@ void	add_variable_to_environ(char **env_copy, char *new_var);
 void	unset(char **env_copy, char *remove_var);
 void	cd(char *path);
 
+void	swap_strings(char **str1, char **str2);
+void	order_env(char **env_copy);
+
+
 #endif
