@@ -51,14 +51,14 @@ static char	*prompt(void)
 			free_minishell(&shell);
 			return (NULL);
 		}
-		manipulate_tokens(&shell);
+		processor(&shell);
 		free_execution(shell.tree, shell.input);
 	}
 	free_minishell(&shell);
 	return (NULL);
 }
 
-void	manipulate_tokens(t_minishell *shell)
+void	processor(t_minishell *shell)
 {
 	tokenizer(shell);
 	inspect_types(&shell->token);

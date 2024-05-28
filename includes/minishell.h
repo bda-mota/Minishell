@@ -38,7 +38,7 @@ t_tree	*get_tree(t_tree *tree);
 //UTILS
 void	init_shell(t_minishell *shell);
 void	init_structs(t_minishell *shell);
-void	manipulate_tokens(t_minishell *shell);
+void	processor(t_minishell *shell);
 void	found_sintaxe(char *str, t_token **token_tail, t_token **token_h);
 t_token	*get_last_node(t_token **list);
 t_token	*get_first_node(t_token **list);
