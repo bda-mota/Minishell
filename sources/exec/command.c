@@ -10,7 +10,7 @@ char	*check_command(t_tree *tree)
 		return (command);
 	complete_command = find_command(tree, command);
 	if (complete_command == NULL)
-		ft_free_matrix(tree->command_child);
+		display_error_exec("command not found", command);
 	return (complete_command);
 }
 
@@ -36,7 +36,7 @@ char	*find_command(t_tree *tree, char *cmd)
 		free(tree->command);
 		i++;
 	}
+	tree->command = NULL;
 	ft_free_matrix(take_first);
-	display_error_exec("command not found", cmd);
 	return (NULL);
 }
