@@ -62,5 +62,4 @@ void	copy_path_to_exec(t_tree *tree)
 			printf("error ao dar strdup\n");
 		i++;
 	}
-	tree->path_cmd[i] = NULL;
 }

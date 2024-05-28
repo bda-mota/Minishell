@@ -64,9 +64,3 @@ void	aux_pull_all_together(t_token **new, t_token **curr)
 	}
 }
 
-t_tree	*traverse_tree(t_tree **root)
-{
-	if (*root == NULL)
-		return (NULL);
-	return (*root);
-}

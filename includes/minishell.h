@@ -19,9 +19,10 @@
 # define WHITE	"\033[1;37m"
 # define WARNING_OR "The BaBy do not work with '||' or '&&'\n"
 
-/* ==== LIBERAR MEMÓRIA ==== */
+/* ==== FREE MEMORY ==== */
 void	free_minishell(t_minishell *shell);
 void	free_execution(t_tree *tree, char *input);
+void	free_child(void);
 
 /* ===== ERRORS =====*/
 void	display_error_tokens(char *error, char c);
@@ -31,6 +32,8 @@ void	display_error_exec(char *error, char *str);
 char	*get_path(char *path);
 char	***get_copy(char **copy);
 char	**get_paths(char **paths);
+char	**get_paths_cmd(char **paths_cmd);
+t_tree	*get_tree(t_tree *tree);
 
 //UTILS
 void	init_shell(t_minishell *shell);

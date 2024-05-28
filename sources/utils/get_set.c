@@ -26,3 +26,21 @@ char	**get_paths(char **paths)
 		new = &*paths;
 	return (new);
 }
+
+t_tree	*get_tree(t_tree *tree)
+{
+	static t_tree	*new;
+
+	if (tree != NULL)
+		new = tree;
+	return (new);
+}
+
+char	**get_paths_cmd(char **paths_cmd)
+{
+	static char	**new;
+
+	if (paths_cmd != NULL)
+		new = &*paths_cmd;
+	return (new);
+}

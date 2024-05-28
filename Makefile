@@ -1,5 +1,5 @@
 NAME		:= minishell
-CFLAGS		:= -Wextra -Wall -Werror -g3
+CFLAGS		:= -Wextra -Wall -Werror -g
 LFLAGS		:= -lreadline
 MAKEFLAGS += --silent
 
@@ -83,7 +83,7 @@ fclean: clean
 	@echo "                                     "
 
 val: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=.readline.supp ./$(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -q --track-fds=yes --suppressions=.readline.supp ./$(NAME)
 
 clear:
 	clear

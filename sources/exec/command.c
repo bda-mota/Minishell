@@ -39,6 +39,7 @@ char	*find_command(t_tree *tree, char *cmd)
 		free(aux_cmd);
 		i++;
 	}
+	get_paths_cmd(tree->path_cmd);
 	ft_free_matrix(take_first);
 	display_error_exec("command not found", cmd);
 	return (NULL);

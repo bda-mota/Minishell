@@ -66,7 +66,6 @@ void	manipulate_tokens(t_minishell *shell)
 	build_tree(&shell->tree, &shell->token, LEFT);
 	if (!shell->complete_path)
 		find_path(shell);
+	get_tree(shell->tree);
 	direct_to_exec(shell->tree);
-	down_tree(&(shell->tree));
-	shell->tree = NULL;
 }

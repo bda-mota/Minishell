@@ -12,7 +12,5 @@ void	bloom_tree(t_tree **root, t_tree *new_branch, int side);
 void	build_tree(t_tree **root, t_token **tokens, int side);
 void	down_tree(t_tree **root);
 int		is_metha(t_token *token);
-t_tree	*traverse_tree(t_tree **root);
-
 
 #endif
