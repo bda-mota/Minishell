@@ -9,7 +9,6 @@ void	init_shell(t_minishell *shell)
 
 void	init_structs(t_minishell *shell)
 {
-	shell->exec = NULL;
 	shell->token = NULL;
 	shell->tree = NULL;
 }

@@ -67,7 +67,7 @@ void	execute_builtins(t_tree *tree)
 	cmd_args = split_command(tree->content);
 	command = cmd_args[0];
 	args = cmd_args[1];
-	environ = *get_copy(NULL);
+	environ = *get_env_copy(NULL);
 	if (ft_strcmp("echo", command) == 0)
 		echo(args);
 	else if (ft_strcmp("pwd", command) == 0)

@@ -40,7 +40,7 @@ char	**copy_environ(void)
 		}
 		i++;
 	}
-	return (*get_copy(environ_copy));
+	return (*get_env_copy(environ_copy));
 }
 
 char	**create_new_environ(char **environ_copy, int num_vars)
@@ -75,6 +75,6 @@ void	add_variable_to_environ(char **env_copy, char *new_var)
 		free(new_environ);
 		return ;
 	}
-	free(*get_copy(NULL));
-	*get_copy(NULL) = new_environ;
+	free(*get_env_copy(NULL));
+	*get_env_copy(NULL) = new_environ;
 }

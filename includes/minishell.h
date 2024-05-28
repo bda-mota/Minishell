@@ -21,8 +21,10 @@
 
 /* ==== FREE MEMORY ==== */
 void		free_minishell(t_minishell *shell);
-void		free_execution(t_tree *tree, char *input);
-void		free_child(void);
+void		free_execution(void);
+void		free_pipe_child(void);
+void		free_simple_child(char **child, char *executable);
+
 
 /* ===== ERRORS =====*/
 void		display_error_tokens(char *error, char c);
@@ -30,7 +32,7 @@ void		display_error_exec(char *error, char *str);
 
 /* ==== GET_SET ==== */
 char		*get_path(char *path);
-char		***get_copy(char **copy);
+char		***get_env_copy(char **copy);
 char		**get_paths(char **paths);
 t_tree		*get_tree(t_tree *tree);
 t_minishell	*get_minishell(t_minishell *shell);

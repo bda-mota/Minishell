@@ -22,7 +22,7 @@ void	pipe_execution(t_tree *left, t_tree *right)
 		dup2(tube[STDOUT_FILENO], STDOUT_FILENO);
 		close (tube[1]);
 		direct_to_exec(left);
-		free_child();
+		free_pipe_child();
 		exit(0);
 	}
 	pid[1] = fork();
@@ -32,7 +32,7 @@ void	pipe_execution(t_tree *left, t_tree *right)
 		dup2(tube[STDIN_FILENO], STDIN_FILENO);
 		close (tube[0]);
 		direct_to_exec(right);
-		free_child();
+		free_pipe_child();
 		exit(0);
 	}
 	close(tube[0]);

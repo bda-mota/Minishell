@@ -40,6 +40,7 @@ static char	*prompt(void)
 
 	shell.env_copy = copy_environ();
 	init_shell(&shell);
+	get_minishell(&shell);
 	while (1)
 	{
 		init_structs(&shell);
@@ -52,7 +53,7 @@ static char	*prompt(void)
 			return (NULL);
 		}
 		processor(&shell);
-		free_execution(shell.tree, shell.input);
+		free_execution();
 	}
 	free_minishell(&shell);
 	return (NULL);
@@ -66,5 +67,6 @@ void	processor(t_minishell *shell)
 	build_tree(&shell->tree, &shell->token, LEFT);
 	if (!shell->complete_path)
 		find_path(shell);
+	get_tree(shell->tree);
 	direct_to_exec(shell->tree);
 }

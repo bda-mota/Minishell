@@ -1,20 +1,21 @@
 #include "../../includes/minishell.h"
 
-char	*check_command(t_tree *tree)
+void	check_command(t_tree *tree)
 {
 	char	*command;
-	char	*complete_command;
 
 	command = tree->command_child[0];
 	if (access(command, X_OK) == 0)
-		return (command);
-	complete_command = find_command(tree, command);
-	if (complete_command == NULL)
+		return ;
+	find_command(tree, command);
+	if (tree->executable == NULL)
+	{
 		display_error_exec("command not found", command);
-	return (complete_command);
+		free_simple_child(tree->command_child, NULL);
+	}
 }
 
-char	*find_command(t_tree *tree, char *cmd)
+void	find_command(t_tree *tree, char *cmd)
 {
 	int		i;
 	char	**take_first;
@@ -27,16 +28,15 @@ char	*find_command(t_tree *tree, char *cmd)
 		printf("error\n");
 	while (paths[i])
 	{
-		tree->command = ft_strjoin(paths[i], take_first[0]);
-		if (access(tree->command, X_OK) == 0)
+		tree->executable = ft_strjoin(paths[i], take_first[0]);
+		if (access(tree->executable, X_OK) == 0)
 		{
 			ft_free_matrix(take_first);
-			return (tree->command);
+			return ;
 		}
-		free(tree->command);
+		free(tree->executable);
 		i++;
 	}
-	tree->command = NULL;
+	tree->executable = NULL;
 	ft_free_matrix(take_first);
-	return (NULL);
 }

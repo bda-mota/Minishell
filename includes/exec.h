@@ -5,8 +5,8 @@
 # include "structs.h"
 
 /* COMMAND */
-char	*check_command(t_tree *tree);
-char	*find_command(t_tree *tree, char *cmd);
+void	check_command(t_tree *tree);
+void	find_command(t_tree *tree, char *cmd);
 
 /* EXECUTION */
 int		direct_to_exec(t_tree *tree);

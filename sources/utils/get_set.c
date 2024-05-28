@@ -9,7 +9,7 @@ char	*get_path(char *path)
 	return (new_path);
 }
 
-char	***get_copy(char **copy)
+char	***get_env_copy(char **copy)
 {
 	static char	**s_copy;
 

@@ -41,27 +41,20 @@ typedef struct s_tree
 {
 	int				type;
 	char			*content;
-	char			*command;
+	char			*executable;
 	char			**command_child;
 	struct s_tree	*right;
 	struct s_tree	*left;
 }	t_tree;
 
-typedef struct s_exec
-{
-	char	**path_cmd;
-	char	**command_child;
-}	t_exec;
-
 typedef struct s_minishell
 {
 	t_tree	*tree;
-	t_exec	*exec;
 	t_token	*token;
 	char	*input;
-	char	*complete_path; // caminho de PATH= - > dar free só no final (?)
-	char	**env_copy; // copia do env com as variáveis de ambiente -> builtins (usar no execve?)
-	char	**paths; // path splitado e com / no final -> dar free só no final
+	char	*complete_path;
+	char	**env_copy;
+	char	**paths;
 }	t_minishell;
 
 #endif
