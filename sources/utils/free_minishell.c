@@ -2,8 +2,10 @@
 
 void	free_minishell(t_minishell *shell)
 {
-	int	i;
+	char	**env_copy;
+	int		i;
 
+	env_copy = *get_copy(NULL);
 	i = 0;
 	if (shell->paths)
 		ft_free_matrix(shell->paths);
@@ -13,8 +15,8 @@ void	free_minishell(t_minishell *shell)
 		free(shell->exec);
 	if (shell->input)
 		free(shell->input);
-	if (shell->env_copy) // arrumar verificação
-		ft_free_matrix(*get_copy(NULL));
+	if (env_copy)
+		ft_free_matrix(env_copy);
 	if (shell->tree)
 		down_tree(&shell->tree);
 }
