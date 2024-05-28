@@ -40,26 +40,3 @@ void	build_path(t_minishell *shell)
 	}
 	get_paths(shell->paths);
 }
-
-void	copy_path_to_exec(t_tree *tree)
-{
-	int		i;
-	int		len;
-	char	*paths;
-
-	i = 0;
-	len = 0;
-	paths = *get_paths(NULL);
-	while (paths[len])
-		len++;
-	tree->path_cmd = ft_calloc(len + 1, sizeof(char *));
-	if (tree->path_cmd == NULL)
-		printf("error ao alocar path_cmd\n");
-	while (paths[i])
-	{
-		tree->path_cmd[i] = ft_strdup(&paths[i]);
-		if (tree->path_cmd[i] == NULL)
-			printf("error ao dar strdup\n");
-		i++;
-	}
-}

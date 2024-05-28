@@ -19,7 +19,8 @@ CFILES		:= trash.c main.c \
 				utils/error.c utils/get_last_node.c utils/get_first_node.c utils/get_list_size.c utils/free_minishell.c utils/free_execution.c \
 				utils/init.c utils/get_set.c\
 				ast/build_tree.c ast/tree_utils.c \
-				exec/execution.c exec/path.c exec/variable_expansion.c builtins/echo.c builtins/export.c exec/pipe.c exec/command.c\
+				exec/execution.c exec/path.c exec/variable_expansion.c builtins/echo.c builtins/export.c exec/pipe.c exec/command.c \
+				exec/free_child.c \
 				builtins/export_utils.c  builtins/pwd.c builtins/unset.c builtins/env.c builtins/get_input.c builtins/cd.c
 
 #PATH_FILES

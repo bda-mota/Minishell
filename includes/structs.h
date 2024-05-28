@@ -41,7 +41,7 @@ typedef struct s_tree
 {
 	int				type;
 	char			*content;
-	char			**path_cmd;
+	char			*command;
 	char			**command_child;
 	struct s_tree	*right;
 	struct s_tree	*left;

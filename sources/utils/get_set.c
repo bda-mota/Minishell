@@ -44,3 +44,12 @@ char	**get_paths_cmd(char **paths_cmd)
 		new = &*paths_cmd;
 	return (new);
 }
+
+t_minishell	*get_minishell(t_minishell *shell)
+{
+	static t_minishell	*new;
+
+	if (shell != NULL)
+		new = shell;
+	return (new);
+}

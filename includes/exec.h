@@ -18,11 +18,8 @@ void	pipe_execution(t_tree *left, t_tree *right);
 /* EXPANSION */
 char	*get_expand_variable(t_token **token);
 
-/* METACHARACTERS */
-
 /* PATH */
 void	find_path(t_minishell *shell);
 void	build_path(t_minishell *shell);
-void	copy_path_to_exec(t_tree *tree);
 
 #endif
