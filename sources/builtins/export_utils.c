@@ -25,6 +25,8 @@ char	**copy_environ(void)
 
 	env = __environ;
 	environ_copy = count_size_environ();
+	if (!environ_copy)
+		return (NULL);
 	i = 0;
 	while (env[i])
 	{
@@ -38,8 +40,7 @@ char	**copy_environ(void)
 		}
 		i++;
 	}
-	get_copy(environ_copy);
-	return (environ_copy);
+	return (*get_copy(environ_copy));
 }
 
 char	**create_new_environ(char **environ_copy, int num_vars)
@@ -74,5 +75,6 @@ void	add_variable_to_environ(char **env_copy, char *new_var)
 		free(new_environ);
 		return ;
 	}
+	free(*get_copy(NULL));
 	*get_copy(NULL) = new_environ;
 }
