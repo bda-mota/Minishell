@@ -80,5 +80,7 @@ void	execute_builtins(t_tree *tree)
 		unset(environ, args);
 	else if (ft_strcmp("cd", command) == 0)
 		cd(args);
+	else if (ft_strcmp("exit", command) == 0)
+		//exit(1); -> desenvolver função
 	free_split_command(cmd_args);
 }

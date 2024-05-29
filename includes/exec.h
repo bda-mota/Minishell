@@ -16,7 +16,8 @@ void	execute(t_tree *tree, char *command);
 void	pipe_execution(t_tree *left, t_tree *right);
 
 /* EXPANSION */
-char	*get_expand_variable(t_token **token);
+void	expand_variable(t_token **token, char **env_copy);
+char	*my_getenv(char **env_copy, char *var);
 
 /* METACHARACTERS */
 

@@ -45,7 +45,7 @@ static char	*prompt(void)
 		init_structs(&shell);
 		shell.input = readline(PURPLE"$BaByshell: "WHITE);
 		add_history(shell.input);
-		if (shell.input == NULL || !ft_strcmp(shell.input, "exit"))
+		if (shell.input == NULL)
 		{
 			rl_clear_history();
 			free_minishell(&shell);
@@ -63,6 +63,7 @@ void	processor(t_minishell *shell)
 	tokenizer(shell);
 	inspect_types(&shell->token);
 	rearrange_tokens(&shell->token);
+	expand_variable(&shell->token, *get_copy(NULL));
 	build_tree(&shell->tree, &shell->token, LEFT);
 	if (!shell->complete_path)
 		find_path(shell);
