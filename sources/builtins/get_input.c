@@ -39,7 +39,7 @@ char	**split_command(char *content)
 	char	**result;
 	char	*space;
 
-	result = malloc(3 * sizeof(char *));
+	result = ft_calloc(sizeof(char *), 3);
 	if (!result)
 		return (NULL);
 	space = ft_strchr(content, ' ');

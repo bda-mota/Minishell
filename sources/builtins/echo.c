@@ -1,5 +1,39 @@
 #include "../../includes/minishell.h"
 
+static int	quotes(char c, int *simple_quote, int *double_quote)
+{
+	if (c == '"')
+	{
+		if (!(*simple_quote))
+		{
+			*double_quote = !(*double_quote);
+			return (1);
+		}
+	}
+	if (c == '\'')
+	{
+		if (!(*double_quote))
+		{
+			*simple_quote = !(*simple_quote);
+			return (1);
+		}
+	}
+	return (0);
+}
+
+static int	check_n_flag(char *args, int *i)
+{
+	if (ft_strncmp(args + *i, "-n", 2) == 0
+		&& (args[*i + 2] == ' ' || args[*i + 2] == '\0'))
+	{
+		*i += 2;
+		while (args[*i] == ' ')
+			(*i)++;
+		return (1);
+	}
+	return (0);
+}
+
 void	echo(char *args)
 {
 	int	i;
@@ -8,36 +42,15 @@ void	echo(char *args)
 	int	double_quote;
 
 	i = 0;
-	flag = 0;
+	flag = check_n_flag(args, &i);
 	simple_quote = 0;
 	double_quote = 0;
-	while (args[i] == ' ')
-		i++;
-	if (ft_strncmp(args + i, "-n", 2) == 0
-		&& (args[i + 2] == ' ' || args[i + 2] == '\0'))
-	{
-		flag = 1;
-		i += 2;
-		while (args[i] == ' ')
-			i++;
-	}
 	while (args[i])
 	{
-		if (args[i] == '"')
+		if (quotes(args[i], &simple_quote, &double_quote))
 		{
-			if (!simple_quote)
-			{
-				double_quote = 1;
-				i++;
-			}
-		}
-		if (args[i] == '\'')
-		{
-			if (!double_quote)
-			{
-				simple_quote = 1;
-				i++;
-			}
+			i++;
+			continue ;
 		}
 		ft_printf_fd("%c", args[i]);
 		i++;
@@ -45,31 +58,3 @@ void	echo(char *args)
 	if (!flag)
 		ft_printf_fd("\n");
 }
-
-// void	echo(char *args)
-// {
-// 	int	i;
-// 	int	flag;
-
-// 	i = 0;
-// 	flag = 0;
-// 	while (args[i] == ' ')
-// 		i++;
-// 	if (ft_strncmp(args + i, "-n", 2) == 0
-// 		&& (args[i + 2] == ' ' || args[i + 2] == '\0'))
-// 	{
-// 		flag = 1;
-// 		i += 2;
-// 		while (args[i] == ' ')
-// 			i++;
-// 	}
-// 	while (args[i])
-// 	{
-// 		if (args[i] == ' ' && args[i + 1] == ' ')
-// 			i++;
-// 		ft_printf_fd("%c", args[i]);
-// 		i++;
-// 	}
-// 	if (!flag)
-// 		ft_printf_fd("\n");
-// }
