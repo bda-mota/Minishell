@@ -20,7 +20,7 @@ CFILES		:= trash.c main.c \
 				utils/init.c utils/get_set.c\
 				ast/build_tree.c ast/tree_utils.c \
 				exec/execution.c exec/path.c exec/variable_expansion.c builtins/echo.c builtins/export.c exec/pipe.c exec/command.c \
-				exec/free_child.c \
+				exec/free_child.c exec/append.c\
 				builtins/export_utils.c  builtins/pwd.c builtins/unset.c builtins/env.c builtins/get_input.c builtins/cd.c
 
 #PATH_FILES

@@ -8,6 +8,11 @@ int	direct_to_exec(t_tree *tree)
 		return (0);
 		//return (pipe_execution(tree->left, tree->right));
 	}
+	if (tree->type == APPEND)
+	{
+		//append_execution(tree->left, tree->right);
+		return (0);
+	}
 	else
 	{
 		if (is_builtin(tree->content))

@@ -11,4 +11,5 @@ void	init_structs(t_minishell *shell)
 {
 	shell->token = NULL;
 	shell->tree = NULL;
+	shell->files = NULL;
 }

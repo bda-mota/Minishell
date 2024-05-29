@@ -1,30 +1,30 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+// INCLUDES
 # include "../libft/src/libft.h"
 # include "structs.h"
 # include "token.h"
 # include "ast.h"
 # include "exec.h"
 # include "builtins.h"
+//LIBRARIES
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <stdio.h>
 # include <signal.h>
 # include <unistd.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
 # define PURPLE	"\033[1;35m"
 # define WHITE	"\033[1;37m"
-# define WARNING_OR "The BaBy do not work with '||' or '&&'\n"
+# define WARNING_OR "The BaByshell do not work with '||' or '&&'\n"
 
 /* ==== FREE MEMORY ==== */
 void		free_minishell(t_minishell *shell);
 void		free_execution(void);
-void		free_pipe_child(void);
-void		free_simple_child(char **child, char *executable);
-
 
 /* ===== ERRORS =====*/
 void		display_error_tokens(char *error, char c);
