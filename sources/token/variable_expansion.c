@@ -27,6 +27,8 @@ void	expand_variable(t_token **token, char **env_copy)
 		expanded_content = aux_expand_variable(curr->content, env_copy);
 		free(curr->content);
 		curr->content = expanded_content;
+		if (curr->content == NULL)
+			return ;
 		curr = curr->next;
 	}
 }
@@ -42,6 +44,8 @@ char	*aux_expand_variable(char *content, char **env_copy)
 	{
 		if (content[i] == '$')
 			data_var = find_variable(content, &i, env_copy, data_var);
+		if (!data_var)
+			return (NULL);
 		i++;
 	}
 	return (data_var);
@@ -71,4 +75,3 @@ char	*find_variable(char *content, int *i, char **env_copy, char *data_var)
 	*i = end - 1;
 	return (data_var);
 }
-
