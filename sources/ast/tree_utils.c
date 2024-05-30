@@ -1,5 +1,17 @@
 #include "../../includes/minishell.h"
 
+t_tree	*create_root(t_token *tokens)
+{
+	t_tree	*new_root;
+
+	new_root = ft_calloc(sizeof(t_tree), 1);
+	if (!new_root)
+		return (NULL);
+	new_root->type = tokens->type;
+	new_root->content = ft_strdup(tokens->content);
+	return (new_root);
+}
+
 int	is_metha(t_token *token)
 {
 	if (token->type == APPEND || token->type == HEREDOC

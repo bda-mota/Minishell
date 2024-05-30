@@ -8,12 +8,14 @@ void	redirs_execution(t_tree *left, t_tree *right)
 	std[0] = STDIN_FILENO;
 	std[1] = STDOUT_FILENO;
 	fd = open_file(right);
+	(void)left;
 }
 
 int	open_file(t_tree *branch)
 {
 	int	fd;
 
+	fd = 0;
 	if (branch->type == INPUT)
 	{
 		fd = open(branch->right->content, O_RDONLY);
