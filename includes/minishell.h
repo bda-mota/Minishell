@@ -45,6 +45,10 @@ void		found_sintaxe(char *str, t_token **token_tail, t_token **token_h);
 t_token		*get_last_node(t_token **list);
 t_token		*get_first_node(t_token **list);
 int			get_list_size(t_token *list);
+int			is_redir(t_token **token);
+int			is_redir_or_heredoc(t_token **token);
+int			the_branch_is_redir(t_tree *branch);
+
 
 /* EXCLUIR AO FINAL DO PROJETO */
 void		print_list(t_token **lst);

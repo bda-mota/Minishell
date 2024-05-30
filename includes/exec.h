@@ -16,6 +16,10 @@ void	find_command(t_tree *tree, char *cmd);
 int		direct_to_exec(t_tree *tree);
 void	execute(t_tree *tree, char *command);
 
+/* REDIRECTS */
+void	redirs_execution(t_tree *left, t_tree *right);
+int		open_file(t_tree *branch);
+
 /* PIPE */
 void	pipe_execution(t_tree *left, t_tree *right);
 void	close_tubes(int *tube);

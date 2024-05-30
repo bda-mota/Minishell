@@ -10,7 +10,7 @@ void	rearrange_tokens(t_token **tokens)
 	curr = *tokens;
 	while (curr)
 	{
-		if (is_redir(&curr) && curr->next)
+		if (is_redir_or_heredoc(&curr) && curr->next)
 		{
 			redir = check_redirects_on_pipeline(&curr);
 			while (check_pipeline(&curr) == 1)
@@ -34,11 +34,11 @@ static t_token	*rearrange_more_than_one(t_token **tokens)
 	word = *tokens;
 	redir = get_first_node_of_pipeline(&word);
 	first = (get_first_word(&redir));
-	while (redir && !is_redir(&redir))
+	while (redir && !is_redir_or_heredoc(&redir))
 		redir = redir->next;
 	while (word)
 	{
-		if (!is_redir(&word) && word->type != ARCHIVE)
+		if (!is_redir_or_heredoc(&word) && word->type != ARCHIVE)
 		{
 			new = split_list(&word);
 			break ;
@@ -76,7 +76,7 @@ void	inspect_types(t_token **tokens)
 	curr = *tokens;
 	while (curr)
 	{
-		if (is_redir(&curr))
+		if (is_redir_or_heredoc(&curr))
 		{
 			if (curr->next)
 				curr->next->type = ARCHIVE;
@@ -88,12 +88,4 @@ void	inspect_types(t_token **tokens)
 		}
 		curr = curr->next;
 	}
-}
-
-int	is_redir(t_token **token)
-{
-	if ((*token)->type == INPUT || (*token)->type == OUTPUT
-		|| (*token)->type == APPEND)
-		return (1);
-	return (0);
 }

@@ -1,16 +1,18 @@
 #include "../../includes/minishell.h"
 
+//return (pipe_execution(tree->left, tree->right));
+//fazer todas as funções serão do tipo int para exit status
+
 int	direct_to_exec(t_tree *tree)
 {
 	if (tree->type == PIPE)
 	{
 		pipe_execution(tree->left, tree->right);
 		return (0);
-		//return (pipe_execution(tree->left, tree->right));
 	}
-	if (tree->type == APPEND)
+	if (the_branch_is_redir(tree))
 	{
-		//append_execution(tree->left, tree->right);
+		redirs_execution(tree->left, tree->right);
 		return (0);
 	}
 	else
@@ -39,7 +41,7 @@ void	execute(t_tree *tree, char *command)
 	if (pid == 0)
 	{
 		execve(tree->executable, tree->command_child, *get_env_copy(NULL));
-		//tratamento se o execve dar b.o;
+		//tratamento se o execve dar b.o -> free
 	}
 	free_simple_child(tree->command_child, tree->executable);
 	wait(NULL);

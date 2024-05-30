@@ -3,8 +3,10 @@
 // void	append_execution(t_tree *left, t_tree *right)
 // {
 // 	int	fd_in;
-// 	int	fd_out;
+// 	int	fd[2];
 
+// 	fd[0] = STDIN_FILENO;
+// 	fd[1] = STDOUT_FILENO;
 // 	//abrindo só arquivo de entrada sem ser comando de execução
 // 	if (access(left->content, F_OK) == 0)
 // 		fd_in = open(left->content, O_RDONLY);

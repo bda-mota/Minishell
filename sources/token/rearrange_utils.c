@@ -7,11 +7,11 @@ int	check_pipeline(t_token **tokens)
 	curr = *tokens;
 	while (curr)
 	{
-		if (is_redir(&curr))
+		if (is_redir_or_heredoc(&curr))
 		{
 			while (curr && curr->type != PIPE)
 			{
-				if (!is_redir(&curr) && curr->type != ARCHIVE)
+				if (!is_redir_or_heredoc(&curr) && curr->type != ARCHIVE)
 					return (1);
 				curr = curr->next;
 			}
@@ -32,7 +32,7 @@ int	check_redirects_on_pipeline(t_token **tokens)
 	count = 0;
 	while (curr->next != NULL && curr->next->type != PIPE)
 	{
-		if (is_redir(&curr))
+		if (is_redir_or_heredoc(&curr))
 			count++;
 		curr = curr->next;
 	}
@@ -68,7 +68,7 @@ t_token	*get_first_word(t_token **tokens)
 	t_token	*first;
 
 	first = *tokens;
-	while (first && !is_redir(&first->next))
+	while (first && !is_redir_or_heredoc(&first->next))
 		first = first->next;
 	return (first);
 }
