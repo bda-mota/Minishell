@@ -1,57 +1,55 @@
 #include "../../includes/minishell.h"
 
-void	build_tree(t_tree **root, t_token **tokens, int side)
+void build_tree(t_tree **root, t_token **tokens)
 {
-	t_token	**lists;
+ 	t_token **branchs;
 
-	*lists = search_branch(tokens);
+	if (!tokens || !*tokens)
+	{
+        *root = NULL;
+        return;
+    }
+	branchs = search_branchs(tokens);
+	if (branchs[1] == NULL)
+		return ;
+	if (branchs[0] == NULL && branchs[2] == NULL)
+	{
+		*root = create_branch(branchs, WORD);
+		return ;
+	}
+ 	if (branchs && (branchs[1]->type == PIPE))
+	{
+		*root = create_branch(branchs, PIPE);
+		build_tree(&((*root)->left), &branchs[0]);
+		build_tree(&((*root)->right), &branchs[2]);
+		free(branchs);
+		return;
+	}
+	else if (branchs && is_redir_or_heredoc(&branchs[1]))
+	{
+		*root = create_branch(branchs, REDIRECT);
+		tokens = &branchs[1];
+		build_tree(&((*root)->left), tokens);
+		free(branchs);
+		return;
+	}
 }
-// void	build_tree(t_tree **root, t_token **tokens, int side)
+
+// void	remove_pipe_node(t_token **tokens)
 // {
-// 	t_token	*new_node;
-// 	t_token	*left;
-// 	t_token	*right;
-// 	t_tree	*new_branch;
+// 	t_token *curr;
 
-// 	new_node = search_branch(tokens);
-// 	if (new_node == NULL)
-// 		new_node = put_all_together(tokens);
-// 	new_branch = create_root(new_node);
-// 	bloom_tree(root, new_branch, side);
-// 	left = new_node->prev;
-// 	if (left != NULL)
+// 	curr = get_last_node(tokens);
+// 	while (curr)
 // 	{
-// 		left->next = NULL;
-// 		build_tree(&new_branch, &left, LEFT);
+// 		if (curr->type == PIPE)
+// 		{
+// 			if (curr->prev)
+// 				curr->prev->next = curr->next;
+// 			if (curr->next)
+// 				curr->next->prev = curr->prev;
+// 			return;
+// 		}
+// 		curr = curr->prev;
 // 	}
-// 	right = new_node->next;
-// 	if (right != NULL)
-// 	{
-// 		right->prev = NULL;
-// 		build_tree(&new_branch, &right, RIGHT);
-// 	}
-// 	free(new_node->content);
-// 	free(new_node);
 // }
-
-void	bloom_tree(t_tree **root, t_tree *new_branch, int side)
-{
-	t_tree	*parent;
-
-	parent = *root;
-	if (*root == NULL)
-		*root = new_branch;
-	else if (side == LEFT)
-	{
-		while (parent->left != NULL)
-			parent = parent->left;
-		parent->left = new_branch;
-	}
-	else
-	{
-		while (parent->right != NULL)
-			parent = parent->right;
-		parent->right = new_branch;
-	}
-	return ;
-}

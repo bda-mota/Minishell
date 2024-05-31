@@ -89,7 +89,7 @@ int		significant_tokens(t_token *tokens);
 /* REARRANGE */
 void	inspect_types(t_token **tokens);
 void	rearrange_tokens(t_token **tokens);
-int		check_redirects_on_pipeline(t_token **tokens);
+//int		check_redirects_on_pipeline(t_token **tokens); -> removida por falta de uso 
 int		check_pipeline(t_token **tokens);
 t_token	*get_last_node_of_pipeline(t_token **tokens);
 t_token	*get_first_node_of_pipeline(t_token **tokens);

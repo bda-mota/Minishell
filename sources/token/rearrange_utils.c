@@ -23,22 +23,6 @@ int	check_pipeline(t_token **tokens)
 	return (0);
 }
 
-int	check_redirects_on_pipeline(t_token **tokens)
-{
-	t_token	*curr;
-	int		count;
-
-	curr = *tokens;
-	count = 0;
-	while (curr->next != NULL && curr->next->type != PIPE)
-	{
-		if (is_redir_or_heredoc(&curr))
-			count++;
-		curr = curr->next;
-	}
-	return (count);
-}
-
 t_token	*get_last_node_of_pipeline(t_token **tokens)
 {
 	t_token	*last_node;

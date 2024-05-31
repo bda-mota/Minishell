@@ -53,6 +53,9 @@ int			the_branch_is_redir(t_tree *branch);
 /* EXCLUIR AO FINAL DO PROJETO */
 void		print_list(t_token **lst);
 void		print_tree(t_tree *tree);
+void        print_tree_main(t_tree *tree);
+void        print_tree_aux(t_tree *tree, int depth, const char *relation);
+
 
 
 #endif

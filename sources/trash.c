@@ -71,3 +71,25 @@ static char	*find_type(int type)
 		str = "DELIMITER";
 	return (str);
 }
+
+void print_tree_main(t_tree *tree)
+{
+    print_tree_aux(tree, 0, "root");
+}
+
+void print_tree_aux(t_tree *tree, int depth, const char *relation)
+{
+    if (tree == NULL)
+        return ;
+    // Imprime os nós da subárvore direita
+    print_tree_aux(tree->right, depth + 1, "right");
+    // Imprime a indentação e o conteúdo do nó
+    for (int i = 0; i < depth; i++) {
+        printf("  ");
+    }
+    printf("(%s) %s\n", relation, tree->content);
+    // Imprime os nós da subárvore esquerda
+    print_tree_aux(tree->left, depth + 1, "left");
+}
+
+// Função principal para imprimir a árvore

@@ -1,17 +1,5 @@
 #include "../../includes/minishell.h"
 
-t_tree	*create_root(t_token *tokens)
-{
-	t_tree	*new_root;
-
-	new_root = ft_calloc(sizeof(t_tree), 1);
-	if (!new_root)
-		return (NULL);
-	new_root->type = tokens->type;
-	new_root->content = ft_strdup(tokens->content);
-	return (new_root);
-}
-
 int	is_metha(t_token *token)
 {
 	if (token->type == APPEND || token->type == HEREDOC
@@ -44,6 +32,7 @@ t_token	*put_all_together(t_token **token)
 	if (!new)
 		return (NULL);
 	new->content = strdup("");
+	new->type = curr->type;
 	aux_pull_all_together(&new, &curr);
 	return (new);
 }
@@ -54,7 +43,7 @@ void	aux_pull_all_together(t_token **new, t_token **curr)
 	t_token	*temp;
 
 	temp = *curr;
-	while (temp)
+	while (temp && temp->type != PIPE)
 	{
 		aux_str = (*new)->content;
 		(*new)->content = ft_strjoin(aux_str, temp->content);

@@ -5,14 +5,12 @@ static t_token	*rearrange_more_than_one(t_token **tokens);
 void	rearrange_tokens(t_token **tokens)
 {
 	t_token	*curr;
-	int		redir;
 
 	curr = *tokens;
 	while (curr)
 	{
 		if (is_redir_or_heredoc(&curr) && curr->next)
 		{
-			redir = check_redirects_on_pipeline(&curr);
 			while (check_pipeline(&curr) == 1)
 			{
 				curr = rearrange_more_than_one(&curr);

@@ -1,15 +1,15 @@
 #include "../../includes/minishell.h"
 
-void	redirs_execution(t_tree *left, t_tree *right)
-{
-	int	fd;
-	int	std[2];
+// void	redirs_execution(t_tree *left, t_tree *right)
+// {
+// 	int	fd;
+// 	int	std[2];
 
-	std[0] = STDIN_FILENO;
-	std[1] = STDOUT_FILENO;
-	fd = open_file(right);
-	(void)left;
-}
+// 	std[0] = STDIN_FILENO;
+// 	std[1] = STDOUT_FILENO;
+// 	fd = open_file(right);
+// 	(void)left;
+// }
 
 int	open_file(t_tree *branch)
 {

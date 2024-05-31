@@ -6,28 +6,36 @@
 //curr[2] = right
 //se for pipe, ponteiro para o left e right normal
 //se for redir, ponteiro curr[2] vai ser igual ao arquivo e curr[0] vai ser igual à frase modificada
-t_token	**search_branch(t_token **tokens)
+t_token	**search_branchs(t_token **tokens)
 {
 	t_token	**curr;
 	t_token	*meta;
 
+	if (!tokens || !*tokens)
+        return (NULL);
 	meta = search_pipe(tokens);
+	curr = ft_calloc(3, sizeof(t_token *));
 	if (meta)
 	{
 		curr[0] = meta->prev;
+		curr[0]->next = NULL;
 		curr[1] = meta;
 		curr[2] = meta->next;
-		return (&curr);
+		curr[2]->prev = NULL;
+		return (curr);
 	}
 	meta = search_redirs(tokens);
 	if (meta)
 	{
-		curr[0] = remove_nodes(&meta);
+		curr[0] = new_redir_list(&meta);
 		curr[1] = meta;
 		curr[2] = meta->next;
-		return (&curr);
+		return (curr);
 	}
-	return (NULL);
+	curr[0] = NULL;
+	curr[1] = put_all_together(tokens);
+	curr[2] = NULL;
+	return (curr);
 }
 
 //retorna um ponteiro para o nó da lista que tem o pipe
@@ -57,19 +65,19 @@ t_token	*search_redirs(t_token **tokens)
 	{
 		if (is_redir_or_heredoc(&curr))
 			return (curr);
-		curr = curr->prev;
+		curr = curr->next;
 	}
 	return (NULL);
 }
 
 //vai receber o nó do meta, desvincular ele e o arquivo dele da lista e
 //retorna o ínicio da lista para curr [0]
-t_token	*remove_nodes(t_token **token_list)
+t_token	*new_redir_list(t_token **token_list)
 {
 	t_token	*curr;
 	t_token	*begin;
 
-	curr = token_list;
+	curr = *token_list;
 	begin = curr;
 	if (curr->prev)
 		curr->prev->next = curr->next->next;

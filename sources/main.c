@@ -64,8 +64,8 @@ void	processor(t_minishell *shell)
 	tokenizer(shell);
 	inspect_types(&shell->token);
 	rearrange_tokens(&shell->token);
-	build_tree(&shell->tree, &shell->token, LEFT);
-	print_tree(shell->tree);
+	build_tree(&shell->tree, &shell->token);
+	print_tree_main(shell->tree);
 	//if (!shell->complete_path)
 	//	find_path(shell);
 	//get_tree(shell->tree);
