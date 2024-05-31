@@ -11,8 +11,6 @@ t_token	**search_branchs(t_token **tokens)
 	t_token	**curr;
 	t_token	*meta;
 
-	if (!tokens || !*tokens)
-        return (NULL);
 	meta = search_pipe(tokens);
 	curr = ft_calloc(3, sizeof(t_token *));
 	if (meta)
@@ -75,15 +73,15 @@ t_token	*search_redirs(t_token **tokens)
 t_token	*new_redir_list(t_token **token_list)
 {
 	t_token	*curr;
-	t_token	*begin;
 
 	curr = *token_list;
-	begin = curr;
 	if (curr->prev)
 		curr->prev->next = curr->next->next;
 	if (curr->next->next)
 		curr->next->next->prev = curr->prev;
-	while (begin->prev && begin->prev->type != PIPE)
-		begin = begin->prev;
-	return (begin);
+	if (curr->prev == NULL)
+		return (NULL);
+	while (curr->prev && curr->prev->type != PIPE)
+		curr = curr->prev;
+	return (curr);
 }

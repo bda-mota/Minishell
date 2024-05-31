@@ -19,7 +19,6 @@ t_token	**search_branchs(t_token **tokens);
 t_token	*search_pipe(t_token **tokens);
 t_token	*search_redirs(t_token **tokens);
 t_token	*new_redir_list(t_token **token_list);
-void	remove_pipe_node(t_token **tokens);
 
 /* CREATE BRANCH */
 t_tree  *create_branch(t_token **token_list, int type);

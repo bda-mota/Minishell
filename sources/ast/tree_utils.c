@@ -25,6 +25,8 @@ t_token	*put_all_together(t_token **token)
 	t_token	*curr;
 	t_token	*new;
 
+	if (!token || !*token)
+		return (NULL);
 	curr = get_first_node(token);
 	if (!curr)
 		return (NULL);
