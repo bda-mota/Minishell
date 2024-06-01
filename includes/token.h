@@ -74,6 +74,8 @@ int		check_sintax(char *input);
 int		check_untreatable(char *input);
 int		check_quotes(char *input);
 int		check_quotes_aux(char *input, int *i, char c);
+int	    check_grammar(t_token **token);
+
 
 /*
  * Checks if there is a double quote (") in the current

@@ -62,6 +62,8 @@ static char	*prompt(void)
 void	processor(t_minishell *shell)
 {
 	tokenizer(shell);
+	if (check_grammar(&shell->token) == 1)
+		return ;
 	inspect_types(&shell->token);
 	rearrange_tokens(&shell->token);
 	build_tree(&shell->tree, &shell->token);
