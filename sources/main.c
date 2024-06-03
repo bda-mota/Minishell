@@ -67,11 +67,11 @@ void	processor(t_minishell *shell)
 	inspect_types(&shell->token);
 	rearrange_tokens(&shell->token);
 	build_tree(&shell->tree, &shell->token);
-	//deallocate_lst(&shell->token);
-	//print_tree_main(shell->tree);
-	down_tree(&shell->tree);
+	print_tree_main(shell->tree);
 	//if (!shell->complete_path)
 	//	find_path(shell);
 	//get_tree(shell->tree);
 	//direct_to_exec(shell->tree);
+	//deallocate_lst(&shell->token);
+	down_tree(&shell->tree);
 }
