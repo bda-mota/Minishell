@@ -40,26 +40,22 @@ void	handle_quotes(t_token **token, char *input, size_t *i)
 void	tokenizer(t_minishell *shell)
 {
 	size_t	i;
+	int		type;
 
 	i = 0;
 	if (check_sintax(shell->input) == 1)
 		return ;
 	while (shell->input[i] && (i != ft_strlen(shell->input)))
 	{
+		type = catalog_inputs(shell->input, &i);
 		handle_quotes(&shell->token, shell->input, &i);
-		if (catalog_inputs(shell->input, &i) == WORD)
+		if (type == WORD)
 			handle_word(&shell->token, shell->input, &i);
-		else if (catalog_inputs(shell->input, &i) == PIPE)
-			handle_pipe(&shell->token, shell->input, &i);
-		else if (catalog_inputs(shell->input, &i) == INPUT)
-			handle_input(&shell->token, shell->input, &i);
-		else if (catalog_inputs(shell->input, &i) == OUTPUT)
-			handle_output(&shell->token, shell->input, &i);
-		else if (catalog_inputs(shell->input, &i) == HEREDOC)
-			handle_heredoc(&shell->token, shell->input, &i);
-		else if (catalog_inputs(shell->input, &i) == APPEND)
-			handle_append(&shell->token, shell->input, &i);
-		else if (catalog_inputs(shell->input, &i) == BLOCK)
+		else if (type == PIPE || type == INPUT || type == OUTPUT)
+			handle_one(&shell->token, shell->input, &i);
+		else if (type == HEREDOC || type == APPEND)
+			handle_two(&shell->token, shell->input, &i);
+		else if (type == BLOCK)
 			handle_block(&shell->token, shell->input, &i);
 		i++;
 	}

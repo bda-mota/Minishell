@@ -14,7 +14,7 @@ OBJ_PATH	:= objects
 
 # SOURCES
 CFILES		:= trash.c main.c \
-				token/token.c token/linked_list_token.c token/1_handle_inputs.c token/2_handle_inputs.c \
+				token/token.c token/linked_list_token.c token/1_handle_inputs.c token/2_handle_inputs.c token/check_grammar.c\
 				token/quotes_aux.c token/check_inputs.c token/rearrange.c token/rearrange_utils.c\
 				utils/error.c utils/get_last_node.c utils/get_first_node.c utils/get_list_size.c utils/free_minishell.c utils/free_execution.c \
 				utils/init.c utils/get_set.c utils/is_redir.c\

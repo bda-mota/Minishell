@@ -55,7 +55,6 @@ int	check_sintax(char *input)
 		return (1);
 	else if (!check_quotes(input))
 		return (1);
-	//checar se há arquivo depois de > e antes e depois de pipe 
 	return (0);
 }
 
@@ -73,36 +72,5 @@ int	check_untreatable(char *input)
 		display_error_tokens("&&", '&');
 	else
 		return (1);
-	return (0);
-}
-
-int	check_grammar(t_token **token)
-{
-	t_token	*curr;
-
-	curr = *token;
-	while (curr)
-	{
-		if (is_redir_or_heredoc(&curr))
-		{
-			if (!curr->next || (curr->next && curr->next->type != WORD))
-			{
-				display_error_tokens("sintaxe", curr->content[0]);
-				deallocate_lst(token);
-				return (1);
-			}
-		}
-		if (curr->type == PIPE)
-		{
-			if ((!curr->prev || !curr->next) || ((curr->prev && curr->prev->type != WORD)
-				|| (curr->next && curr->next->type != WORD)))
-			{
-				display_error_tokens("sintaxe", curr->content[0]);
-				deallocate_lst(token);
-				return (1);
-			}
-		}
-		curr = curr->next;
-	}
 	return (0);
 }

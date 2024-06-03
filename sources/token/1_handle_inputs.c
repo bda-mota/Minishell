@@ -1,76 +1,35 @@
 #include "../../includes/minishell.h"
 
-void	handle_pipe(t_token **token, char *input, size_t *i)
+void	handle_one(t_token **token, char *input, size_t *i)
 {
 	size_t	j;
+	int		type;
 	char	*content;
 
 	j = 0;
 	content = ft_calloc(sizeof(char), 2);
 	if (!content)
 		return ;
-	if (input[*i] && catalog_inputs(input, i) == PIPE)
+	type = catalog_inputs(input, i);
+	if (input[*i] && j < 1)
 		content[j++] = input[(*i)++];
 	(*i)--;
-	insert_token(token, create_token(content, PIPE));
+	insert_token(token, create_token(content, type));
 }
 
-void	handle_input(t_token **token, char *input, size_t *i)
-{
-	size_t		j;
-	char		*content;
-
-	j = 0;
-	content = ft_calloc(sizeof(char), 2);
-	if (!content)
-		return ;
-	if (input[*i] && (catalog_inputs(input, i) == INPUT))
-		content[j++] = input[(*i)++];
-	(*i)--;
-	insert_token(token, create_token(content, INPUT));
-}
-
-void	handle_output(t_token **token, char *input, size_t *i)
-{
-	size_t		j;
-	char		*content;
-
-	j = 0;
-	content = ft_calloc(sizeof(char), 2);
-	if (!content)
-		return ;
-	if (input[*i] && (catalog_inputs(input, i) == OUTPUT))
-		content[j++] = input[(*i)++];
-	(*i)--;
-	insert_token(token, create_token(content, OUTPUT));
-}
-
-void	handle_append(t_token **token, char *input, size_t *i)
+void	handle_two(t_token **token, char *input, size_t *i)
 {
 	size_t	j;
+	int		type;
 	char	*content;
 
 	j = 0;
 	content = ft_calloc(sizeof(char), 3);
 	if (!content)
 		return ;
+	type = catalog_inputs(input, i);
 	while (input[*i] && j < 2)
 		content[j++] = input[(*i)++];
 	(*i)--;
-	insert_token(token, create_token(content, APPEND));
-}
-
-void	handle_heredoc(t_token **token, char *input, size_t *i)
-{
-	size_t	j;
-	char	*content;
-
-	j = 0;
-	content = ft_calloc(sizeof(char), 3);
-	if (!content)
-		return ;
-	while (input[*i] && j < 2)
-		content[j++] = input[(*i)++];
-	(*i)--;
-	insert_token(token, create_token(content, HEREDOC));
+	insert_token(token, create_token(content, type));
 }

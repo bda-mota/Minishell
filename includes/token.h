@@ -56,15 +56,12 @@ void	tokenizer(t_minishell *shell);
  * Handle the processing of a quote in the
  * input and insert it into the token list.
  */
+void	handle_one(t_token **token, char *input, size_t *i);
+void	handle_two(t_token **token, char *input, size_t *i);
 void	handle_quotes(t_token **token, char *input, size_t *i);
 void	handle_double(t_token **token, char *input, size_t *i, size_t size);
 void	handle_simple(t_token **token, char *input, size_t *i, size_t size);
 void	handle_word(t_token **token, char *input, size_t *i);
-void	handle_pipe(t_token **token, char *input, size_t *i);
-void	handle_input(t_token **token, char *input, size_t *i);
-void	handle_output(t_token **token, char *input, size_t *i);
-void	handle_append(t_token **token, char *input, size_t *i);
-void	handle_heredoc(t_token **token, char *input, size_t *i);
 void	handle_block(t_token **token, char *input, size_t *i);
 
 /**** SEPARATORS - AUXILIARS ****/
@@ -74,8 +71,11 @@ int		check_sintax(char *input);
 int		check_untreatable(char *input);
 int		check_quotes(char *input);
 int		check_quotes_aux(char *input, int *i, char c);
-int	    check_grammar(t_token **token);
 
+/* CHECK GRAMMAR */
+int		is_invalid_redir_or_heredoc(t_token *curr);
+int		is_invalid_pipe(t_token *curr);
+int		check_grammar(t_token **token);
 
 /*
  * Checks if there is a double quote (") in the current
@@ -91,11 +91,11 @@ int		significant_tokens(t_token *tokens);
 /* REARRANGE */
 void	inspect_types(t_token **tokens);
 void	rearrange_tokens(t_token **tokens);
-//int		check_redirects_on_pipeline(t_token **tokens); -> removida por falta de uso 
 int		check_pipeline(t_token **tokens);
 t_token	*get_last_node_of_pipeline(t_token **tokens);
 t_token	*get_first_node_of_pipeline(t_token **tokens);
 t_token	*split_list(t_token **tokens);
 t_token	*get_first_word(t_token **tokens);
+
 
 #endif
