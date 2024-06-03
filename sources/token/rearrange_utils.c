@@ -52,6 +52,8 @@ t_token	*get_first_word(t_token **tokens)
 	t_token	*first;
 
 	first = *tokens;
+	if (is_redir_or_heredoc(&first))
+		return (NULL);
 	while (first && !is_redir_or_heredoc(&first->next))
 		first = first->next;
 	return (first);

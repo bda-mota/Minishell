@@ -12,7 +12,7 @@ int	direct_to_exec(t_tree *tree)
 	}
 	if (the_branch_is_redir(tree))
 	{
-		//redirs_execution(tree->left, tree->right);
+		redirs_execution(tree, tree->right);
 		return (0);
 	}
 	else
