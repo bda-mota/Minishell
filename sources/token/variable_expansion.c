@@ -6,10 +6,10 @@ char	*my_getenv(char **env_copy, char *var)
 	int	len;
 
 	i = 0;
-	len = strlen(var);
+	len = ft_strlen(var);
 	while (env_copy[i])
 	{
-		if (strncmp(env_copy[i], var, len) == 0 && env_copy[i][len] == '=')
+		if (ft_strncmp(env_copy[i], var, len) == 0 && env_copy[i][len] == '=')
 			return (env_copy[i] + len + 1);
 		i++;
 	}
@@ -27,8 +27,6 @@ void	expand_variable(t_token **token, char **env_copy)
 		expanded_content = aux_expand_variable(curr->content, env_copy);
 		free(curr->content);
 		curr->content = expanded_content;
-		if (curr->content == NULL)
-			return ;
 		curr = curr->next;
 	}
 }
@@ -36,6 +34,8 @@ void	expand_variable(t_token **token, char **env_copy)
 char	*aux_expand_variable(char *content, char **env_copy)
 {
 	char	*data_var;
+	char	*temp;
+	char	*new_data_var;
 	int		i;
 
 	data_var = ft_strdup("");
@@ -44,8 +44,14 @@ char	*aux_expand_variable(char *content, char **env_copy)
 	{
 		if (content[i] == '$')
 			data_var = find_variable(content, &i, env_copy, data_var);
-		if (!data_var)
-			return (NULL);
+		else
+		{
+			temp = ft_strndup(&content[i], 1);
+			new_data_var = ft_strjoin(data_var, temp);
+			free(temp);
+			free(data_var);
+			data_var = new_data_var;
+		}
 		i++;
 	}
 	return (data_var);

@@ -64,6 +64,9 @@ void	processor(t_minishell *shell)
 	inspect_types(&shell->token);
 	rearrange_tokens(&shell->token);
 	expand_variable(&shell->token, *get_copy(NULL));
+	if (shell->token && shell->token->next == NULL
+		&& shell->token->content[0] == '\0')
+		return ;
 	build_tree(&shell->tree, &shell->token, LEFT);
 	if (!shell->complete_path)
 		find_path(shell);
