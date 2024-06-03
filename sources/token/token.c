@@ -24,19 +24,6 @@ int	catalog_inputs(char *c, size_t *i)
 		return (WORD);
 }
 
-void	handle_quotes(t_token **token, char *input, size_t *i)
-{
-	size_t	size_double;
-	size_t	size_simple;
-
-	size_double = count_double_quote(input, &(*i));
-	if (size_double != 0)
-		handle_double(token, input, &(*i), size_double);
-	size_simple = count_simple_quote(input, &(*i));
-	if (size_simple != 0)
-		handle_simple(token, input, &(*i), size_simple);
-}
-
 void	tokenizer(t_minishell *shell)
 {
 	size_t	i;
