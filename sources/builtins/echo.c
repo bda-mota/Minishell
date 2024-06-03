@@ -34,7 +34,7 @@ static int	check_n_flag(char *args, int *i)
 	return (0);
 }
 
-void	echo(char *args)
+void	ft_echo(char *args)
 {
 	int	i;
 	int	flag;

@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void	unset(char **env_copy, char *remove_var)
+void	ft_unset(char **env_copy, char *remove_var)
 {
 	int	i;
 	int	j;

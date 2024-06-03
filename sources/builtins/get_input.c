@@ -69,17 +69,17 @@ void	execute_builtins(t_tree *tree)
 	args = cmd_args[1];
 	environ = *get_copy(NULL);
 	if (ft_strcmp("echo", command) == 0)
-		echo(args);
+		ft_echo(args);
 	else if (ft_strcmp("pwd", command) == 0)
-		pwd();
+		ft_pwd();
 	else if (ft_strcmp("export", command) == 0)
-		export(environ, args);
+		ft_export(environ, args);
 	else if (ft_strcmp("env", command) == 0)
-		env(environ);
+		ft_env(environ);
 	else if (ft_strcmp("unset", command) == 0)
-		unset(environ, args);
+		ft_unset(environ, args);
 	else if (ft_strcmp("cd", command) == 0)
-		cd(args);
+		ft_cd(args);
 	else if (ft_strcmp("exit", command) == 0)
 		//exit(1); -> desenvolver função
 	free_split_command(cmd_args);

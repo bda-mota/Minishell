@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void	pwd(void)
+void	ft_pwd(void)
 {
 	char	*pwd;
 

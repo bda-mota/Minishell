@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void	export(char **env_copy, char *new_variable)
+void	ft_export(char **env_copy, char *new_variable)
 {
 	int	i;
 
