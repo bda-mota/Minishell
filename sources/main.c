@@ -62,17 +62,20 @@ static char	*prompt(void)
 void	processor(t_minishell *shell)
 {
 	tokenizer(shell);
+	if (shell->token == NULL)
+		return ;
 	if (check_grammar(&shell->token) == 1)
 		return ;
 	inspect_types(&shell->token);
 	rearrange_tokens(&shell->token);
-	print_list(&shell->token);
-	//build_tree(&shell->tree, &shell->token);
+	build_tree(&shell->tree, &shell->token);
 	//print_tree_main(shell->tree);
-	//if (!shell->complete_path)
-	//	find_path(shell);
-	//get_tree(shell->tree);
-	//direct_to_exec(shell->tree);
-	deallocate_lst(&shell->token);
-	//down_tree(&shell->tree);
+	if (!shell->complete_path)
+		find_path(shell);
+	get_tree(shell->tree);
+	direct_to_exec(shell->tree);
+	down_tree(&shell->tree);
 }
+
+	//print_list(&shell->token);
+	//deallocate_lst(&shell->token);
