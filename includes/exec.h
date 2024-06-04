@@ -13,12 +13,13 @@ void	check_command(t_tree *tree);
 void	find_command(t_tree *tree, char *cmd);
 
 /* EXECUTION */
-int		direct_to_exec(t_tree *tree);
+int		executor(t_tree *tree);
 void	execute(t_tree *tree, char *command);
 
 /* REDIRECTS */
 void	redirs_execution(t_tree *left, t_tree *right);
-int		open_file(t_tree *branch);
+int		open_file(t_tree *tree, t_tree *right);
+
 
 /* PIPE */
 void	pipe_execution(t_tree *left, t_tree *right);

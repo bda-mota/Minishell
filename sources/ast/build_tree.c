@@ -19,7 +19,7 @@ void	build_tree(t_tree **root, t_token **tokens)
 	}
 	else if (branchs && is_redir_or_heredoc(&branchs[1]))
 	{
-		*root = create_branch(branchs, REDIRECT);
+		*root = create_branch(branchs, (branchs[1])->type);
 		tokens = &branchs[0];
 		if (branchs[0] != NULL)
 			build_tree(&((*root)->left), tokens);
@@ -39,7 +39,7 @@ t_tree	*create_branch(t_token **token_list, int type)
 	new_branch->content = ft_strdup(token_list[1]->content);
 	free(token_list[1]->content);
 	free(token_list[1]);
-	if (type == REDIRECT)
+	if (type == INPUT || type == OUTPUT || type == APPEND || type == HEREDOC)
 	{
 		new_branch->right = ft_calloc(1, sizeof(t_tree));
 		if (!new_branch->right)

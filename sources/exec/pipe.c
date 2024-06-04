@@ -13,7 +13,7 @@ void	pipe_execution(t_tree *left, t_tree *right)
 		close (tube[0]);
 		dup2(tube[STDOUT_FILENO], STDOUT_FILENO);
 		close (tube[1]);
-		direct_to_exec(left);
+		executor(left);
 		close (tube[1]);
 		free_pipe_child();
 		exit(0);
@@ -24,7 +24,7 @@ void	pipe_execution(t_tree *left, t_tree *right)
 		close (tube[1]);
 		dup2(tube[STDIN_FILENO], STDIN_FILENO);
 		close (tube[0]);
-		direct_to_exec(right);
+		executor(right);
 		free_pipe_child();
 		exit(0);
 	}

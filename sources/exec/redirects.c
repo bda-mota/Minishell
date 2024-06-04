@@ -7,33 +7,50 @@ void	redirs_execution(t_tree *tree, t_tree *right)
 
 	std[0] = STDIN_FILENO;
 	std[1] = STDOUT_FILENO;
-	fd = open_file(right);
-	dup2(fd, std[0]);
-	(void)tree;
+	fd = open_file(tree, right);
+	if (tree->type == INPUT)
+	{
+		if (fd != -1 && fd != 0)
+		{
+			dup2(fd, std[0]);
+			close(fd);
+		}
+	}
+	else if (tree->type == OUTPUT || tree->type == APPEND)
+	{
+		if (fd != -1 && fd != 1)
+		{
+			dup2(fd, std[1]);
+			close(fd);
+		}
+	}
 }
 
-int	open_file(t_tree *branch)
+int	open_file(t_tree *tree, t_tree *right)
 {
 	int	fd;
 
-	fd = 0;
-	if (branch->type == INPUT)
+	(void)right;
+	if (tree && tree->type == INPUT)
 	{
-		fd = open(branch->right->content, O_RDONLY);
+		fd = open(right->content, O_RDONLY);
 		if (fd == -1)
 			printf("Error ao abrir o arquivo - INPUT\n");
+		return (fd);
 	}
-	else if (branch->type == APPEND)
+	else if (tree && tree->type == APPEND)
 	{
-		fd = open(branch->right->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		fd = open(right->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		if (fd == -1)
 			printf("Error ao abrir e/ou criar o arquivo - APPEND\n");
+		return (fd);
 	}
-	else if (branch->type == OUTPUT)
+	else if (tree && tree->type == OUTPUT)
 	{
-		fd = open(branch->right->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		fd = open(right->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd == -1)
 			printf("Error ao abrir e/ou criar o arquivo - OUTPUT\n");
+		return (fd);
 	}
-	return (fd);
+	return (-1);
 }

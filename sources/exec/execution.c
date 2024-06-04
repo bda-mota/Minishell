@@ -3,7 +3,7 @@
 //return (pipe_execution(tree->left, tree->right));
 //fazer todas as funções serão do tipo int para exit status
 
-int	direct_to_exec(t_tree *tree)
+int	executor(t_tree *tree)
 {
 	if (tree->type == PIPE)
 	{
@@ -13,6 +13,7 @@ int	direct_to_exec(t_tree *tree)
 	if (the_branch_is_redir(tree))
 	{
 		redirs_execution(tree, tree->right);
+		executor(tree->left);
 		return (0);
 	}
 	else
