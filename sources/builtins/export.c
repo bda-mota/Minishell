@@ -1,12 +1,53 @@
 #include "../../includes/minishell.h"
 
+// void	ft_export(char **env_copy, char *new_variable)
+// {
+// 	int		i;
+
+// 	i = 0;
+// 	if (new_variable)
+// 		add_variable_to_environ(env_copy, new_variable);
+// 	else
+// 	{
+// 		order_env(env_copy);
+// 		while (env_copy[i])
+// 		{
+// 			printf("declare -x %s\n", env_copy[i]);
+// 			i++;
+// 		}
+// 	}
+// }
+
 void	ft_export(char **env_copy, char *new_variable)
 {
-	int	i;
+	int		i;
+	int		args;
+	int		start;
+	char	*var;
+	char	**environ;
 
 	i = 0;
+	args = 0;
 	if (new_variable)
-		add_variable_to_environ(env_copy, new_variable);
+	{
+		while (new_variable[args])
+		{
+			environ = *get_copy(NULL);
+			start = args;
+			while (new_variable[args] && new_variable[args] != 32)
+				args++;
+			if (start != args)
+			{
+				var = ft_strndup(&new_variable[start], args - start);
+				if (var)
+				{
+					add_variable_to_environ(environ, var);
+					free (var);
+				}
+			}
+			args++;
+		}
+	}
 	else
 	{
 		order_env(env_copy);
