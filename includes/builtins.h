@@ -22,10 +22,13 @@ void	ft_cd(char *path);
 
 /* EXPORT_UTILS */
 
+int		check_variable_name(char *new_var);
+void	change_variables(char *new_variable);
+void	print_variables(char	**env_copy);
 void	add_new_variable(char **env_copy, char *new_var);
 int		update_variable(char **env_copy,
 			char *var_name, char *new_var, int var_len);
-void	add_variable_to_environ(char **env_copy, char *new_var);
+void	variable_to_environ(char **env_copy, char *new_var);
 void	swap_strings(char **str1, char **str2);
 void	order_env(char **env_copy);
 char	**count_size_environ(void);

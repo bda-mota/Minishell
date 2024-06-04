@@ -39,7 +39,7 @@ void	add_new_variable(char **env_copy, char *new_var)
 	*get_copy(NULL) = new_environ;
 }
 
-void	add_variable_to_environ(char **env_copy, char *new_var)
+void	variable_to_environ(char **env_copy, char *new_var)
 {
 	char	*var_name;
 	int		var_len;
@@ -52,6 +52,32 @@ void	add_variable_to_environ(char **env_copy, char *new_var)
 	var_name = ft_strndup(new_var, var_len);
 	update = update_variable(env_copy, var_name, new_var, var_len);
 	if (!update)
-		add_new_variable(env_copy, new_var);
+	{
+		if (!check_variable_name(var_name))
+			add_new_variable(env_copy, new_var);
+	}
 	free(var_name);
+}
+
+
+int	check_variable_name(char *var_name)
+{
+	int	i;
+
+	i = 0;
+	if (var_name[i] != '_' && !ft_isalpha(var_name[i]))
+	{
+		ft_printf_fd("export: '%s': not a valid identifier\n", var_name, 2);
+		return (1);
+	}
+	while (var_name[i])
+	{
+		if (!ft_isalnum(var_name[i]) && var_name[i] != '_')
+		{
+			ft_printf_fd("export: `%s': not a valid identifier\n", var_name, 2);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
