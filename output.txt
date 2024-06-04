@@ -1,2 +1,0 @@
-"hello, world"
-[1;35m$BaByshell: [1;37m
