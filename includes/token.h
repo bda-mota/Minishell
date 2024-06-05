@@ -7,7 +7,7 @@
 void	insert_token(t_token **token, t_token *new_node);
 t_token	*create_token(char *content, int type);
 
-/**** linked list ****/
+/* ==== LINKED LIST ==== */
 /*
  * Initializes a list of tokens.
  *
@@ -34,7 +34,7 @@ void	deallocate_lst(t_token **token);
  */
 void	remove_first(t_token **token);
 
-/**** inputs ****/
+/* ==== TOKEN ==== */
 /*
  * Checks and classifies the type of input supplied.
  *
@@ -51,7 +51,8 @@ int		catalog_inputs(char *c, size_t *i);
  * Identifies the type of entry to insert into the token list.
  */
 void	tokenizer(t_minishell *shell);
-/**** SEPARATORS ****/
+
+/* ==== HANDLE INPUTS ==== */
 /*
  * Handle the processing of a quote in the
  * input and insert it into the token list.
@@ -64,7 +65,7 @@ void	handle_simple(t_token **token, char *input, size_t *i, size_t size);
 void	handle_word(t_token **token, char *input, size_t *i);
 void	handle_block(t_token **token, char *input, size_t *i);
 
-/**** SEPARATORS - AUXILIARS ****/
+/* ====  SEPARATORS - AUXILIARS ==== */
 int		check_blocks(char *input);
 int		check_blocks_aux(char *input);
 int		check_sintax(char *input);
@@ -72,7 +73,7 @@ int		check_untreatable(char *input);
 int		check_quotes(char *input);
 int		check_quotes_aux(char *input, int *i, char c);
 
-/* CHECK GRAMMAR */
+/* ==== CHECK GRAMMAR ==== */
 int		is_invalid_redir_or_heredoc(t_token *curr);
 int		is_invalid_pipe(t_token *curr);
 int		check_grammar(t_token **token);
@@ -88,7 +89,7 @@ int		count_double_quote(char *input, size_t *i);
 int		count_simple_quote(char *input, size_t *i);
 int		significant_tokens(t_token *tokens);
 
-/* REARRANGE */
+/* ==== REARRANGE ==== */
 void	inspect_types(t_token **tokens);
 void	rearrange_tokens(t_token **tokens);
 int		check_pipeline(t_token **tokens);

@@ -31,7 +31,9 @@ int	executor(t_tree *tree)
 void	execute(t_tree *tree, char *command)
 {
 	int	pid;
+	int	status;
 
+	status = 0;
 	tree->command_child = ft_split(command, ' ');
 	if (tree->command_child == NULL)
 		printf("Error ao dar split\n");
@@ -42,8 +44,21 @@ void	execute(t_tree *tree, char *command)
 	if (pid == 0)
 	{
 		execve(tree->executable, tree->command_child, *get_env_copy(NULL));
-		//tratamento se o execve dar b.o -> free
+		ft_printf_fd("Error: %s\n", 2, strerror(errno));
+		exit(126);
 	}
 	free_simple_child(tree->command_child, tree->executable);
-	wait(NULL);
+	waitpid(pid, &status, 0);
+	set_status(status);
+}
+
+void	set_status(int status)
+{
+	if (WIFEXITED(status))
+	{
+		status = WEXITSTATUS(status);
+		get_status(status);
+	}
+	else
+		get_status(0);
 }

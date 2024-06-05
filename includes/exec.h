@@ -4,38 +4,37 @@
 # include "../libft/src/libft.h"
 # include "structs.h"
 
-/* FREE CHILD */
+/* ==== FREE CHILD ==== */
 void	free_pipe_child(void);
 void	free_simple_child(char **child, char *executable);
 
-/* COMMAND */
+/* ==== COMMAND ==== */
 void	check_command(t_tree *tree);
 void	find_command(t_tree *tree, char *cmd);
 
-/* EXECUTION */
+/* ==== EXECUTION ==== */
 int		executor(t_tree *tree);
 void	execute(t_tree *tree, char *command);
+void	set_status(int status);
 
-/* REDIRECTS */
+/* ==== REDIRECTS ==== */
 void	redirs_execution(t_tree *left, t_tree *right);
 int		open_file(t_tree *tree, t_tree *right);
 
-
-/* PIPE */
+/* ==== PIPE ==== */
 void	pipe_execution(t_tree *left, t_tree *right);
+void	first_child(t_tree *left, int *tube);
+void	second_child(t_tree *right, int *tube);
 void	close_tubes(int *tube);
-void	wait_forks(pid_t *pid);
+void	wait_forks(pid_t *pid, int status);
 int		open_tubes(int *tube);
 int		open_fork(pid_t *pid);
 void	close_all(void);
 
-/* APPEND */
-void	append_execution(t_tree *left, t_tree *right);
-
-/* EXPANSION */
+/* ==== EXPANSION ==== */
 char	*get_expand_variable(t_token **token);
 
-/* PATH */
+/* ==== PATH ==== */
 void	find_path(t_minishell *shell);
 void	build_path(t_minishell *shell);
 

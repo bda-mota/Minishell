@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   trash.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsantana <bsantana@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:17:58 by bsantana          #+#    #+#             */
-/*   Updated: 2024/05/23 15:00:43 by bsantana         ###   ########.fr       */
+/*   Updated: 2024/06/04 18:43:30 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,24 +72,26 @@ static char	*find_type(int type)
 	return (str);
 }
 
-void print_tree_main(t_tree *tree)
+void	print_tree_main(t_tree *tree)
 {
-    print_tree_aux(tree, 0, "root");
+	print_tree_aux(tree, 0, "root");
 }
 
-void print_tree_aux(t_tree *tree, int depth, const char *relation)
+void	print_tree_aux(t_tree *tree, int depth, const char *relation)
 {
-    if (tree == NULL)
-        return ;
-    // Imprime os nós da subárvore direita
-    print_tree_aux(tree->right, depth + 1, "right");
-    // Imprime a indentação e o conteúdo do nó
-    for (int i = 0; i < depth; i++) {
-        printf("  ");
-    }
-    printf("(%s) %s\n", relation, tree->content);
-    // Imprime os nós da subárvore esquerda
-    print_tree_aux(tree->left, depth + 1, "left");
+	int	i;
+
+	i = 0;
+	if (tree == NULL)
+		return ;
+	print_tree_aux(tree->right, depth + 1, "right");
+	while (i < depth)
+	{
+		printf("  ");
+		i++;
+	}
+	printf("(%s) %s\n", relation, tree->content);
+	print_tree_aux(tree->left, depth + 1, "left");
 }
 
 // Função principal para imprimir a árvore

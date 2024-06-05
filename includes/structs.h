@@ -48,20 +48,14 @@ typedef struct s_tree
 	struct s_tree	*left;
 }	t_tree;
 
-// ***************** NÃO IMPLEMENTADA AINDA *****************
-typedef struct s_files
-{
-	int				fd_input;
-	int				fd_output;
-	struct s_files	*next;
-	struct s_files	*prev;
-}	t_files;
-
+/* ===== MINISHELL ===== */
 typedef struct s_minishell
 {
+	int		status;
+	int		fd_input;
+	int		fd_output;
 	t_tree	*tree;
 	t_token	*token;
-	t_files	*files;
 	char	*input;
 	char	*complete_path;
 	char	**env_copy;

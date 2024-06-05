@@ -6,6 +6,7 @@ static void	signal_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
+		get_status(130);
 		ft_putchar_fd('\n', 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -74,8 +75,10 @@ void	processor(t_minishell *shell)
 	get_tree(shell->tree);
 	executor(shell->tree);
 	down_tree(&shell->tree);
+	//dup2(shell->fd_input, STDIN_FILENO);
+	//dup2(shell->fd_output, STDOUT_FILENO);
 }
 
-	//print_list(&shell->token);
 	//print_tree_main(shell->tree);
+	//print_list(&shell->token);
 	//deallocate_lst(&shell->token);

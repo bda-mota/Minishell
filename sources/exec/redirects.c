@@ -13,6 +13,7 @@ void	redirs_execution(t_tree *tree, t_tree *right)
 		if (fd != -1 && fd != 0)
 		{
 			dup2(fd, std[0]);
+			get_minishell(NULL)->fd_input = fd;
 			close(fd);
 		}
 	}
@@ -21,6 +22,7 @@ void	redirs_execution(t_tree *tree, t_tree *right)
 		if (fd != -1 && fd != 1)
 		{
 			dup2(fd, std[1]);
+			get_minishell(NULL)->fd_output = fd;
 			close(fd);
 		}
 	}

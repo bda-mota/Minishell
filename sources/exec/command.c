@@ -11,6 +11,7 @@ void	check_command(t_tree *tree)
 	if (tree->executable == NULL)
 	{
 		display_error_exec("command not found", command);
+		get_status(127);
 		free_simple_child(tree->command_child, NULL);
 	}
 }
@@ -18,25 +19,17 @@ void	check_command(t_tree *tree)
 void	find_command(t_tree *tree, char *cmd)
 {
 	int		i;
-	char	**take_first;
 	char	**paths;
 
 	i = 0;
 	paths = get_paths(NULL);
-	take_first = ft_split(cmd, ' ');
-	if (take_first == NULL)
-		printf("error\n");
 	while (paths[i])
 	{
-		tree->executable = ft_strjoin(paths[i], take_first[0]);
+		tree->executable = ft_strjoin(paths[i], cmd);
 		if (access(tree->executable, X_OK) == 0)
-		{
-			ft_free_matrix(take_first);
 			return ;
-		}
 		free(tree->executable);
 		i++;
 	}
-	tree->executable = NULL;
-	ft_free_matrix(take_first);
+	tree->executable = cmd;
 }

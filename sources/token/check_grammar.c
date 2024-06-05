@@ -23,6 +23,7 @@ int	check_grammar(t_token **token)
 		{
 			display_error_tokens("sintaxe", curr->content[0]);
 			deallocate_lst(token);
+			get_status(2);
 			return (1);
 		}
 		curr = curr->next;
