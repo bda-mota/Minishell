@@ -29,3 +29,23 @@ void	free_pipe_child(void)
 		down_tree(&shell->tree);
 	rl_clear_history();
 }
+
+void	free_fail_execve(char **child, char *executable)
+{
+	t_minishell	*shell;
+	char		**env_copy;
+
+	env_copy = *get_env_copy(NULL);
+	shell = get_minishell(NULL);
+	free_simple_child(child, executable);
+	if (shell->paths)
+		ft_free_matrix(shell->paths);
+	if (shell->input)
+		free(shell->input);
+	if (env_copy)
+		ft_free_matrix(env_copy);
+	if (shell->tree)
+		down_tree(&shell->tree);
+	rl_clear_history();
+	exit(126);
+}

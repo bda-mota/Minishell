@@ -1,8 +1,5 @@
 #include "../../includes/minishell.h"
 
-//return (pipe_execution(tree->left, tree->right));
-//fazer todas as funções serão do tipo int para exit status
-
 int	executor(t_tree *tree)
 {
 	if (tree->type == PIPE)
@@ -44,7 +41,9 @@ void	execute(t_tree *tree, char *command)
 	if (pid == 0)
 	{
 		execve(tree->executable, tree->command_child, *get_env_copy(NULL));
-		ft_printf_fd("Error: %s\n", 2, strerror(errno));
+		free_fail_execve(tree->command_child, tree->executable);
+		ft_printf_fd("Babyshell: %s\n", strerror(errno), 2);
+		status = 126;
 		exit(126);
 	}
 	free_simple_child(tree->command_child, tree->executable);

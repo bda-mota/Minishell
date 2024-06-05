@@ -6,12 +6,14 @@ void	check_command(t_tree *tree)
 
 	command = tree->command_child[0];
 	if (access(command, X_OK) == 0)
+	{
+		tree->executable = ft_strdup(command);
 		return ;
+	}
 	find_command(tree, command);
 	if (tree->executable == NULL)
 	{
 		display_error_exec("command not found", command);
-		get_status(127);
 		free_simple_child(tree->command_child, NULL);
 	}
 }
@@ -22,6 +24,11 @@ void	find_command(t_tree *tree, char *cmd)
 	char	**paths;
 
 	i = 0;
+	if (ft_strncmp(cmd, "./", 2) == 0)
+	{
+		tree->executable = ft_strdup(cmd);
+		return ;
+	}
 	paths = get_paths(NULL);
 	while (paths[i])
 	{
@@ -31,5 +38,5 @@ void	find_command(t_tree *tree, char *cmd)
 		free(tree->executable);
 		i++;
 	}
-	tree->executable = cmd;
+	tree->executable = NULL;
 }

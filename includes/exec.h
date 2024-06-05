@@ -7,6 +7,7 @@
 /* ==== FREE CHILD ==== */
 void	free_pipe_child(void);
 void	free_simple_child(char **child, char *executable);
+void	free_fail_execve(char **child, char *executable);
 
 /* ==== COMMAND ==== */
 void	check_command(t_tree *tree);
@@ -18,8 +19,9 @@ void	execute(t_tree *tree, char *command);
 void	set_status(int status);
 
 /* ==== REDIRECTS ==== */
-void	redirs_execution(t_tree *left, t_tree *right);
-int		open_file(t_tree *tree, t_tree *right);
+void	redirs_execution(t_tree *tree, t_tree *right);
+int		open_file(t_tree *tree, int *fd);
+int		dup_file(t_tree *tree, int *fd);
 
 /* ==== PIPE ==== */
 void	pipe_execution(t_tree *left, t_tree *right);

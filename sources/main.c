@@ -75,8 +75,6 @@ void	processor(t_minishell *shell)
 	get_tree(shell->tree);
 	executor(shell->tree);
 	down_tree(&shell->tree);
-	//dup2(shell->fd_input, STDIN_FILENO);
-	//dup2(shell->fd_output, STDOUT_FILENO);
 }
 
 	//print_tree_main(shell->tree);

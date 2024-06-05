@@ -3,56 +3,52 @@
 void	redirs_execution(t_tree *tree, t_tree *right)
 {
 	int	fd;
-	int	std[2];
+	int	saved_std[2];
 
-	std[0] = STDIN_FILENO;
-	std[1] = STDOUT_FILENO;
-	fd = open_file(tree, right);
-	if (tree->type == INPUT)
+	(void)right;
+	saved_std[0] = dup(STDIN_FILENO);
+	saved_std[1] = dup(STDOUT_FILENO);
+	open_file(tree, &fd);
+	dup_file(tree, &fd);
+	executor(tree->left);
+	dup2(saved_std[0], STDIN_FILENO);
+	dup2(saved_std[1], STDOUT_FILENO);
+	close(saved_std[0]);
+	close(saved_std[1]);
+}
+
+int	open_file(t_tree *tree, int *fd)
+{
+	if (tree && tree->type == INPUT)
+		*fd = open(tree->right->content, O_RDONLY);
+	else if (tree && tree->type == APPEND)
+		*fd = open(tree->right->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else if (tree && tree->type == OUTPUT)
+		*fd = open(tree->right->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (*fd == -1)
+		return (display_error_exec("no_file", tree->right->content));
+	return (EXIT_SUCCESS);
+}
+
+int	dup_file(t_tree *tree, int *fd)
+{
+	if (tree && tree->type == INPUT)
 	{
-		if (fd != -1 && fd != 0)
+		if (*fd != -1 && *fd != STDIN_FILENO)
 		{
-			dup2(fd, std[0]);
-			get_minishell(NULL)->fd_input = fd;
-			close(fd);
+			dup2(*fd, STDIN_FILENO);
+			close(*fd);
+			return (EXIT_SUCCESS);
 		}
 	}
 	else if (tree->type == OUTPUT || tree->type == APPEND)
 	{
-		if (fd != -1 && fd != 1)
+		if (*fd != -1 && *fd != STDOUT_FILENO)
 		{
-			dup2(fd, std[1]);
-			get_minishell(NULL)->fd_output = fd;
-			close(fd);
+			dup2(*fd, STDOUT_FILENO);
+			close(*fd);
+			return (EXIT_SUCCESS);
 		}
 	}
-}
-
-int	open_file(t_tree *tree, t_tree *right)
-{
-	int	fd;
-
-	(void)right;
-	if (tree && tree->type == INPUT)
-	{
-		fd = open(right->content, O_RDONLY);
-		if (fd == -1)
-			printf("Error ao abrir o arquivo - INPUT\n");
-		return (fd);
-	}
-	else if (tree && tree->type == APPEND)
-	{
-		fd = open(right->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		if (fd == -1)
-			printf("Error ao abrir e/ou criar o arquivo - APPEND\n");
-		return (fd);
-	}
-	else if (tree && tree->type == OUTPUT)
-	{
-		fd = open(right->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fd == -1)
-			printf("Error ao abrir e/ou criar o arquivo - OUTPUT\n");
-		return (fd);
-	}
-	return (-1);
+	return (EXIT_FAILURE);
 }
