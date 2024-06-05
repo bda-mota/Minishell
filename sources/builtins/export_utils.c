@@ -45,8 +45,8 @@ char	**copy_environ(void)
 
 char	**create_new_environ(char **environ_copy, int num_vars)
 {
-	char	**new_environ;
 	int		i;
+	char	**new_environ;
 
 	i = 0;
 	new_environ = ft_calloc(num_vars + 2, sizeof(char *));

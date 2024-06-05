@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static int	quotes(char c, int *simple_quote, int *double_quote)
+int	quotes(char c, int *simple_quote, int *double_quote)
 {
 	if (c == '"')
 	{

@@ -1,10 +1,21 @@
 #include "../../includes/minishell.h"
 
+void	processed_var(char **environ, char *new_variable, int start, int args)
+{
+	char	*var;
+
+	var = ft_strndup(&new_variable[start], args - start);
+	if (var)
+	{
+		variable_to_environ(environ, var);
+		free (var);
+	}
+}
+
 void	change_variables(char *new_variable)
 {
 	int		args;
 	int		start;
-	char	*var;
 	char	**environ;
 
 	args = 0;
@@ -14,17 +25,17 @@ void	change_variables(char *new_variable)
 	{
 		environ = *get_copy(NULL);
 		start = args;
-		while (new_variable[args] && new_variable[args] != 32)
-			args++;
-		if (start != args)
+		while (new_variable[args])
 		{
-			var = ft_strndup(&new_variable[start], args - start);
-			if (var)
-			{
-				variable_to_environ(environ, var);
-				free (var);
-			}
+			if (new_variable[args] == 32 && (new_variable[args + 1] == '"'
+					|| new_variable[args + 1] == '\''))
+				args++;
+			else if (new_variable[args] == 32)
+				break ;
+			args++;
 		}
+		if (start != args)
+			processed_var(environ, new_variable, start, args);
 		args++;
 	}
 }
@@ -42,7 +53,6 @@ void	print_variables(char	**env_copy)
 		i++;
 	}
 }
-
 
 void	ft_export(char **env_copy, char *new_variable)
 {
@@ -75,9 +85,7 @@ void	order_env(char **env_copy)
 		while (env_copy[j])
 		{
 			if (ft_strcmp(env_copy[j], env_copy[min_index]) < 0)
-			{
 				min_index = j;
-			}
 			j++;
 		}
 		if (min_index != i)

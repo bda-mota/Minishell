@@ -34,6 +34,7 @@ char	***get_copy(char **copy);
 char	**get_paths(char **paths);
 char	**get_paths_cmd(char **paths_cmd);
 t_tree	*get_tree(t_tree *tree);
+t_minishell	*get_minishell(t_minishell *shell);
 
 //UTILS
 void	init_shell(t_minishell *shell);

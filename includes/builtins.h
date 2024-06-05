@@ -22,6 +22,7 @@ void	ft_cd(char *path);
 
 /* EXPORT_UTILS */
 
+int		quotes(char c, int *simple_quote, int *double_quote);
 int		check_variable_name(char *new_var);
 void	change_variables(char *new_variable);
 void	print_variables(char	**env_copy);

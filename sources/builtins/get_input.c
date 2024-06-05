@@ -56,13 +56,13 @@ char	**split_command(char *content)
 	}
 	return (result);
 }
-
+// tentar mandar com input 
 void	execute_builtins(t_tree *tree)
 {
-	char	**cmd_args;
-	char	*command;
-	char	*args;
-	char	**environ;
+	char		**cmd_args;
+	char		*command;
+	char		*args;
+	char		**environ;
 
 	cmd_args = split_command(tree->content);
 	command = cmd_args[0];
