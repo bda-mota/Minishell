@@ -52,8 +52,8 @@ int			the_branch_is_redir(t_tree *branch);
 
 /* ==== HEREDOC ==== */
 int			has_heredoc(t_token *token);
-void		heredoc(t_token *token);
-void		remove_heredoc(t_token *token);
+void		heredoc(t_token **token);
+void		remove_heredoc(t_token **token, t_token **heredoc, char *path);
 t_token		*get_heredoc(t_token *token);
 
 /* EXCLUIR AO FINAL DO PROJETO */

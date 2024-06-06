@@ -8,10 +8,10 @@ int	has_heredoc(t_token *token)
 	while (curr)
 	{
 		if (curr->type == HEREDOC)
-			return (1);
+			return (0);
 		curr = curr->next;
 	}
-	return (0);
+	return (1);
 }
 
 t_token	*get_heredoc(t_token *token)
@@ -30,13 +30,13 @@ t_token	*get_heredoc(t_token *token)
 
 //verificar se para mais de um heredoc precisamos ir trocando o nome
 //incluir sinais Ctrl+D e Ctrl+C
-void	heredoc(t_token *token)
+void	heredoc(t_token **token)
 {
 	t_token	*heredoc;
 	char	*line;
 	int		fd_heredoc;
 
-	heredoc = get_heredoc(token);
+	heredoc = get_heredoc(*token);
 	if (!heredoc)
 		return ;
 	fd_heredoc = open("/tmp/heredoc.txt", O_CREAT | O_RDWR | O_TRUNC, 0644);
@@ -55,31 +55,32 @@ void	heredoc(t_token *token)
 		free(line);
 	}
 	close(fd_heredoc);
-	remove_heredoc(heredoc);
+	remove_heredoc(token, &heredoc, "/tmp/heredoc.txt");
 }
 
 //função para remover o heredoc e o delimitador
 //procurar se há mais heredocs
-void	remove_heredoc(t_token *token)
+void	remove_heredoc(t_token **token, t_token **heredoc, char *path)
 {
-	t_token	*curr;
-	t_token	*aux;
+	t_token	*delimiter;
 
-	aux = token;
-	curr = token;
-	if (curr->prev && curr->next->next)
+	delimiter = (*heredoc)->next;
+	if (delimiter->next)
 	{
-		curr->prev->next = curr->next->next;
-		curr->next->next->prev = curr->prev;
+		(*heredoc)->next = delimiter->next;
+		delimiter->next->prev = *heredoc;
 	}
-	else if (curr->prev)
-		curr->prev->next = NULL;
-	else if (curr->next->next)
-		curr->next->next->prev = NULL;
-	free(aux->next->content);
-	free(aux->next);
-	free(aux->content);
-	free(aux);
+	else
+		(*heredoc)->next = NULL;
+	free(delimiter->content);
+	free(delimiter);
+	if (!(*heredoc)->prev && !(*heredoc)->next)
+		deallocate_lst(token);
+	else
+	{
+		(*heredoc)->content = ft_strdup(path);
+		(*heredoc)->type = ARCHIVE;
+	}
 }
 
 // loop se houver mais de um heredoc
