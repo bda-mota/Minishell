@@ -45,7 +45,7 @@ static char	*prompt(void)
 	while (1)
 	{
 		init_structs(&shell);
-		shell.input = readline(PURPLE"$BaByshell: "WHITE);
+		shell.input = readline(PURPLE "$BaByshell: "WH);
 		add_history(shell.input);
 		if (shell.input == NULL || !ft_strcmp(shell.input, "exit"))
 		{
@@ -69,10 +69,18 @@ void	processor(t_minishell *shell)
 		return ;
 	inspect_types(&shell->token);
 	rearrange_tokens(&shell->token);
+	expand_variable(&shell->token, *get_env_copy(NULL));
+	if (shell->token && shell->token->next == NULL
+		&& shell->token->content[0] == '\0')
+	{
+		deallocate_lst(&shell->token);
+		return ;
+	}
+	if (has_heredoc(shell->token) == 1)
+		heredoc(shell->token);
 	build_tree(&shell->tree, &shell->token);
 	if (!shell->complete_path)
 		find_path(shell);
-	get_tree(shell->tree);
 	executor(shell->tree);
 	down_tree(&shell->tree);
 }

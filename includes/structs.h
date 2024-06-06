@@ -52,7 +52,6 @@ typedef struct s_tree
 typedef struct s_minishell
 {
 	int		status;
-	int		saved_std[2];
 	t_tree	*tree;
 	t_token	*token;
 	char	*input;

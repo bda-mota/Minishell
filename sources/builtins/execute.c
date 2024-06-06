@@ -39,7 +39,7 @@ char	**split_command(char *content)
 	char	**result;
 	char	*space;
 
-	result = malloc(3 * sizeof(char *));
+	result = ft_calloc(sizeof(char *), 3);
 	if (!result)
 		return (NULL);
 	space = ft_strchr(content, ' ');
@@ -59,26 +59,30 @@ char	**split_command(char *content)
 
 void	execute_builtins(t_tree *tree)
 {
-	char	**cmd_args;
-	char	*command;
-	char	*args;
-	char	**environ;
+	char		**cmd_args;
+	char		*command;
+	char		*args;
+	char		**environ;
+	t_minishell	shell;
 
+	shell = *get_minishell(NULL);
 	cmd_args = split_command(tree->content);
 	command = cmd_args[0];
 	args = cmd_args[1];
 	environ = *get_env_copy(NULL);
 	if (ft_strcmp("echo", command) == 0)
-		echo(args);
+		ft_echo(args);
 	else if (ft_strcmp("pwd", command) == 0)
-		pwd();
+		ft_pwd();
 	else if (ft_strcmp("export", command) == 0)
-		export(environ, args);
+		ft_export(environ, shell.input);
 	else if (ft_strcmp("env", command) == 0)
-		env(environ);
+		ft_env(environ);
 	else if (ft_strcmp("unset", command) == 0)
-		unset(environ, args);
+		ft_unset(environ, args);
 	else if (ft_strcmp("cd", command) == 0)
-		cd(args);
+		ft_cd(args);
+	else if (ft_strcmp("exit", command) == 0)
+		//exit(1); -> desenvolver função
 	free_split_command(cmd_args);
 }

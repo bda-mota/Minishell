@@ -19,8 +19,8 @@
 # include <readline/history.h>
 # include <errno.h>
 
-# define PURPLE	"\033[1;35m"
-# define WHITE	"\033[1;37m"
+# define PURPLE	"\001\033[1;35m\002"
+# define WH	"\001\033[1;37m\002"
 # define WARNING_OR "The BaByshell do not work with '||' or '&&'\n"
 
 /* ==== FREE MEMORY ==== */
@@ -36,7 +36,6 @@ int			get_status(int status);
 char		*get_path(char *path);
 char		***get_env_copy(char **copy);
 char		**get_paths(char **paths);
-t_tree		*get_tree(t_tree *tree);
 t_minishell	*get_minishell(t_minishell *shell);
 
 /* ==== UTILS ==== */
@@ -50,6 +49,12 @@ int			get_list_size(t_token *list);
 int			is_redir(t_token **token);
 int			is_redir_or_heredoc(t_token **token);
 int			the_branch_is_redir(t_tree *branch);
+
+/* ==== HEREDOC ==== */
+int			has_heredoc(t_token *token);
+void		heredoc(t_token *token);
+void		remove_heredoc(t_token *token);
+t_token		*get_heredoc(t_token *token);
 
 /* EXCLUIR AO FINAL DO PROJETO */
 void		print_list(t_token **lst);

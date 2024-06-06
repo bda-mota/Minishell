@@ -18,10 +18,6 @@ int		executor(t_tree *tree);
 void	execute(t_tree *tree, char *command);
 void	set_status(int status);
 
-/* ==== HEREDOC ==== */
-int		has_heredoc(t_token *token);
-
-
 /* ==== REDIRECTS ==== */
 void	redirs_execution(t_tree *tree, t_tree *right);
 int		open_file(t_tree *tree, int *fd);
@@ -36,9 +32,6 @@ void	wait_forks(pid_t *pid, int status);
 int		open_tubes(int *tube);
 int		open_fork(pid_t *pid);
 void	close_all(void);
-
-/* ==== EXPANSION ==== */
-char	*get_expand_variable(t_token **token);
 
 /* ==== PATH ==== */
 void	find_path(t_minishell *shell);

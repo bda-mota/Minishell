@@ -1,5 +1,14 @@
 #include "../../includes/minishell.h"
 
+int	get_status(int status)
+{
+	static int	new_status;
+
+	if (status != -1)
+		new_status = status;
+	return (new_status);
+}
+
 char	*get_path(char *path)
 {
 	static char	*new_path;
@@ -24,15 +33,6 @@ char	**get_paths(char **paths)
 
 	if (paths != NULL)
 		new = &*paths;
-	return (new);
-}
-
-t_tree	*get_tree(t_tree *tree)
-{
-	static t_tree	*new;
-
-	if (tree != NULL)
-		new = tree;
 	return (new);
 }
 
