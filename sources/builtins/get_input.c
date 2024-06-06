@@ -63,7 +63,9 @@ void	execute_builtins(t_tree *tree)
 	char		*command;
 	char		*args;
 	char		**environ;
+	t_minishell	shell;
 
+	shell = *get_minishell(NULL);
 	cmd_args = split_command(tree->content);
 	command = cmd_args[0];
 	args = cmd_args[1];
@@ -73,7 +75,7 @@ void	execute_builtins(t_tree *tree)
 	else if (ft_strcmp("pwd", command) == 0)
 		ft_pwd();
 	else if (ft_strcmp("export", command) == 0)
-		ft_export(environ, args);
+		ft_export(environ, shell.input);
 	else if (ft_strcmp("env", command) == 0)
 		ft_env(environ);
 	else if (ft_strcmp("unset", command) == 0)

@@ -38,6 +38,7 @@ static char	*prompt(void)
 {
 	t_minishell	shell;
 
+	get_minishell(&shell);
 	shell.env_copy = copy_environ();
 	init_shell(&shell);
 	while (1)
