@@ -18,6 +18,10 @@ int		executor(t_tree *tree);
 void	execute(t_tree *tree, char *command);
 void	set_status(int status);
 
+/* ==== HEREDOC ==== */
+int		has_heredoc(t_token *token);
+
+
 /* ==== REDIRECTS ==== */
 void	redirs_execution(t_tree *tree, t_tree *right);
 int		open_file(t_tree *tree, int *fd);

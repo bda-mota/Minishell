@@ -46,8 +46,8 @@ void	execute(t_tree *tree, char *command)
 		status = 126;
 		exit(126);
 	}
-	free_simple_child(tree->command_child, tree->executable);
 	waitpid(pid, &status, 0);
+	free_simple_child(tree->command_child, tree->executable);
 	set_status(status);
 }
 
