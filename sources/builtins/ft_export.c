@@ -23,12 +23,10 @@ void	change_variables(char *new_variable)
 	{
 		environ = *get_env_copy(NULL);
 		start = args;
-		while (new_variable[args] && new_variable[args] != ' ')
+		while (new_variable[args] != '\0' && new_variable[args] != ' ')
 				args++;
-			args++;
 		if (start != args)
 			processed_var(environ, new_variable, start, args);
-		args++;
 	}
 }
 
