@@ -6,7 +6,7 @@
 /*   By: bsantana <bsantana@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 11:41:49 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/05/28 10:07:48 by bsantana         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:48:21 by bsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char		*ft_strrchr(const char *s, int c);
 char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strndup(const char *s, size_t len);
+char		*ft_strcpy(char *dest, char *src);
+char		*ft_strncpy(char *dest, char *src, unsigned int n);
 char		**ft_split(char const *s, char c);
 int			ft_strstr(char *str, char *to_find);
 int			ft_strnchr(char *str, char c, int len);

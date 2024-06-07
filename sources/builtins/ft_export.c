@@ -23,10 +23,12 @@ void	change_variables(char *new_variable)
 	{
 		environ = *get_env_copy(NULL);
 		start = args;
-		while (new_variable[args] != '\0' && new_variable[args] != ' ')
+		while (new_variable[args] && new_variable[args] != ' ')
 				args++;
 		if (start != args)
 			processed_var(environ, new_variable, start, args);
+		if (new_variable[args] != '\0')
+			args++;
 	}
 }
 
@@ -62,7 +64,8 @@ void	order_env(char **env_copy)
 		j = i + 1;
 		while (env_copy[j])
 		{
-			if (ft_strncmp(env_copy[i], env_copy[j], ft_strlen(env_copy[i])) > 0)
+			if (ft_strncmp(env_copy[i],
+					env_copy[j], ft_strlen(env_copy[i])) > 0)
 				swap_strings(&env_copy[i], &env_copy[j]);
 			j++;
 		}
