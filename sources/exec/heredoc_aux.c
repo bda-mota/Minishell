@@ -14,11 +14,11 @@ int	has_heredoc(t_token *token)
 	return (1);
 }
 
-t_token	*find_heredoc(t_token *token)
+t_token	*find_heredoc(t_token **heredoc)
 {
 	t_token	*curr;
 
-	curr = token;
+	curr = *heredoc;
 	while (curr)
 	{
 		if (curr->type == HEREDOC)

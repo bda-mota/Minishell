@@ -55,7 +55,7 @@ int			has_heredoc(t_token *token);
 void		heredoc(t_token **token);
 void		update_heredoc(t_token **heredoc, char *file);
 char		*generate_file_name(void);
-t_token		*find_heredoc(t_token *token);
+t_token		*find_heredoc(t_token **heredoc);
 
 
 /* EXCLUIR AO FINAL DO PROJETO */

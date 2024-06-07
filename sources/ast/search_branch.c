@@ -92,7 +92,10 @@ t_token	*new_redir_list(t_token **token_list)
 		if (curr->prev)
 			curr->next->next->prev = curr->prev;
 		else
+		{
 			curr->next->next->prev = NULL;
+			return (curr->next->next);
+		}
 	}
 	if (curr->prev == NULL)
 		return (NULL);
