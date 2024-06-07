@@ -14,6 +14,8 @@ void	down_tree(t_tree **root)
 		return ;
 	down_tree(&(*root)->left);
 	down_tree(&(*root)->right);
+	if ((*root)->content && (*root)->type == DELIMITER)
+		unlink((*root)->content);
 	if ((*root)->content)
 		free((*root)->content);
 	free(*root);

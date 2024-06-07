@@ -17,7 +17,7 @@ CFILES		:= trash.c main.c \
 				token/token.c token/linked_list_token.c token/1_handle_inputs.c token/2_handle_inputs.c token/check_grammar.c \
 				token/quotes_aux.c token/check_inputs.c token/rearrange.c token/rearrange_utils.c token/variable_expansion.c \
 				utils/error.c utils/get_last_node.c utils/get_first_node.c utils/get_list_size.c utils/free_minishell.c utils/free_execution.c \
-				utils/init.c utils/1_get_set.c utils/2_get_set.c utils/is_redir.c \
+				utils/init.c utils/1_get_set.c utils/2_get_set.c utils/is_redir.c utils/deallocate_lst.c \
 				ast/build_tree.c ast/tree_utils.c ast/search_branch.c exec/heredoc.c exec/heredoc_aux.c\
 				exec/execution.c exec/path.c exec/pipe.c exec/command.c \
 				exec/free_child.c exec/append.c exec/redirects.c exec/pipe_aux.c \

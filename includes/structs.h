@@ -51,13 +51,14 @@ typedef struct s_tree
 /* ===== MINISHELL ===== */
 typedef struct s_minishell
 {
-	int		status;
-	t_tree	*tree;
-	t_token	*token;
-	char	*input;
-	char	*complete_path;
-	char	**env_copy;
-	char	**paths;
+	int			status;
+	t_tree		*tree;
+	t_token		*token;
+	char		*input;
+	char		*complete_path;
+	char		**env_copy;
+	char		**paths;
 }	t_minishell;
+
 
 #endif

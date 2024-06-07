@@ -45,7 +45,7 @@ static char	*prompt(void)
 	while (1)
 	{
 		init_structs(&shell);
-		shell.input = readline(PURPLE "$BaByshell: "WH);
+		shell.input = readline(PURPLE"$BaByshell: "WHITE);
 		add_history(shell.input);
 		if (shell.input == NULL || !ft_strcmp(shell.input, "exit"))
 		{
@@ -88,5 +88,5 @@ void	processor(t_minishell *shell)
 }
 
 	//print_tree_main(shell->tree);
-	//print_list(&shell->token);
+	//print_list_h(&heredoc1);
 	//deallocate_lst(&shell->token);
