@@ -32,6 +32,20 @@ void	variable_to_environ(char **env_copy, char *new_var)
 	free(var_name);
 }
 
+void	ft_strcpy_without_quotes(char *dest, const char *src)
+{
+	while (*src)
+	{
+		if (*src != '"' && *src != '\'')
+		{
+			*dest = *src;
+			dest++;
+		}
+		src++;
+	}
+	*dest = '\0';
+}
+
 int	update_variable(char **env_copy, char *var_name, char *new_var, int var_len)
 {
 	int		i;
@@ -50,12 +64,13 @@ int	update_variable(char **env_copy, char *var_name, char *new_var, int var_len)
 				new_value_start++;
 			else
 				new_value_start = new_var;
-			size_var = var_len + 1 + ft_strlen(new_value_start) + 1;
+			size_var = var_len + 1
+				+ ft_strlen_without_quotes(new_value_start) + 1;
 			new_env = ft_calloc(size_var, 1);
 			if (!new_env)
 				return (0);
 			ft_strncpy(new_env, env_copy[i], var_len + 1);
-			ft_strcpy(new_env + var_len + 1, new_value_start);
+			ft_strcpy_without_quotes(new_env + var_len + 1, new_value_start);
 			free(env_copy[i]);
 			env_copy[i] = new_env;
 			return (1);
