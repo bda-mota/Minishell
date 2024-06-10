@@ -1,23 +1,14 @@
 #include "../../includes/minishell.h"
 
-int	check_blocks_aux(char *input)
+int	check_sintax(char *input)
 {
-	int	i;
-	int	block;
-
-	i = 0;
-	block = 0;
-	while (input[i])
+	if (!check_untreatable(input) || !check_blocks(input)
+		|| !check_quotes(input))
 	{
-		if (input[i] == '(')
-			block++;
-		if (block == 0 && input[i] == ')')
-			return (-1);
-		if (block != 0 && input[i] == ')')
-			block--;
-		i++;
+		get_status(2);
+		return (0);
 	}
-	return (block);
+	return (1);
 }
 
 int	check_blocks(char *input)
@@ -47,15 +38,24 @@ int	check_blocks(char *input)
 	return (0);
 }
 
-int	check_sintax(char *input)
+int	check_blocks_aux(char *input)
 {
-	if (!check_untreatable(input))
-		return (1);
-	else if (!check_blocks(input))
-		return (1);
-	else if (!check_quotes(input))
-		return (1);
-	return (0);
+	int	i;
+	int	block;
+
+	i = 0;
+	block = 0;
+	while (input[i])
+	{
+		if (input[i] == '(')
+			block++;
+		if (block == 0 && input[i] == ')')
+			return (-1);
+		if (block != 0 && input[i] == ')')
+			block--;
+		i++;
+	}
+	return (block);
 }
 
 int	check_untreatable(char *input)

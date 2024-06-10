@@ -1,14 +1,20 @@
 #include "../../includes/minishell.h"
 
-void	redirs_execution(t_tree *tree, t_tree *right)
+void	redirs_execution(t_tree *tree)
 {
 	int	fd;
 	int	saved_std[2];
 
-	(void)right;
+	fd = 0;
 	saved_std[0] = dup(STDIN_FILENO);
 	saved_std[1] = dup(STDOUT_FILENO);
 	open_file(tree, &fd);
+	if (fd == -1)
+	{
+		dup2(saved_std[0], STDIN_FILENO);
+		dup2(saved_std[1], STDOUT_FILENO);
+		exit(1);
+	}
 	dup_file(tree, &fd);
 	if (tree->left)
 		executor(tree->left);
@@ -20,20 +26,23 @@ void	redirs_execution(t_tree *tree, t_tree *right)
 
 int	open_file(t_tree *tree, int *fd)
 {
-	if (tree && tree->type == INPUT)
+	if (tree && (tree->type == INPUT || tree->type == HEREDOC))
 		*fd = open(tree->right->content, O_RDONLY);
 	else if (tree && tree->type == APPEND)
 		*fd = open(tree->right->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else if (tree && tree->type == OUTPUT)
 		*fd = open(tree->right->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (*fd == -1)
-		return (display_error_exec("no_file", tree->right->content));
+	{
+		display_error_exec("no_file", tree->right->content);
+		return (-1);
+	}
 	return (EXIT_SUCCESS);
 }
 
 int	dup_file(t_tree *tree, int *fd)
 {
-	if (tree && tree->type == INPUT)
+	if (tree && (tree->type == INPUT || tree->type == HEREDOC))
 	{
 		if (*fd != -1 && *fd != STDIN_FILENO)
 		{

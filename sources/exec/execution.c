@@ -2,9 +2,10 @@
 
 int	executor(t_tree *tree)
 {
-	t_minishell	*shell;
+	int	status;
 
-	shell = get_minishell(NULL);
+	status = 0;
+
 	if (tree->type == PIPE)
 	{
 		pipe_execution(tree->left, tree->right);
@@ -12,7 +13,7 @@ int	executor(t_tree *tree)
 	}
 	if (the_branch_is_redir(tree))
 	{
-		redirs_execution(tree, tree->right);
+		redirs_execution(tree);
 		return (0);
 	}
 	else

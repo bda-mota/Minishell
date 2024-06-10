@@ -4,17 +4,16 @@
 # include "../libft/src/libft.h"
 # include "structs.h"
 
-/* BUILD TREE */
+/* ==== BUILD TREE ==== */
 void	build_tree(t_tree **root, t_token **tokens);
 t_tree	*create_branch(t_token **token_list, int type);
 
-/* TREE UTILS */
+/* ==== TREE UTILS ==== */
 void	down_tree(t_tree **root);
-int		is_metha(t_token *token);
 void	aux_pull_all_together(t_token **new, t_token **curr);
 t_token	*put_all_together(t_token **tokens);
 
-/* SEARCH BRANCH */
+/* ==== SEARCH BRANCH ==== */
 t_token	**search_branchs(t_token **tokens);
 t_token	*search_pipe(t_token **tokens);
 t_token	*search_redirs(t_token **tokens);

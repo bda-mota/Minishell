@@ -15,7 +15,10 @@ int	display_error_exec(char *error, char *str)
 	else if (ft_strcmp(error, "is a directory") == 0)
 		ft_printf_fd("Babyshell: %s: Is a directory\n", str, 2);
 	else if (ft_strcmp(error, "no_file") == 0)
+	{
+		ft_printf_fd("Babyshell: %s: No such file or directory.\n", str, 2);
 		return (get_status(1));
+	}
 	else if (ft_strcmp(error, "command not found") == 0)
 	{
 		ft_printf_fd("Babyshell: command not found: `%s´\n", str, 2);

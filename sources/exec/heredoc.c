@@ -17,8 +17,8 @@ void	heredoc(t_token **token)
 		if (!heredoc)
 			return ;
 		file = generate_file_name();
-		fd_heredoc = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
-		while (1)
+		fd_heredoc = open_heredoc(file);
+		while (1 && fd_heredoc != -1)
 		{
 			line = readline("> ");
 			if (!line)
@@ -44,4 +44,17 @@ static void	finish_heredoc(t_token **heredoc, int *fd, char *line, char *file)
 	close(*fd);
 	free(line);
 	update_heredoc(heredoc, file);
+}
+
+int	open_heredoc(char *file)
+{
+	int	fd;
+
+	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (fd < 0)
+	{
+		ft_printf_fd("Babyshell: %s\n", strerror(errno), 2);
+		return (-1);
+	}
+	return (fd);
 }

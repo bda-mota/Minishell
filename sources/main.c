@@ -77,12 +77,12 @@ void	processor(t_minishell *shell)
 	if (!has_heredoc(shell->token))
 		heredoc(&shell->token);
 	build_tree(&shell->tree, &shell->token);
-	if (!shell->complete_path)
-		find_path(shell);
-	executor(shell->tree);
+	print_tree_main(shell->tree);
+	//if (!shell->complete_path)
+	//	find_path(shell);
+	//executor(shell->tree);
 	down_tree(&shell->tree);
 }
 
-	//print_tree_main(shell->tree);
 	//print_list_h(&heredoc1);
 	//deallocate_lst(&shell->token);

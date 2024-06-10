@@ -30,11 +30,8 @@ void	tokenizer(t_minishell *shell)
 	int		type;
 
 	i = 0;
-	if (check_sintax(shell->input) == 1)
-	{
-		get_status(2);
+	if (!check_sintax(shell->input))
 		return ;
-	}
 	while (shell->input[i] && (i != ft_strlen(shell->input)))
 	{
 		type = catalog_inputs(shell->input, &i);

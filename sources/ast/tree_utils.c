@@ -1,13 +1,5 @@
 #include "../../includes/minishell.h"
 
-int	is_metha(t_token *token)
-{
-	if (token->type == APPEND || token->type == HEREDOC
-		|| token->type == INPUT || token->type == OUTPUT)
-		return (1);
-	return (0);
-}
-
 void	down_tree(t_tree **root)
 {
 	if (*root == NULL)

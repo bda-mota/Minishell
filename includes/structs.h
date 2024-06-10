@@ -17,7 +17,6 @@ enum e_numerator
 	SIMPLE,
 	BLOCK,
 	ARCHIVE,
-	COMMAND,
 	DELIMITER,
 	REDIRECT
 };

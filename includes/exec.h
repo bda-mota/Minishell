@@ -19,7 +19,7 @@ void	execute(t_tree *tree, char *command);
 void	set_status(int status);
 
 /* ==== REDIRECTS ==== */
-void	redirs_execution(t_tree *tree, t_tree *right);
+void	redirs_execution(t_tree *tree);
 void	insert_redir(t_redir **redirs, t_redir *new_redir);
 void	deallocate_redirs(t_redir **redirs);
 int		dup_file(t_tree *tree, int *fd);

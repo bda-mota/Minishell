@@ -1,28 +1,5 @@
 #include "../../includes/minishell.h"
 
-int	check_quotes_aux(char *input, int *i, char c)
-{
-	int	quote;
-
-	quote = 1;
-	(*i)++;
-	if (c == '"')
-	{
-		while (input[*i] && input[*i] != '"')
-			(*i)++;
-		if (input[*i] == '"')
-				quote++;
-	}
-	else if (c == '\'')
-	{
-		while (input[*i] && input[*i] != '\'')
-			(*i)++;
-		if (input[*i] == '\'')
-				quote++;
-	}
-	return (quote);
-}
-
 int	check_quotes(char *input)
 {
 	int	i;
@@ -48,6 +25,29 @@ int	check_quotes(char *input)
 	else
 		return (1);
 	return (0);
+}
+
+int	check_quotes_aux(char *input, int *i, char c)
+{
+	int	quote;
+
+	quote = 1;
+	(*i)++;
+	if (c == '"')
+	{
+		while (input[*i] && input[*i] != '"')
+			(*i)++;
+		if (input[*i] == '"')
+				quote++;
+	}
+	else if (c == '\'')
+	{
+		while (input[*i] && input[*i] != '\'')
+			(*i)++;
+		if (input[*i] == '\'')
+				quote++;
+	}
+	return (quote);
 }
 
 int	count_double_quote(char *input, size_t *i)

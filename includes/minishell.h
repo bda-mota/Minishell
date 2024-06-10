@@ -52,6 +52,7 @@ int			the_branch_is_redir(t_tree *branch);
 
 /* ==== HEREDOC ==== */
 int			has_heredoc(t_token *token);
+int			open_heredoc(char *file);
 void		heredoc(t_token **token);
 void		update_heredoc(t_token **heredoc, char *file);
 char		*generate_file_name(void);
