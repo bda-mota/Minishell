@@ -19,7 +19,7 @@ int	is_redir_or_heredoc(t_token **token)
 int	the_branch_is_redir(t_tree *branch)
 {
 	if (branch->type == INPUT || branch->type == OUTPUT
-		|| branch->type == APPEND)
+		|| branch->type == APPEND || branch->type == HEREDOC)
 		return (1);
 	return (0);
 }

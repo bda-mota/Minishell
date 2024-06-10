@@ -57,11 +57,11 @@ void		update_heredoc(t_token **heredoc, char *file);
 char		*generate_file_name(void);
 t_token		*find_heredoc(t_token **heredoc);
 
-
 /* EXCLUIR AO FINAL DO PROJETO */
 void		print_list(t_token **lst);
 void		print_tree(t_tree *tree);
 void		print_tree_main(t_tree *tree);
 void		print_tree_aux(t_tree *tree, int depth, const char *relation);
+void		print_redir(t_redir *redirs);
 
 #endif

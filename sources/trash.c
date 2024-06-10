@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:17:58 by bsantana          #+#    #+#             */
-/*   Updated: 2024/06/07 15:47:21 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:57:30 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,17 @@ void	print_list(t_token **lst)
 	}
 }
 
-void	print_tree(t_tree *tree)
+void	print_redir(t_redir *redirs)
 {
-	if (tree == NULL)
-		return ;
-	print_tree(tree->left);
-	printf("%s\n", tree->content);
-	print_tree(tree->right);
+	t_redir	*current;
+
+	current = redirs;
+	while (current)
+	{
+		printf("fd: %d\n", current->fd);
+		printf("type: %d\n", current->type);
+		current = current->next;
+	}
 }
 
 static char	*find_type(int type)
@@ -93,5 +97,3 @@ void	print_tree_aux(t_tree *tree, int depth, const char *relation)
 	printf("(%s) %s\n", relation, tree->content);
 	print_tree_aux(tree->left, depth + 1, "left");
 }
-
-// Função principal para imprimir a árvore

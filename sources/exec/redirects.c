@@ -10,7 +10,8 @@ void	redirs_execution(t_tree *tree, t_tree *right)
 	saved_std[1] = dup(STDOUT_FILENO);
 	open_file(tree, &fd);
 	dup_file(tree, &fd);
-	executor(tree->left);
+	if (tree->left)
+		executor(tree->left);
 	dup2(saved_std[0], STDIN_FILENO);
 	dup2(saved_std[1], STDOUT_FILENO);
 	close(saved_std[0]);

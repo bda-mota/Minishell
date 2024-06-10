@@ -1,7 +1,5 @@
 #include "../../includes/minishell.h"
 
-//verificar se para mais de um heredoc precisamos ir trocando o nome
-//incluir sinais Ctrl+D, Ctrl+C e Ctrl+/
 static void	write_on_heredoc(char *line, int fd_heredoc);
 static void	finish_heredoc(t_token **heredoc, int *fd, char *line, char *file);
 

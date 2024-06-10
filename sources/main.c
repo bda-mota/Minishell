@@ -63,9 +63,7 @@ static char	*prompt(void)
 void	processor(t_minishell *shell)
 {
 	tokenizer(shell);
-	if (!shell->token)
-		return ;
-	if (!check_grammar(&shell->token))
+	if (!shell->token || !check_grammar(&shell->token))
 		return ;
 	inspect_types(&shell->token);
 	rearrange_tokens(&shell->token);
@@ -79,12 +77,12 @@ void	processor(t_minishell *shell)
 	if (!has_heredoc(shell->token))
 		heredoc(&shell->token);
 	build_tree(&shell->tree, &shell->token);
-	print_tree_main(shell->tree);
-	/*if (!shell->complete_path)
+	if (!shell->complete_path)
 		find_path(shell);
-	executor(shell->tree);*/
+	executor(shell->tree);
 	down_tree(&shell->tree);
 }
 
+	//print_tree_main(shell->tree);
 	//print_list_h(&heredoc1);
 	//deallocate_lst(&shell->token);

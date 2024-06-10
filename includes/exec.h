@@ -20,8 +20,11 @@ void	set_status(int status);
 
 /* ==== REDIRECTS ==== */
 void	redirs_execution(t_tree *tree, t_tree *right);
-int		open_file(t_tree *tree, int *fd);
+void	insert_redir(t_redir **redirs, t_redir *new_redir);
+void	deallocate_redirs(t_redir **redirs);
 int		dup_file(t_tree *tree, int *fd);
+int		open_file(t_tree *tree, int *fd);
+t_redir	*create_redir(int *fd, int type);
 
 /* ==== PIPE ==== */
 void	pipe_execution(t_tree *left, t_tree *right);

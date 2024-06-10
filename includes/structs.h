@@ -48,6 +48,14 @@ typedef struct s_tree
 	struct s_tree	*left;
 }	t_tree;
 
+/* ==== REDIRECTS ==== NÃO IMPLEMENTADA AINDA */
+typedef struct s_redir
+{
+	int				fd;
+	int				type;
+	struct s_redir	*next;
+}	t_redir;
+
 /* ===== MINISHELL ===== */
 typedef struct s_minishell
 {
@@ -59,6 +67,5 @@ typedef struct s_minishell
 	char		**env_copy;
 	char		**paths;
 }	t_minishell;
-
 
 #endif
