@@ -1,11 +1,38 @@
 #include "../../includes/minishell.h"
 
+static char	*extract_string(char *input)
+{
+	char	*substring;
+	int		i;
+
+	i = 0;
+	while (input[i] != '\0' && input[i] != '|'
+		&& input[i] != '<' && input[i] != '>'
+		&& !(input[i] == '<' && input[i + 1] == '<')
+		&& !(input[i] == '>' && input[i + 1] == '>'))
+	{
+		i++;
+	}
+	substring = malloc(i + 1);
+	if (substring == NULL)
+		return (NULL);
+	ft_strncpy(substring, input, i);
+	substring[i] = '\0';
+	return (substring);
+}
+
 void	ft_export(char **env_copy, char *new_variable)
 {
-	if (ft_strcmp(new_variable, "export") == 0)
+	char	*extracted;
+
+	extracted = extract_string(new_variable);
+	if (extracted == NULL)
+		return ;
+	if (ft_strcmp(extracted, "export") == 0)
 		print_variables(env_copy);
 	else
-		change_variables(new_variable);
+		change_variables(extracted);
+	free(extracted);
 }
 
 void	change_variables(char *new_variable)

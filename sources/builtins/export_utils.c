@@ -32,25 +32,9 @@ void	variable_to_environ(char **env_copy, char *new_var)
 	free(var_name);
 }
 
-void	ft_strcpy_without_quotes(char *dest, const char *src)
-{
-	while (*src)
-	{
-		if (*src != '"' && *src != '\'')
-		{
-			*dest = *src;
-			dest++;
-		}
-		src++;
-	}
-	*dest = '\0';
-}
-
 int	update_variable(char **env_copy, char *var_name, char *new_var, int var_len)
 {
 	int		i;
-	int		size_var;
-	char	*new_value_start;
 	char	*new_env;
 
 	i = 0;
@@ -59,18 +43,9 @@ int	update_variable(char **env_copy, char *var_name, char *new_var, int var_len)
 		if (ft_strncmp(env_copy[i], var_name, var_len) == 0
 			&& env_copy[i][var_len] == '=')
 		{
-			new_value_start = ft_strchr(new_var, '=');
-			if (new_value_start)
-				new_value_start++;
-			else
-				new_value_start = new_var;
-			size_var = var_len + 1
-				+ ft_strlen_without_quotes(new_value_start) + 1;
-			new_env = ft_calloc(size_var, 1);
+			new_env = build_var(env_copy[i], new_var, var_len);
 			if (!new_env)
 				return (0);
-			ft_strncpy(new_env, env_copy[i], var_len + 1);
-			ft_strcpy_without_quotes(new_env + var_len + 1, new_value_start);
 			free(env_copy[i]);
 			env_copy[i] = new_env;
 			return (1);
@@ -78,6 +53,26 @@ int	update_variable(char **env_copy, char *var_name, char *new_var, int var_len)
 			i++;
 	}
 	return (0);
+}
+
+char	*build_var(char *env_copy, char *new_var, int var_len)
+{
+	char	*new_value_start;
+	char	*new_env;
+	int		size_var;
+
+	new_value_start = ft_strchr(new_var, '=');
+	if (new_value_start)
+		new_value_start++;
+	else
+		new_value_start = new_var;
+	size_var = var_len + 1 + ft_strlen_without_quotes(new_value_start) + 1;
+	new_env = ft_calloc(size_var, 1);
+	if (!new_env)
+		return (NULL);
+	ft_strncpy(new_env, env_copy, var_len + 1);
+	ft_strcpy_without_quotes(new_env + var_len + 1, new_value_start);
+	return (new_env);
 }
 
 void	add_new_variable(char **env_copy, char *new_var)
@@ -100,21 +95,4 @@ void	add_new_variable(char **env_copy, char *new_var)
 	}
 	free(*get_env_copy(NULL));
 	*get_env_copy(NULL) = new_environ;
-}
-
-char	**create_new_environ(char **environ_copy, int num_vars)
-{
-	int		i;
-	char	**new_environ;
-
-	i = 0;
-	new_environ = ft_calloc(num_vars + 2, sizeof(char *));
-	if (!new_environ)
-		return (NULL);
-	while (i < num_vars)
-	{
-		new_environ[i] = environ_copy[i];
-		i++;
-	}
-	return (new_environ);
 }

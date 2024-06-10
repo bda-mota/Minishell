@@ -36,10 +36,12 @@ char	**copy_environ(void);
 char	**count_size_environ(void);
 void	order_env(char **env_copy);
 void	swap_strings(char **str1, char **str2);
+char	*build_var(char *env_copy, char *new_var, int var_len);
 
 /* ==== UTILS_QUOTES ==== */
 
 int		quotes(char c, int *simple_quote, int *double_quote);
 int		ft_strlen_without_quotes(const char *str);
+void	ft_strcpy_without_quotes(char *dest, const char *src);
 
 #endif

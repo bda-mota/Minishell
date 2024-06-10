@@ -1,27 +1,5 @@
 #include "../../includes/minishell.h"
 
-int	ft_strlen_without_quotes(const char *str)
-{
-	int		len;
-	int		simple_quote;
-	int		double_quote;
-
-	len = 0;
-	simple_quote = 0;
-	double_quote = 0;
-	while (*str)
-	{
-		if (quotes(*str, &simple_quote, &double_quote))
-		{
-			str++;
-			continue ;
-		}
-		len++;
-		str++;
-	}
-	return (len);
-}
-
 char	*copy_var(char *new_var, int size)
 {
 	char	*var;
