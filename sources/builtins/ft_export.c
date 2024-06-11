@@ -6,6 +6,7 @@ static char	*extract_string(char *input)
 	int		i;
 
 	i = 0;
+	substring = NULL;
 	while (input[i] != '\0' && input[i] != '|'
 		&& input[i] != '<' && input[i] != '>'
 		&& !(input[i] == '<' && input[i + 1] == '<')
@@ -13,11 +14,12 @@ static char	*extract_string(char *input)
 	{
 		i++;
 	}
-	substring = malloc(i + 1);
-	if (substring == NULL)
+	while (i > 0 && input[i - 1] == ' ')
+		i--;
+	substring = ft_calloc(i + 1, 1);
+	if (!substring)
 		return (NULL);
 	ft_strncpy(substring, input, i);
-	substring[i] = '\0';
 	return (substring);
 }
 
@@ -35,29 +37,71 @@ void	ft_export(char **env_copy, char *new_variable)
 	free(extracted);
 }
 
+static void	aux_change_variables(char *new_variable, t_var *state)
+{
+	state->start = state->args;
+	while (new_variable[state->args]
+		&& (new_variable[state->args] != ' '
+			|| state->simple_quote || state->double_quote))
+	{
+		quotes(new_variable[state->args],
+			&(state->simple_quote), &(state->double_quote));
+		(state->args)++;
+	}
+	if (state->start != state->args)
+		processed_var(state->environ, new_variable, state->start, state->args);
+	if (new_variable[state->args] != '\0')
+		(state->args)++;
+}
+
 void	change_variables(char *new_variable)
 {
-	int		args;
-	int		start;
-	char	**environ;
+	t_var	state;
 
-	args = 0;
-	start = 0;
-	environ = NULL;
+	state.args = 0;
+	state.start = 0;
+	state.simple_quote = 0;
+	state.double_quote = 0;
 	if (ft_strncmp(new_variable, "export ", 7) == 0)
-		args += 7;
-	while (new_variable[args])
+		state.args += 7;
+	while (new_variable[state.args])
 	{
-		environ = *get_env_copy(NULL);
-		start = args;
-		while (new_variable[args] && new_variable[args] != ' ')
-				args++;
-		if (start != args)
-			processed_var(environ, new_variable, start, args);
-		if (new_variable[args] != '\0')
-			args++;
+		state.environ = *get_env_copy(NULL);
+		aux_change_variables(new_variable, &state);
 	}
 }
+
+// void	change_variables(char *new_variable)
+// {
+// 	int		args;
+// 	int		start;
+// 	char	**environ;
+// 	int		simple_quote;
+// 	int		double_quote;
+
+// 	args = 0;
+// 	start = 0;
+// 	environ = NULL;
+// 	simple_quote = 0;
+// 	double_quote = 0;
+// 	if (ft_strncmp(new_variable, "export ", 7) == 0)
+// 		args += 7;
+// 	while (new_variable[args])
+// 	{
+// 		environ = *get_env_copy(NULL);
+// 		start = args;
+// 		while (new_variable[args]
+// 			&& (new_variable[args] != ' ' || simple_quote || double_quote))
+// 		{
+// 			quotes(new_variable[args], &simple_quote, &double_quote);
+// 			args++;
+// 		}
+// 		if (start != args)
+// 			processed_var(environ, new_variable, start, args);
+// 		if (new_variable[args] != '\0')
+// 			args++;
+// 	}
+// }
 
 void	print_variables(char	**env_copy)
 {

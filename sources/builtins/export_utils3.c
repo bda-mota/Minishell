@@ -24,13 +24,20 @@ int	ft_strlen_without_quotes(const char *str)
 
 void	ft_strcpy_without_quotes(char *dest, const char *src)
 {
+	int	simple_quote;
+	int	double_quote;
+
+	simple_quote = 0;
+	double_quote = 0;
 	while (*src)
 	{
-		if (*src != '"' && *src != '\'')
+		if (quotes(*src, &simple_quote, &double_quote))
 		{
-			*dest = *src;
-			dest++;
+			src++;
+			continue ;
 		}
+		*dest = *src;
+		dest++;
 		src++;
 	}
 	*dest = '\0';

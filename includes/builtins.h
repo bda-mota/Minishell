@@ -4,6 +4,15 @@
 # include "../libft/src/libft.h"
 # include "structs.h"
 
+typedef struct s_var
+{
+	int		args;
+	int		start;
+	int		simple_quote;
+	int		double_quote;
+	char	**environ;
+}	t_var;
+
 /* ==== GET_INPUT ==== */
 
 void	free_split_command(char **cmd_args);
