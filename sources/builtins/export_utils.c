@@ -41,7 +41,7 @@ int	update_variable(char **env_copy, char *var_name, char *new_var, int var_len)
 	while (env_copy[i])
 	{
 		if (ft_strncmp(env_copy[i], var_name, var_len) == 0
-			&& env_copy[i][var_len] == '=')
+			&& (env_copy[i][var_len] == '=' || env_copy[i][var_len] == '\0'))
 		{
 			new_env = build_var(env_copy[i], new_var, var_len);
 			if (!new_env)
@@ -55,23 +55,55 @@ int	update_variable(char **env_copy, char *var_name, char *new_var, int var_len)
 	return (0);
 }
 
+// char	*build_var(char *env_copy, char *new_var, int var_len)
+// {
+// 	char	*new_value_start;
+// 	char	*new_env;
+// 	int		size_var;
+
+// 	new_value_start = ft_strchr(env_copy, '=');
+// 	if (new_value_start)
+// 		new_value_start++;
+// 	else
+// 	{
+// 		new_env = new_var;
+// 		return (new_env);
+// 	}
+// 	size_var = var_len + 1 + ft_strlen_without_quotes(new_value_start) + 1;
+// 	new_env = ft_calloc(size_var, 1);
+// 	if (!new_env)
+// 		return (NULL);
+// 	ft_strncpy(new_env, env_copy, var_len + 1);
+// 	ft_strcpy_without_quotes(new_env + var_len + 1, new_value_start);
+// 	return (new_env);
+// }
+
 char	*build_var(char *env_copy, char *new_var, int var_len)
 {
 	char	*new_value_start;
 	char	*new_env;
 	int		size_var;
 
-	new_value_start = ft_strchr(new_var, '=');
+	new_value_start = ft_strchr(env_copy, '=');
 	if (new_value_start)
+	{
 		new_value_start++;
+		size_var = var_len + 1
+			+ ft_strlen_without_quotes(new_var + var_len + 1) + 1;
+		new_env = ft_calloc(size_var, 1);
+		if (!new_env)
+			return (NULL);
+		ft_strncpy(new_env, env_copy, var_len + 1);
+		ft_strcpy_without_quotes(new_env + var_len + 1, new_var + var_len + 1);
+	}
 	else
-		new_value_start = new_var;
-	size_var = var_len + 1 + ft_strlen_without_quotes(new_value_start) + 1;
-	new_env = ft_calloc(size_var, 1);
-	if (!new_env)
-		return (NULL);
-	ft_strncpy(new_env, env_copy, var_len + 1);
-	ft_strcpy_without_quotes(new_env + var_len + 1, new_value_start);
+	{
+		size_var = ft_strlen(new_var) + 1;
+		new_env = ft_calloc(size_var, 1);
+		if (!new_env)
+			return (NULL);
+		ft_strcpy(new_env, new_var);
+	}
 	return (new_env);
 }
 

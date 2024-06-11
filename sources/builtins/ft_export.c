@@ -71,38 +71,6 @@ void	change_variables(char *new_variable)
 	}
 }
 
-// void	change_variables(char *new_variable)
-// {
-// 	int		args;
-// 	int		start;
-// 	char	**environ;
-// 	int		simple_quote;
-// 	int		double_quote;
-
-// 	args = 0;
-// 	start = 0;
-// 	environ = NULL;
-// 	simple_quote = 0;
-// 	double_quote = 0;
-// 	if (ft_strncmp(new_variable, "export ", 7) == 0)
-// 		args += 7;
-// 	while (new_variable[args])
-// 	{
-// 		environ = *get_env_copy(NULL);
-// 		start = args;
-// 		while (new_variable[args]
-// 			&& (new_variable[args] != ' ' || simple_quote || double_quote))
-// 		{
-// 			quotes(new_variable[args], &simple_quote, &double_quote);
-// 			args++;
-// 		}
-// 		if (start != args)
-// 			processed_var(environ, new_variable, start, args);
-// 		if (new_variable[args] != '\0')
-// 			args++;
-// 	}
-// }
-
 void	print_variables(char	**env_copy)
 {
 	int		i;
