@@ -23,7 +23,7 @@ void	heredoc(t_token **token)
 			line = readline("> ");
 			if (!line)
 				break ;
-			if (!ft_strcmp(line, heredoc->next->content))
+			if (ft_strcmp(line, heredoc->next->content) == 0)
 				break ;
 			write_on_heredoc(line, fd_heredoc);
 		}

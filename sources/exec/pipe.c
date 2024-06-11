@@ -10,13 +10,23 @@ void	pipe_execution(t_tree *left, t_tree *right)
 	if (!open_tubes(tube))
 		return ;
 	pid[0] = fork();
+	if (pid[0] == -1)
+		fork_error();
 	if (pid[0] == 0)
 		first_child(left, tube);
 	pid[1] = fork();
+	if (pid[1] == -1)
+		fork_error();
 	if (pid[1] == 0)
 		second_child(right, tube);
 	close_tubes(tube);
 	wait_forks(pid, status);
+}
+
+void	fork_error(void)
+{
+	ft_printf_fd("Error: %s\n", strerror(errno), 2);
+	exit(EXIT_FAILURE);
 }
 
 void	first_child(t_tree *left, int *tube)

@@ -1,21 +1,29 @@
 #include "../../includes/minishell.h"
 
-void	check_command(t_tree *tree)
+int	check_command(t_tree *tree, char *command)
 {
-	char	*command;
+	char	*first_command;
 
-	command = tree->command_child[0];
-	if (access(command, X_OK) == 0)
+	tree->command_child = ft_split(command, ' ');
+	if (tree->command_child == NULL)
 	{
-		tree->executable = ft_strdup(command);
-		return ;
+		printf("Error ao dar split\n");
+		return (0);
 	}
-	find_command(tree, command);
+	first_command = tree->command_child[0];
+	if (access(first_command, X_OK) == 0)
+	{
+		tree->executable = ft_strdup(first_command);
+		return (1);
+	}
+	find_command(tree, first_command);
 	if (tree->executable == NULL)
 	{
 		display_error_exec("command not found", command);
 		free_simple_child(tree->command_child, NULL);
+		return (0);
 	}
+	return (1);
 }
 
 void	find_command(t_tree *tree, char *cmd)
@@ -24,7 +32,7 @@ void	find_command(t_tree *tree, char *cmd)
 	char	**paths;
 
 	i = 0;
-	if (ft_strncmp(cmd, "./", 2) == 0)
+	if (ft_strncmp(cmd, "./", 2) == 0 || ft_strncmp(cmd, "../", 3) == 0)
 	{
 		tree->executable = ft_strdup(cmd);
 		return ;

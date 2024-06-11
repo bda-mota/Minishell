@@ -16,7 +16,7 @@ static void	update_pwd_vars(char **env_copy, char *old_pwd, char *pwd)
 
 static int	chance_directory(char *path)
 {
-	if (path == NULL)
+	if (path == NULL || ft_strcmp(path, "~") == 0)
 	{
 		path = getenv("HOME");
 		if (path == NULL)

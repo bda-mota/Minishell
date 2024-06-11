@@ -34,13 +34,11 @@ void	execute(t_tree *tree, char *command)
 	int	status;
 
 	status = 0;
-	tree->command_child = ft_split(command, ' ');
-	if (tree->command_child == NULL)
-		printf("Error ao dar split\n");
-	check_command(tree);
-	if (tree->executable == NULL)
+	if (!check_command(tree, command))
 		return ;
 	pid = fork();
+	if (pid == -1)
+		fork_error();
 	if (pid == 0)
 	{
 		execve(tree->executable, tree->command_child, *get_env_copy(NULL));

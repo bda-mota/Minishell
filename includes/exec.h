@@ -10,7 +10,7 @@ void	free_simple_child(char **child, char *executable);
 void	free_fail_execve(char **child, char *executable);
 
 /* ==== COMMAND ==== */
-void	check_command(t_tree *tree);
+int		check_command(t_tree *tree, char *command);
 void	find_command(t_tree *tree, char *cmd);
 
 /* ==== EXECUTION ==== */
@@ -32,9 +32,9 @@ void	first_child(t_tree *left, int *tube);
 void	second_child(t_tree *right, int *tube);
 void	close_tubes(int *tube);
 void	wait_forks(pid_t *pid, int status);
-int		open_tubes(int *tube);
-int		open_fork(pid_t *pid);
 void	close_all(void);
+void	fork_error(void);
+int		open_tubes(int *tube);
 
 /* ==== PATH ==== */
 void	find_path(t_minishell *shell);

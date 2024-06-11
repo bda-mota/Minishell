@@ -85,15 +85,10 @@ void	inspect_types(t_token **tokens)
 	curr = *tokens;
 	while (curr)
 	{
-		if (is_redir(&curr))
+		if (is_redir_or_heredoc(&curr))
 		{
 			if (curr->next)
 				curr->next->type = ARCHIVE;
-		}
-		else if (curr->type == HEREDOC)
-		{
-			if (curr->next)
-				curr->next->type = DELIMITER;
 		}
 		curr = curr->next;
 	}
