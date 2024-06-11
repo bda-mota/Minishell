@@ -3,13 +3,17 @@
 int	is_invalid_redir_or_heredoc(t_token *curr)
 {
 	return (is_redir_or_heredoc(&curr)
-		&& (!curr->next || curr->next->type != WORD));
+		&& (!curr->next || (curr->next->type != WORD
+				&& curr->next->type != SIMPLE
+				&& curr->next->type != DOUBLE)));
 }
 
 int	is_invalid_pipe(t_token *curr)
 {
 	return (curr->type == PIPE && ((!curr->prev || !curr->next)
-			|| (curr->prev->type != WORD || curr->next->type != WORD)));
+			|| (curr->prev->type != WORD && curr->prev->type != SIMPLE
+				&& curr->prev->type != DOUBLE) || (curr->next->type != WORD
+				&& curr->next->type != SIMPLE && curr->next->type != DOUBLE)));
 }
 
 int	check_grammar(t_token **token)

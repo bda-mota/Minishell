@@ -6,7 +6,7 @@ void	find_path(t_minishell *shell)
 	char	**env;
 
 	i = 0;
-	env = __environ;
+	env = *get_env_copy(NULL);
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
@@ -25,6 +25,11 @@ void	build_path(t_minishell *shell)
 	char	*aux;
 
 	i = 0;
+	if (shell->complete_path == NULL)
+	{
+		shell->paths = NULL;
+		return ;
+	}
 	shell->paths = ft_split(shell->complete_path, ':');
 	if (shell->paths == NULL)
 		printf("error ao dar split\n");

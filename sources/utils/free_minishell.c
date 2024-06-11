@@ -5,8 +5,6 @@ void	free_minishell(t_minishell *shell)
 	char	**env_copy;
 
 	env_copy = *get_env_copy(NULL);
-	if (shell->paths)
-		ft_free_matrix(shell->paths);
 	if (shell->input)
 		free(shell->input);
 	if (env_copy)

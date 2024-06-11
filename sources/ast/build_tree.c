@@ -1,6 +1,7 @@
 #include "../../includes/minishell.h"
 
 static void	branch_aux(t_tree **branch, t_token **token, int type, int meta);
+static char	*remove_quotes(char *file);
 
 void	build_tree(t_tree **root, t_token **tokens)
 {
@@ -51,16 +52,46 @@ static void	branch_aux(t_tree **branch, t_token **token, int type, int meta)
 {
 	if (meta == 1)
 	{
-		(*branch)->type = type;
 		(*branch)->content = ft_strdup(token[1]->content);
+		(*branch)->type = type;
 		free(token[1]->content);
 		free(token[1]);
 	}
 	else
 	{
+		if (token[2]->content[0] == '\'' || token[2]->content[0] == '"')
+			(*branch)->content = remove_quotes(token[2]->content);
+		else
+			(*branch)->content = ft_strdup(token[2]->content);
 		(*branch)->type = ARCHIVE;
-		(*branch)->content = ft_strdup(token[2]->content);
 		free(token[2]->content);
 		free(token[2]);
+	}
+}
+
+static char	*remove_quotes(char *file)
+{
+	char	*new_file;
+	int		len;
+	int		i;
+
+	i = 0;
+	new_file = NULL;
+	len = ft_strlen(file);
+	if (file[0] == '\'' || file[0] == '"')
+	{
+		new_file = ft_calloc(len - 1, sizeof(char));
+		while (i < len - 2)
+		{
+			new_file[i] = file[i + 1];
+			i++;
+		}
+	}
+	if (new_file)
+		return (new_file);
+	else
+	{
+		free(new_file);
+		return (file);
 	}
 }
