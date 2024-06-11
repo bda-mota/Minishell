@@ -17,8 +17,7 @@ char	*copy_var(char *new_var, int size)
 		return (NULL);
 	while (new_var[i])
 	{
-		if (quotes(new_var[i], &simple_quote, &double_quote)
-			|| new_var[i] == 32)
+		if (quotes(new_var[i], &simple_quote, &double_quote))
 		{
 			i++;
 			continue ;
@@ -92,3 +91,7 @@ char	**count_size_environ(void)
 		return (NULL);
 	return (environ_copy);
 }
+
+
+		// if (quotes(new_var[i], &simple_quote, &double_quote)
+			// || new_var[i] == 32) - ????
