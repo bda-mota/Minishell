@@ -23,11 +23,16 @@ int	check_grammar(t_token **token)
 	curr = *token;
 	while (curr)
 	{
-		if (is_invalid_redir_or_heredoc(curr) || is_invalid_pipe(curr))
+		if (is_invalid_redir_or_heredoc(curr))
+		{
+			display_error_tokens("newline", curr->content[0]);
+			deallocate_lst(token);
+			return (0);
+		}
+		else if (is_invalid_pipe(curr))
 		{
 			display_error_tokens("sintaxe", curr->content[0]);
 			deallocate_lst(token);
-			get_status(2);
 			return (0);
 		}
 		curr = curr->next;
