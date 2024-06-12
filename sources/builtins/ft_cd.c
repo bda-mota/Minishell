@@ -46,7 +46,7 @@ static int	chance_directory(char *path)
 {
 	if (path == NULL || ft_strcmp(path, "~") == 0)
 	{
-		path = getenv("HOME");
+		path = my_getenv(*get_env_copy(NULL), "HOME");
 		if (path == NULL)
 		{
 			ft_printf_fd("cd: Could not get the home directory.\n", 2);
