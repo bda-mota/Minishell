@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void	redirs_execution(t_tree *tree)
+int	redirs_execution(t_tree *tree)
 {
 	int	fd;
 	int	saved_std[2];
@@ -8,12 +8,12 @@ void	redirs_execution(t_tree *tree)
 	fd = 0;
 	saved_std[0] = dup(STDIN_FILENO);
 	saved_std[1] = dup(STDOUT_FILENO);
-	open_file(tree, &fd);
-	if (fd == -1)
+	if (open_file(tree, &fd) == -1)
 	{
 		dup2(saved_std[0], STDIN_FILENO);
 		dup2(saved_std[1], STDOUT_FILENO);
-		exit(1);
+		ft_printf_fd("Babyshell: %s: %s\n", tree->right->content, strerror(errno), 2);
+		return (-1);
 	}
 	dup_file(tree, &fd);
 	if (tree->left)
@@ -22,6 +22,7 @@ void	redirs_execution(t_tree *tree)
 	dup2(saved_std[1], STDOUT_FILENO);
 	close(saved_std[0]);
 	close(saved_std[1]);
+	return (0);
 }
 
 int	open_file(t_tree *tree, int *fd)
@@ -33,10 +34,7 @@ int	open_file(t_tree *tree, int *fd)
 	else if (tree && tree->type == OUTPUT)
 		*fd = open(tree->right->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (*fd == -1)
-	{
-		display_error_exec("no_file", tree->right->content);
 		return (-1);
-	}
 	return (EXIT_SUCCESS);
 }
 

@@ -2,19 +2,13 @@
 
 int	executor(t_tree *tree)
 {
-	int	status;
-
-	status = 0;
-
 	if (tree->type == PIPE)
 	{
-		pipe_execution(tree->left, tree->right);
-		return (0);
+		return (pipe_execution(tree->left, tree->right));
 	}
 	if (the_branch_is_redir(tree))
 	{
-		redirs_execution(tree);
-		return (0);
+		return (redirs_execution(tree));
 	}
 	else
 	{

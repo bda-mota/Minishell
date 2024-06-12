@@ -51,6 +51,7 @@ char		*ft_strndup(const char *s, size_t len);
 char		*ft_strcpy(char *dest, char *src);
 char		*ft_strncpy(char *dest, char *src, unsigned int n);
 char		**ft_split(char const *s, char c);
+char		**ft_special_split(char const *s);
 int			ft_strstr(char *str, char *to_find);
 int			ft_strnchr(char *str, char c, int len);
 int			ft_atoi(const char *nptr);

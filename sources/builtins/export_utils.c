@@ -16,10 +16,8 @@ void	variable_to_environ(char **env_copy, char *new_var)
 {
 	char	*var_name;
 	int		var_len;
-	int		i;
 	int		update;
 
-	i = 0;
 	update = 0;
 	var_len = ft_strcspn(new_var, "=");
 	var_name = ft_strndup(new_var, var_len);

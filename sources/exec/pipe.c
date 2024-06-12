@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void	pipe_execution(t_tree *left, t_tree *right)
+int	pipe_execution(t_tree *left, t_tree *right)
 {
 	int		tube[2];
 	int		status;
@@ -8,19 +8,16 @@ void	pipe_execution(t_tree *left, t_tree *right)
 
 	status = 0;
 	if (!open_tubes(tube))
-		return ;
+		return (EXIT_FAILURE);
 	pid[0] = fork();
-	if (pid[0] == -1)
-		fork_error();
 	if (pid[0] == 0)
 		first_child(left, tube);
 	pid[1] = fork();
-	if (pid[1] == -1)
-		fork_error();
 	if (pid[1] == 0)
 		second_child(right, tube);
 	close_tubes(tube);
 	wait_forks(pid, status);
+	return (EXIT_SUCCESS);
 }
 
 void	fork_error(void)
