@@ -23,13 +23,22 @@ int	quotes(char c, int *simple_quote, int *double_quote)
 
 static int	check_n_flag(char *args, int *i)
 {
-	if (ft_strncmp(args + *i, "-n", 2) == 0
-		&& (args[*i + 2] == ' ' || args[*i + 2] == '\0'))
+	if (args[*i] == '-')
 	{
-		*i += 2;
-		while (args[*i] == ' ')
+		(*i)++;
+		while (args[*i] == 'n')
 			(*i)++;
-		return (1);
+		if (args[*i] == ' ' || args[*i] == '\0')
+		{
+			while (args[*i] == ' ')
+				(*i)++;
+			return (1);
+		}
+		else
+		{
+			*i = 0;
+			return (0);
+		}
 	}
 	return (0);
 }

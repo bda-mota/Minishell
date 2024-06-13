@@ -59,11 +59,11 @@ char	**split_command(char *content)
 
 void	execute_builtins(t_tree *tree)
 {
+	t_minishell	shell;
+	char		**environ;
 	char		**cmd_args;
 	char		*command;
 	char		*args;
-	char		**environ;
-	t_minishell	shell;
 
 	shell = *get_minishell(NULL);
 	environ = *get_env_copy(NULL);
