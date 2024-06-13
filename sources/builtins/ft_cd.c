@@ -1,6 +1,7 @@
 #include "../../includes/minishell.h"
 
-static void	variables_update(char **env_copy, char *var_name, char *new_var, int var_len)
+static void	variables_update(char **env_copy,
+	char *var_name, char *new_var, int var_len)
 {
 	int		i;
 	char	*new_env;
@@ -14,13 +15,13 @@ static void	variables_update(char **env_copy, char *var_name, char *new_var, int
 			&& env_copy[i][var_len] == '=')
 		{
 			new_value_start = ft_strchr(env_copy[i], '=');
-    		new_value_start++;
-    		size_var = var_len + 1 + ft_strlen(new_var) + 1;
-    		new_env = ft_calloc(size_var, 1);
-    		if (!new_env)
-        		return ;
-    		ft_strncpy(new_env, env_copy[i], var_len + 1);
-    		ft_strcpy(new_env + var_len + 1, new_var);
+			new_value_start++;
+			size_var = var_len + 1 + ft_strlen(new_var) + 1;
+			new_env = ft_calloc(size_var, 1);
+			if (!new_env)
+				return ;
+			ft_strncpy(new_env, env_copy[i], var_len + 1);
+			ft_strcpy(new_env + var_len + 1, new_var);
 			free(env_copy[i]);
 			env_copy[i] = new_env;
 		}
@@ -66,7 +67,6 @@ void	ft_cd(char *path)
 	char	*old_pwd;
 	char	*pwd;
 	char	**env_copy;
-	(void)path;
 
 	env_copy = *get_env_copy(NULL);
 	old_pwd = getcwd(NULL, 0);

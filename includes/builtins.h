@@ -26,7 +26,7 @@ void	ft_echo(char *args);
 void	ft_env(char **env_copy);
 void	ft_pwd(void);
 void	ft_export(char **env_copy, char *new_variable);
-void	ft_unset(char **env_copy, char *remove_var);
+void	ft_unset(char **env_copy, char *variables);
 void	ft_cd(char *path);
 
 /* ==== EXPORT_UTILS ==== */

@@ -66,10 +66,10 @@ void	execute_builtins(t_tree *tree)
 	t_minishell	shell;
 
 	shell = *get_minishell(NULL);
+	environ = *get_env_copy(NULL);
 	cmd_args = split_command(tree->content);
 	command = cmd_args[0];
 	args = cmd_args[1];
-	environ = *get_env_copy(NULL);
 	if (ft_strcmp("echo", command) == 0)
 		ft_echo(args);
 	else if (ft_strcmp("pwd", command) == 0)

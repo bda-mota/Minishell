@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void	ft_unset(char **env_copy, char *remove_var)
+static void	aux_unset(char **env_copy, char *remove_var)
 {
 	int	i;
 	int	j;
@@ -10,8 +10,7 @@ void	ft_unset(char **env_copy, char *remove_var)
 	len = ft_strlen(remove_var);
 	while (env_copy[i])
 	{
-		if (ft_strncmp(env_copy[i], remove_var, len) == 0
-			&& env_copy[i][len] == '=')
+		if (ft_strncmp(env_copy[i], remove_var, len) == 0)
 		{
 			free(env_copy[i]);
 			j = i;
@@ -22,5 +21,32 @@ void	ft_unset(char **env_copy, char *remove_var)
 			}
 		}
 		i++;
+	}
+}
+
+void	ft_unset(char **env_copy, char *variables)
+{
+	char	*remove_var;
+	int		start;
+	int		end;
+	int		len;
+
+	start = 0;
+	len = ft_strlen(variables);
+	while (start < len)
+	{
+		while (start < len && variables[start] == ' ')
+			start++;
+		end = start;
+		while (end < len && variables[end] != ' ')
+			end++;
+		if (start < end)
+		{
+			remove_var = ft_calloc(end - start + 1, 1);
+			ft_strncpy(remove_var, variables + start, end - start);
+			aux_unset(env_copy, remove_var);
+			free(remove_var);
+		}
+		start = end + 1;
 	}
 }
