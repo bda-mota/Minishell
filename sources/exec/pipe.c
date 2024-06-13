@@ -22,7 +22,7 @@ int	pipe_execution(t_tree *left, t_tree *right)
 
 void	fork_error(void)
 {
-	ft_printf_fd("Error: %s\n", strerror(errno), 2);
+	ft_printf_fd(STDERR_FILENO, "Error: %s\n", strerror(errno));
 	exit(EXIT_FAILURE);
 }
 

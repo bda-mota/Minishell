@@ -37,7 +37,7 @@ void	execute(t_tree *tree, char *command)
 	{
 		execve(tree->executable, tree->command_child, *get_env_copy(NULL));
 		free_fail_execve(tree->command_child, tree->executable);
-		ft_printf_fd("Babyshell: %s\n", strerror(errno), 2);
+		ft_printf_fd(STDERR_FILENO, "Babyshell: %s\n", strerror(errno));
 		status = 126;
 		exit(126);
 	}

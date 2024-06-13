@@ -34,14 +34,14 @@ int	check_variable_name(char *var_name)
 	i = 0;
 	if (var_name[i] != '_' && !ft_isalpha(var_name[i]))
 	{
-		ft_printf_fd("export: `%s': not a valid identifier\n", var_name, 2);
+		ft_printf_fd(STDERR_FILENO, "export: `%s': not a valid identifier\n", var_name);
 		return (1);
 	}
 	while (var_name[i])
 	{
 		if (!ft_isalnum(var_name[i]) && var_name[i] != '_')
 		{
-			ft_printf_fd("export: `%s': not a valid identifier\n", var_name, 2);
+			ft_printf_fd(STDERR_FILENO, "export: `%s': not a valid identifier\n", var_name);
 			return (1);
 		}
 		i++;

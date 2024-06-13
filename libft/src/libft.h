@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsantana <bsantana@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 11:41:49 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/07 17:48:21 by bsantana         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:32:24 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ int			ft_tolower(int c);
 int			ft_toupper(int c);
 int			ft_putchar_fd(char c, int fd);
 int			ft_putstr_fd(char *s, int fd);
-int			ft_printf_fd(const char *type_format, ...);
-int			ft_flags(char flag, va_list args);
+int			ft_printf_fd(int fd, const char *type_format, ...);
+int			ft_flags(int fd, char flag, va_list args);
 void		ft_bzero(void *s, size_t n);
 void		*ft_calloc(size_t nmemb, size_t size);
 void		ft_free_matrix(char **matrix);

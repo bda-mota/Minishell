@@ -1,5 +1,7 @@
 #include "../../includes/minishell.h"
 
+static void	compare_variable(char *old, char *cmd);
+
 int	check_command(t_tree *tree, char *command)
 {
 	char	*first_command;
@@ -46,16 +48,20 @@ void	find_command(t_tree *tree, char *cmd)
 		tree->executable = ft_strjoin(paths[i], cmd);
 		if (access(tree->executable, X_OK) == 0)
 		{
-			if (old != cmd)
-				free(cmd);
+			compare_variable(old, cmd);
 			return ;
 		}
 		free(tree->executable);
 		i++;
 	}
+	compare_variable(old, cmd);
+	tree->executable = NULL;
+}
+
+static void	compare_variable(char *old, char *cmd)
+{
 	if (old != cmd)
 		free(cmd);
-	tree->executable = NULL;
 }
 
 void	remove_quotes_cmd(char **cmd)
@@ -68,7 +74,7 @@ void	remove_quotes_cmd(char **cmd)
 	i = 0;
 	if ((*cmd)[0] == '\'' || (*cmd)[0] == '"')
 	{
-		new_content = ft_calloc(sizeof(char), len -1);
+		new_content = ft_calloc(sizeof(char), len - 1);
 		while (i < len - 2)
 		{
 			new_content[i] = (*cmd)[i + 1];
@@ -76,4 +82,12 @@ void	remove_quotes_cmd(char **cmd)
 		}
 		*cmd = new_content;
 	}
+}
+
+int	is_directory(const char *path)
+{
+	struct stat	path_stat;
+
+	stat(path, &path_stat);
+	return (S_ISDIR(path_stat.st_mode));
 }
