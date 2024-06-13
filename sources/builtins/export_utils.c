@@ -12,6 +12,8 @@ void	processed_var(char **environ, char *new_variable, int start, int args)
 	}
 }
 
+// caso não crie a variável por erro de sintaxe tem que ajustar a saída de erro;
+
 void	variable_to_environ(char **env_copy, char *new_var)
 {
 	char	*var_name;

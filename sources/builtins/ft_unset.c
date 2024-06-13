@@ -24,6 +24,8 @@ static void	aux_unset(char **env_copy, char *remove_var)
 	}
 }
 
+// caso exclua a variável tem que ajustar a saída de erro;
+
 void	ft_unset(char **env_copy, char *variables)
 {
 	char	*remove_var;

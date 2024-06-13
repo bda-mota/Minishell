@@ -47,7 +47,7 @@ static char	*prompt(void)
 		init_structs(&shell);
 		shell.input = readline(PURPLE"$BaByshell: "WHITE);
 		add_history(shell.input);
-		if (shell.input == NULL || !ft_strcmp(shell.input, "exit"))
+		if (shell.input == NULL)
 		{
 			rl_clear_history();
 			free_minishell(&shell);

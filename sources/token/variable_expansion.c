@@ -1,5 +1,7 @@
 #include "../../includes/minishell.h"
 
+// expandir $? aqui
+
 char	*my_getenv(char **env_copy, char *var)
 {
 	int	i;
