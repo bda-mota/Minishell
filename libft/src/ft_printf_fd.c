@@ -6,20 +6,20 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 11:40:11 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/13 13:51:10 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:32:04 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_flags(char flag, va_list args)
+int	ft_flags(int fd, char flag, va_list args)
 {
 	if (flag == 'c')
-		return (ft_putchar_fd(va_arg(args, int), 1));
+		return (ft_putchar_fd(va_arg(args, int), fd));
 	if (flag == 's')
-		return (ft_putstr_fd(va_arg(args, char *), 1));
+		return (ft_putstr_fd(va_arg(args, char *), fd));
 	if (flag == '%')
-		return (ft_putchar_fd('%', 1));
+		return (ft_putchar_fd('%', fd));
 	return (0);
 }
 
@@ -37,7 +37,7 @@ int	ft_printf_fd(int fd, const char *type_format, ...)
 	while (type_format[i])
 	{
 		if (type_format[i] == '%' && type_format[i + 1] != '\0')
-			result += ft_flags(type_format[++i], args);
+			result += ft_flags(fd, type_format[++i], args);
 		else
 			result += ft_putchar_fd(type_format[i], fd);
 		i++;

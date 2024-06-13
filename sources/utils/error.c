@@ -27,7 +27,7 @@ int	display_error_exec(char *error, char *str)
 	}
 	else if (ft_strcmp(error, "command not found") == 0)
 	{
-		ft_printf_fd(STDERR_FILENO, "Babyshell: command not found: `%s´\n", str);
+		ft_printf_fd(2, "Babyshell: command not found: `%s´\n", str);
 		return (get_status(127));
 	}
 	return (1);
