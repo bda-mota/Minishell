@@ -53,7 +53,7 @@ int	open_heredoc(char *file)
 	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	if (fd < 0)
 	{
-		ft_printf_fd("Babyshell: %s\n", strerror(errno), 2);
+		ft_printf_fd(STDERR_FILENO, "Babyshell: %s\n", strerror(errno));
 		return (-1);
 	}
 	return (fd);

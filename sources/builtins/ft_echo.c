@@ -61,9 +61,9 @@ void	ft_echo(char *args)
 			i++;
 			continue ;
 		}
-		ft_printf_fd("%c", args[i]);
+		ft_printf_fd(STDERR_FILENO, "%c", args[i]);
 		i++;
 	}
 	if (!flag)
-		ft_printf_fd("\n");
+		ft_printf_fd(STDERR_FILENO, "\n");
 }

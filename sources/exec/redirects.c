@@ -12,7 +12,8 @@ int	redirs_execution(t_tree *tree)
 	{
 		dup2(saved_std[0], STDIN_FILENO);
 		dup2(saved_std[1], STDOUT_FILENO);
-		ft_printf_fd("Babyshell: %s: %s\n", tree->right->content, strerror(errno), 2);
+		//printf("content: %s\n", tree->right->content);
+		ft_printf_fd(STDERR_FILENO, "Babyshell: %s\n", strerror(errno)); //essa linha ta cagada
 		return (-1);
 	}
 	dup_file(tree, &fd);

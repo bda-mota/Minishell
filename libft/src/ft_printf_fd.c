@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 11:40:11 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/05/08 11:40:14 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/13 13:51:10 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_flags(char flag, va_list args)
 	return (0);
 }
 
-int	ft_printf_fd(const char *type_format, ...)
+int	ft_printf_fd(int fd, const char *type_format, ...)
 {
 	va_list	args;
 	int		i;
@@ -39,7 +39,7 @@ int	ft_printf_fd(const char *type_format, ...)
 		if (type_format[i] == '%' && type_format[i + 1] != '\0')
 			result += ft_flags(type_format[++i], args);
 		else
-			result += ft_putchar_fd(type_format[i], 1);
+			result += ft_putchar_fd(type_format[i], fd);
 		i++;
 	}
 	va_end(args);
