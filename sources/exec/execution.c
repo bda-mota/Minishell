@@ -35,9 +35,7 @@ void	execute(t_tree *tree, char *command)
 	if (pid == 0)
 	{
 		execve(tree->executable, tree->command_child, *get_env_copy(NULL));
-		treat_errors(tree);
-		status = 126;
-		exit(126);
+		treat_errors(tree, &status);
 	}
 	waitpid(pid, &status, 0);
 	free_simple_child(tree->command_child, tree->executable);
@@ -55,27 +53,29 @@ void	set_status(int status)
 		get_status(0);
 }
 
-void	treat_errors(t_tree *tree)
+void	treat_errors(t_tree *tree, int *status)
 {
-	if (access(tree->executable, F_OK) == -1)
+	if (access(tree->executable, F_OK) == -1 && (ft_strncmp(tree->executable, "./", 2) == 0
+		|| ft_strncmp(tree->executable, "../", 3) == 0 || ft_strncmp(tree->executable, "/", 1) == 0))
 	{
 		ft_printf_fd(STDERR_FILENO, "Babyshell: %s: No such file or directory\n", tree->executable);
-		set_status(1);
+		get_status(1);
 	}
-	else if (access(tree->executable, X_OK) == -1)
+	else if (access(tree->executable, X_OK) == -1 && access(tree->executable, F_OK) == 0)
 	{
 		ft_printf_fd(STDERR_FILENO, "Babyshell: %s: Permission denied\n", tree->executable);
-		set_status(126);
+		get_status(126);
 	}
 	else if (access(tree->executable, F_OK) == 0)
 	{
 		ft_printf_fd(STDERR_FILENO, "Babyshell: %s: Is a directory\n", tree->executable);
-		set_status(126);
+		get_status(126);
 	}
 	else
 	{
 		ft_printf_fd(STDERR_FILENO, "Babyshell: %s: command not found\n", tree->content);
-		set_status(127);
+		get_status(127);
 	}
+	*status = get_status(-1);
 	free_fail_execve(tree->command_child, tree->executable);
 }

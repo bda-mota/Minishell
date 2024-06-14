@@ -34,6 +34,7 @@ void	free_fail_execve(char **child, char *executable)
 {
 	t_minishell	*shell;
 	char		**env_copy;
+	int			status;
 
 	env_copy = *get_env_copy(NULL);
 	shell = get_minishell(NULL);
@@ -47,5 +48,6 @@ void	free_fail_execve(char **child, char *executable)
 	if (shell->tree)
 		down_tree(&shell->tree);
 	rl_clear_history();
-	exit(126);
+	status = get_status(-1);
+	exit(status);
 }

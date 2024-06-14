@@ -43,6 +43,7 @@ void	find_command(t_tree *tree, char *cmd)
 	}
 	compare_variable(old, cmd);
 	tree->executable = ft_strdup(old);
+	get_status(127);
 }
 
 static void	compare_variable(char *old, char *cmd)

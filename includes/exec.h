@@ -13,7 +13,7 @@ void	remove_quotes_cmd(char **cmd);
 int		executor(t_tree *tree);
 void	execute(t_tree *tree, char *command);
 void	set_status(int status);
-void	treat_errors(t_tree *tree);
+void	treat_errors(t_tree *tree, int *status);
 
 /* ==== FREE CHILD ==== */
 void	free_pipe_child(void);
