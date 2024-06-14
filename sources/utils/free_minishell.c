@@ -11,5 +11,7 @@ void	free_minishell(t_minishell *shell)
 		ft_free_matrix(env_copy);
 	if (shell->tree)
 		down_tree(&shell->tree);
+	 if (shell->cmd_args)
+	 	free_split_command(shell->cmd_args);
 	close_all();
 }
