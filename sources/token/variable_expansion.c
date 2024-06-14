@@ -1,5 +1,10 @@
 #include "../../includes/minishell.h"
 
+typedef struct s_status 
+{
+    char *value;
+} t_status;
+
 char	*my_getenv(char **env_copy, char *var)
 {
 	int status;
@@ -80,13 +85,15 @@ char	*find_variable(char *content, int *i, char **env_copy, char *data_var)
 		end++;
 	var_name = ft_strndup(content + start, end - start);
 	expand_variable = my_getenv(env_copy, var_name);
-	free(var_name);
 	if (expand_variable)
 	{
 		tmp = data_var;
 		data_var = ft_strjoin(data_var, expand_variable);
 		free(tmp);
+	 	if (ft_strcmp(var_name, "?") == 0)
+            free(expand_variable);
 	}
+	free(var_name);
 	*i = end - 1;
 	return (data_var);
 }
