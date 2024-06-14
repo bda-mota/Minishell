@@ -2,30 +2,17 @@
 
 static void	compare_variable(char *old, char *cmd);
 
-int	check_command(t_tree *tree, char *command)
+void	check_command(t_tree *tree, char *command)
 {
 	char	*first_command;
 
 	tree->command_child = ft_special_split(command);
 	if (tree->command_child == NULL)
-	{
 		printf("Error ao dar split\n");
-		return (0);
-	}
 	first_command = tree->command_child[0];
 	if (access(first_command, X_OK) == 0)
-	{
-		tree->executable = ft_strdup(first_command);
-		return (1);
-	}
+		tree->executable = first_command;
 	find_command(tree, first_command);
-	if (tree->executable == NULL)
-	{
-		display_error_exec("command not found", first_command);
-		free_simple_child(tree->command_child, NULL);
-		return (0);
-	}
-	return (1);
 }
 
 void	find_command(t_tree *tree, char *cmd)
@@ -55,7 +42,7 @@ void	find_command(t_tree *tree, char *cmd)
 		i++;
 	}
 	compare_variable(old, cmd);
-	tree->executable = NULL;
+	tree->executable = ft_strdup(old);
 }
 
 static void	compare_variable(char *old, char *cmd)
@@ -84,10 +71,3 @@ void	remove_quotes_cmd(char **cmd)
 	}
 }
 
-int	is_directory(const char *path)
-{
-	struct stat	path_stat;
-
-	stat(path, &path_stat);
-	return (S_ISDIR(path_stat.st_mode));
-}
