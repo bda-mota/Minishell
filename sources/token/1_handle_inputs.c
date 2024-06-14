@@ -1,5 +1,7 @@
 #include "../../includes/minishell.h"
 
+static void	quote_aux(char *input, size_t *i, size_t *len);
+
 void	handle_word(t_token **token, char *input, size_t *i)
 {
 	size_t	len;
@@ -11,26 +13,7 @@ void	handle_word(t_token **token, char *input, size_t *i)
 	while (input[*i] && (catalog_inputs(input, i) == WORD
 		|| catalog_inputs(input, i) == DOUBLE || catalog_inputs(input, i) == SIMPLE))
 	{
-		if (input[*i] == '"')
-		{
-			(*i)++;
-			len++;
-			while (input[*i] && input[*i] != '"')
-			{
-				(*i)++;
-				len++;
-			}
-		}
-		else if (input[*i] && input[*i] == '\'')
-		{
-			(*i)++;
-			len++;
-			while (input[*i] && input[*i] != '\'')
-			{
-				(*i)++;
-				len++;
-			}
-		}
+		quote_aux(input, i, &len);
 		if (input[*i])
 		{
 			(*i)++;
@@ -45,6 +28,30 @@ void	handle_word(t_token **token, char *input, size_t *i)
 		content[j++] = input[(*i)++];
 	(*i)--;
 	insert_token(token, create_token(content, WORD));
+}
+
+static void	quote_aux(char *input, size_t *i, size_t *len)
+{
+	if (input[*i] == '"')
+	{
+		(*i)++;
+		(*len)++;
+		while (input[*i] && input[*i] != '"')
+		{
+			(*i)++;
+			(*len)++;
+		}
+	}
+	else if (input[*i] && input[*i] == '\'')
+	{
+		(*i)++;
+		(*len)++;
+		while (input[*i] && input[*i] != '\'')
+		{
+			(*i)++;
+			(*len)++;
+		}
+	}
 }
 
 void	handle_one(t_token **token, char *input, size_t *i)
