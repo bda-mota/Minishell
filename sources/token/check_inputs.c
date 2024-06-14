@@ -1,14 +1,53 @@
 #include "../../includes/minishell.h"
 
-int	check_sintax(char *input)
+int	check_quotes(char *input)
 {
-	if (!check_untreatable(input) || !check_blocks(input)
-		|| !check_quotes(input))
+	int	i;
+	int	d_quotes;
+	int	s_quotes;
+
+	i = 0;
+	d_quotes = 0;
+	s_quotes = 0;
+	while (input[i])
 	{
-		get_status(2);
-		return (0);
+		if (input[i] == '"')
+			d_quotes = check_quotes_aux(input, &i, '"');
+		if (input[i] == '\'')
+			s_quotes = check_quotes_aux(input, &i, '\'');
+		if (input[i])
+			i++;
 	}
-	return (1);
+	if (d_quotes % 2 != 0)
+		display_error_tokens("sintaxe", '"');
+	else if (s_quotes % 2 != 0)
+		display_error_tokens("sintaxe", '\'');
+	else
+		return (1);
+	return (0);
+}
+
+int	check_quotes_aux(char *input, int *i, char c)
+{
+	int	quote;
+
+	quote = 1;
+	(*i)++;
+	if (c == '"')
+	{
+		while (input[*i] && input[*i] != '"')
+			(*i)++;
+		if (input[*i] == '"')
+				quote++;
+	}
+	else if (c == '\'')
+	{
+		while (input[*i] && input[*i] != '\'')
+			(*i)++;
+		if (input[*i] == '\'')
+				quote++;
+	}
+	return (quote);
 }
 
 int	check_blocks(char *input)

@@ -35,7 +35,6 @@ void	tokenizer(t_minishell *shell)
 	while (shell->input[i] && (i != ft_strlen(shell->input)))
 	{
 		type = catalog_inputs(shell->input, &i);
-		//handle_quotes(&shell->token, shell->input, &i);
 		if (type == WORD || type == DOUBLE || type == SIMPLE)
 			handle_word(&shell->token, shell->input, &i);
 		else if (type == PIPE || type == INPUT || type == OUTPUT)

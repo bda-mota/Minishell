@@ -67,8 +67,6 @@ void	processor(t_minishell *shell)
 		return ;
 	inspect_types(&shell->token);
 	rearrange_tokens(&shell->token);
-	print_list(&shell->token);
-	deallocate_lst(&shell->token);
 	expand_variable(&shell->token, *get_env_copy(NULL));
 	if (shell->token && shell->token->next == NULL
 		&& shell->token->content[0] == '\0')
@@ -79,7 +77,11 @@ void	processor(t_minishell *shell)
 	if (!has_heredoc(shell->token))
 		heredoc(&shell->token);
 	build_tree(&shell->tree, &shell->token);
-	find_path(shell);
-	executor(shell->tree);
+	print_tree_main(shell->tree);
+	//find_path(shell);
+	//executor(shell->tree);
 	down_tree(&shell->tree);
 }
+
+	//print_list(&shell->token);
+	//deallocate_lst(&shell->token);
