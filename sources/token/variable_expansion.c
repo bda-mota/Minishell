@@ -1,10 +1,5 @@
 #include "../../includes/minishell.h"
 
-typedef struct s_status 
-{
-    char *value;
-} t_status;
-
 char	*my_getenv(char **env_copy, char *var)
 {
 	int status;
