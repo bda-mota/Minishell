@@ -65,6 +65,7 @@ typedef struct s_minishell
 	char		*complete_path;
 	char		**env_copy;
 	char		**paths;
+	char		**cmd_args;
 }	t_minishell;
 
 #endif

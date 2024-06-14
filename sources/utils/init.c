@@ -6,6 +6,7 @@ void	init_shell(t_minishell *shell)
 	shell->paths = NULL;
 	shell->env_copy = NULL;
 	shell->status = 0;
+	shell->cmd_args = NULL;
 	get_status(0);
 }
 
