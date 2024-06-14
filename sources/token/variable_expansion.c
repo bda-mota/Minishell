@@ -1,14 +1,21 @@
 #include "../../includes/minishell.h"
 
-// expandir $? aqui
-
 char	*my_getenv(char **env_copy, char *var)
 {
+	int status;
+	char *status_str;
 	int	i;
 	int	len;
 
 	i = 0;
+	status = 0;
 	len = ft_strlen(var);
+	if (ft_strcmp(var, "?") == 0)
+	{
+    	status = get_status(-1);
+		status_str = ft_itoa(status);
+    	return (status_str);
+	}
 	while (env_copy[i])
 	{
 		if (ft_strncmp(env_copy[i], var, len) == 0 && env_copy[i][len] == '=')
