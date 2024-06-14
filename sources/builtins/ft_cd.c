@@ -51,14 +51,17 @@ static int	chance_directory(char *path)
 		if (path == NULL)
 		{
 			ft_printf_fd(STDERR_FILENO, "cd: Could not get the home directory.\n");
+			get_status(1);
 			return (1);
 		}
 	}
 	if (chdir(path) != 0)
 	{
 		ft_printf_fd(STDERR_FILENO, "cd: %s: No such file or directory\n", path);
+		get_status(1);
 		return (1);
 	}
+	get_status(0);
 	return (0);
 }
 
