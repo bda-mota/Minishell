@@ -1,6 +1,7 @@
 #include "../../includes/minishell.h"
 
 static void	compare_variable(char *old, char *cmd);
+static int	check_executable(char *executable, char *cmd, char *old);
 
 void	check_command(t_tree *tree, char *command)
 {
@@ -33,17 +34,24 @@ void	find_command(t_tree *tree, char *cmd)
 	while (paths[i])
 	{
 		tree->executable = ft_strjoin(paths[i], cmd);
-		if (access(tree->executable, X_OK) == 0)
-		{
-			compare_variable(old, cmd);
+		if (!check_executable(tree->executable, cmd, old))
 			return ;
-		}
 		free(tree->executable);
 		i++;
 	}
 	compare_variable(old, cmd);
 	tree->executable = ft_strdup(old);
 	get_status(127);
+}
+
+static int	check_executable(char *executable, char *cmd, char *old)
+{
+	if (access(executable, X_OK) == 0)
+	{
+		compare_variable(old, cmd);
+		return (0);
+	}
+	return (1);
 }
 
 static void	compare_variable(char *old, char *cmd)
