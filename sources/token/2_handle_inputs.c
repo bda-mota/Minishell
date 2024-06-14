@@ -39,33 +39,3 @@ void	handle_block(t_token **token, char *input, size_t *i)
 	(*i)--;
 	insert_token(token, create_token(content, BLOCK));
 }
-
-void	handle_simple(t_token **token, char *input, size_t *i, size_t size)
-{
-	size_t	j;
-	char	*content;
-
-	j = 0;
-	content = ft_calloc(sizeof(char), (size + 1));
-	if (!content)
-		return ;
-	while (input[*i] && j < size)
-		content[j++] = input[(*i)++];
-	(*i)--;
-	insert_token(token, create_token(content, SIMPLE));
-}
-
-void	handle_double(t_token **token, char *input, size_t *i, size_t size)
-{
-	size_t	j;
-	char	*content;
-
-	j = 0;
-	content = ft_calloc(sizeof(char), (size + 1));
-	if (!content)
-		return ;
-	while (input[*i] && j < size)
-		content[j++] = input[(*i)++];
-	(*i)--;
-	insert_token(token, create_token(content, DOUBLE));
-}

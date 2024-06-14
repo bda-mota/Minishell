@@ -8,10 +8,34 @@ void	handle_word(t_token **token, char *input, size_t *i)
 
 	j = 0;
 	len = 0;
-	while (input[*i] && catalog_inputs(input, i) == WORD)
+	while (input[*i] && (catalog_inputs(input, i) == WORD
+		|| catalog_inputs(input, i) == DOUBLE || catalog_inputs(input, i) == SIMPLE))
 	{
-		(*i)++;
-		len++;
+		if (input[*i] == '"')
+		{
+			(*i)++;
+			len++;
+			while (input[*i] && input[*i] != '"')
+			{
+				(*i)++;
+				len++;
+			}
+		}
+		else if (input[*i] && input[*i] == '\'')
+		{
+			(*i)++;
+			len++;
+			while (input[*i] && input[*i] != '\'')
+			{
+				(*i)++;
+				len++;
+			}
+		}
+		if (input[*i])
+		{
+			(*i)++;
+			len++;
+		}
 	}
 	content = ft_calloc(sizeof(char), len + 1);
 	if (!content)
@@ -55,17 +79,4 @@ void	handle_two(t_token **token, char *input, size_t *i)
 		content[j++] = input[(*i)++];
 	(*i)--;
 	insert_token(token, create_token(content, type));
-}
-
-void	handle_quotes(t_token **token, char *input, size_t *i)
-{
-	size_t	size_double;
-	size_t	size_simple;
-
-	size_double = count_double_quote(input, &(*i));
-	if (size_double != 0)
-		handle_double(token, input, &(*i), size_double);
-	size_simple = count_simple_quote(input, &(*i));
-	if (size_simple != 0)
-		handle_simple(token, input, &(*i), size_simple);
 }
