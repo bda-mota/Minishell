@@ -9,6 +9,11 @@ void	free_minishell(t_minishell *shell)
 		free(shell->input);
 	if (env_copy)
 		ft_free_matrix(env_copy);
+	if (shell->paths)
+	{
+		ft_free_matrix(shell->paths);
+		shell->paths = NULL;
+	}
 	if (shell->tree)
 		down_tree(&shell->tree);
 	 if (shell->cmd_args)

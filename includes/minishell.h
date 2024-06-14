@@ -30,7 +30,6 @@ void		free_execution(void);
 
 /* ===== ERRORS =====*/
 void		display_error_tokens(char *error, char c);
-int			display_error_exec(char *error, char *str);
 
 /* ==== GET_SET ==== */
 int			get_status(int status);

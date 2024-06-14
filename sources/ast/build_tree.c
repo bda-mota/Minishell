@@ -63,10 +63,7 @@ static void	branch_aux(t_tree **branch, t_token **token, int type, int meta)
 			(*branch)->content = remove_quotes(token[2]->content);
 		else
 			(*branch)->content = ft_strdup(token[2]->content);
-		if (ft_strcmp(token[2]->content, "<<") == 1)
-			(*branch)->type = ARCHIVE;
-		else
-			(*branch)->type = DELIMITER;
+		(*branch)->type = ARCHIVE;
 		free(token[2]->content);
 		free(token[2]);
 	}
