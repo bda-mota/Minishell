@@ -2,8 +2,7 @@
 
 int	check_sintax(char *input)
 {
-	if (!check_untreatable(input) || !check_blocks(input)
-		|| !check_quotes(input))
+	if (!check_untreatable(input) || !check_quotes(input))
 	{
 		get_status(2);
 		return (0);
@@ -48,7 +47,6 @@ int	is_invalid_pipe(t_token *curr)
 {
 	return (curr->type == PIPE && ((!curr->prev || !curr->next)
 			|| (curr->prev->type != WORD && curr->prev->type != SIMPLE
-				&& curr->prev->type != DOUBLE) || (curr->next->type != WORD
-				&& curr->next->type != SIMPLE && curr->next->type != DOUBLE)));
+				&& curr->prev->type != DOUBLE)));
 }
 

@@ -32,6 +32,8 @@ void	ft_unset(char **env_copy, char *variables)
 	int		len;
 
 	start = 0;
+	if (!variables)
+		return ;
 	len = ft_strlen(variables);
 	while (start < len)
 	{

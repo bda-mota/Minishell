@@ -28,7 +28,7 @@ void	ft_pwd(void);
 void	ft_export(char **env_copy, char *new_variable);
 void	ft_unset(char **env_copy, char *variables);
 void	ft_cd(char *path);
-int	ft_exit(char *args);
+int		ft_exit(char *args);
 
 /* ==== EXPORT_UTILS ==== */
 

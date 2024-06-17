@@ -3,10 +3,9 @@
 int	pipe_execution(t_tree *left, t_tree *right)
 {
 	int		tube[2];
-	int		status;
+	int		status[2];
 	pid_t	pid[2];
 
-	status = 0;
 	if (!open_tubes(tube))
 		return (EXIT_FAILURE);
 	pid[0] = fork();
@@ -16,8 +15,10 @@ int	pipe_execution(t_tree *left, t_tree *right)
 	if (pid[1] == 0)
 		second_child(right, tube);
 	close_tubes(tube);
-	wait_forks(pid, status);
-	return (((status & 0xff00)) >> 8);
+	waitpid(pid[0], &status[0], 0);
+	waitpid(pid[1], &status[1], 0);
+	//wait_forks(pid, status);
+	return (((status[1] & 0xff00)) >> 8);
 }
 
 void	fork_error(void)
@@ -28,22 +29,26 @@ void	fork_error(void)
 
 void	first_child(t_tree *left, int *tube)
 {
+	int	status;
+
 	close(tube[0]);
 	dup2(tube[STDOUT_FILENO], STDOUT_FILENO);
 	close(tube[1]);
-	executor(left);
+	status = executor(left);
 	free_pipe_child();
 	close_all();
-	exit(0);
+	exit(status);
 }
 
 void	second_child(t_tree *right, int *tube)
 {
+	int	status;
+
 	close(tube[1]);
 	dup2(tube[STDIN_FILENO], STDIN_FILENO);
 	close(tube[0]);
-	executor(right);
+	status = executor(right);
 	free_pipe_child();
 	close_all();
-	exit(0);
+	exit(status);
 }

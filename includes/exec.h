@@ -11,7 +11,7 @@ void	remove_quotes_cmd(char **cmd);
 
 /* ==== EXECUTION ==== */
 int		executor(t_tree *tree);
-void	execute(t_tree *tree, char *command);
+int		execute(t_tree *tree, char *command);
 void	set_status(int status);
 void	treat_errors(t_tree *tree, int *status);
 

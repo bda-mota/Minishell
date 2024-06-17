@@ -11,7 +11,8 @@ void	handle_word(t_token **token, char *input, size_t *i)
 	j = 0;
 	len = 0;
 	while (input[*i] && (catalog_inputs(input, i) == WORD
-		|| catalog_inputs(input, i) == DOUBLE || catalog_inputs(input, i) == SIMPLE))
+			|| catalog_inputs(input, i) == DOUBLE
+			|| catalog_inputs(input, i) == SIMPLE))
 	{
 		quote_aux(input, i, &len);
 		if (input[*i])

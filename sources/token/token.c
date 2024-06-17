@@ -18,8 +18,8 @@ int	catalog_inputs(char *c, size_t *i)
 		return (DOUBLE);
 	else if (!ft_strnchr(&c[*i], '\'', 1))
 		return (SIMPLE);
-	else if (!ft_strnchr(&c[*i], '(', 1))
-		return (BLOCK);
+	//else if (!ft_strnchr(&c[*i], '(', 1))
+	//	return (BLOCK);
 	else
 		return (WORD);
 }
@@ -41,8 +41,8 @@ void	tokenizer(t_minishell *shell)
 			handle_one(&shell->token, shell->input, &i);
 		else if (type == HEREDOC || type == APPEND)
 			handle_two(&shell->token, shell->input, &i);
-		else if (type == BLOCK)
-			handle_block(&shell->token, shell->input, &i);
+		//else if (type == BLOCK)
+		//	handle_block(&shell->token, shell->input, &i);
 		i++;
 	}
 }

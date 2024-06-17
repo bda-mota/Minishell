@@ -19,12 +19,12 @@ int	executor(t_tree *tree)
 			execute_builtins(tree);
 			return (0);
 		}
-		execute(tree, tree->content);
+		return (execute(tree, tree->content));
 	}
 	return (0);
 }
 
-void	execute(t_tree *tree, char *command)
+int	execute(t_tree *tree, char *command)
 {
 	int	pid;
 	int	status;
@@ -42,6 +42,7 @@ void	execute(t_tree *tree, char *command)
 	waitpid(pid, &status, 0);
 	free_simple_child(tree->command_child, tree->executable);
 	set_status(status);
+	return (status);
 }
 
 void	set_status(int status)
@@ -59,11 +60,10 @@ void	treat_errors(t_tree *tree, int *status)
 {
 	if (access(tree->executable, F_OK) == -1
 		&& (ft_strncmp(tree->executable, "./", 2) == 0
-			|| ft_strncmp(tree->executable, "../", 3) == 0
-			|| ft_strncmp(tree->executable, "/", 1) == 0))
+			|| ft_strncmp(tree->executable, "../", 3) == 0))
 		print_execve_error(tree->executable, 1);
 	else if (access(tree->executable, X_OK) == -1
-		&& access(tree->executable, F_OK) == 0)
+		&& access(tree->executable, F_OK) == 0 && tree->type == ARCHIVE)
 	{
 		ft_printf_fd(STDERR_FILENO, "babyshell: %s: Permission denied\n",
 			tree->executable);
