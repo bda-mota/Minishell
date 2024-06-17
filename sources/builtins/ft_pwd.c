@@ -7,4 +7,5 @@ void	ft_pwd(void)
 	pwd = getcwd(NULL, 0);
 	printf("%s\n", pwd);
 	free(pwd);
+	get_status(0);
 }

@@ -66,4 +66,5 @@ void	ft_echo(char *args)
 	}
 	if (!flag)
 		ft_printf_fd(STDOUT_FILENO, "\n");
+	get_status(0);
 }

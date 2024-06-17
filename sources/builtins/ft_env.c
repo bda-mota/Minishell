@@ -11,4 +11,5 @@ void	ft_env(char **env_copy)
 			ft_printf_fd(STDIN_FILENO, "%s\n", env_copy[i]);
 		i++;
 	}
+	get_status(0);
 }
