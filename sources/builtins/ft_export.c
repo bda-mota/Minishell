@@ -1,74 +1,11 @@
 #include "../../includes/minishell.h"
 
-static char	*extract_string(char *input)
-{
-	char	*substring;
-	int		i;
-
-	i = 0;
-	substring = NULL;
-	while (input[i] != '\0' && input[i] != '|'
-		&& input[i] != '<' && input[i] != '>'
-		&& !(input[i] == '<' && input[i + 1] == '<')
-		&& !(input[i] == '>' && input[i + 1] == '>'))
-	{
-		i++;
-	}
-	while (i > 0 && input[i - 1] == ' ')
-		i--;
-	substring = ft_calloc(i + 1, 1);
-	if (!substring)
-		return (NULL);
-	ft_strncpy(substring, input, i);
-	return (substring);
-}
-
 void	ft_export(char **env_copy, char *new_variable)
 {
-	char	*extracted;
-
-	extracted = extract_string(new_variable);
-	if (extracted == NULL)
-		return ;
-	if (ft_strcmp(extracted, "export") == 0)
+	if (new_variable == NULL)
 		print_variables(env_copy);
 	else
-		change_variables(extracted);
-	free(extracted);
-}
-
-static void	aux_change_variables(char *new_variable, t_var *state)
-{
-	state->start = state->args;
-	while (new_variable[state->args]
-		&& (new_variable[state->args] != ' '
-			|| state->simple_quote || state->double_quote))
-	{
-		quotes(new_variable[state->args],
-			&(state->simple_quote), &(state->double_quote));
-		(state->args)++;
-	}
-	if (state->start != state->args)
-		processed_var(state->environ, new_variable, state->start, state->args);
-	if (new_variable[state->args] != '\0')
-		(state->args)++;
-}
-
-void	change_variables(char *new_variable)
-{
-	t_var	state;
-
-	state.args = 0;
-	state.start = 0;
-	state.simple_quote = 0;
-	state.double_quote = 0;
-	if (ft_strncmp(new_variable, "export ", 7) == 0)
-		state.args += 7;
-	while (new_variable[state.args])
-	{
-		state.environ = *get_env_copy(NULL);
-		aux_change_variables(new_variable, &state);
-	}
+		change_variables(new_variable);
 }
 
 void	print_variables(char	**env_copy)
@@ -94,8 +31,9 @@ void	print_variables(char	**env_copy)
 
 void	order_env(char **env_copy)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	char	*tmp;
 
 	i = 0;
 	while (env_copy[i])
@@ -105,18 +43,52 @@ void	order_env(char **env_copy)
 		{
 			if (ft_strncmp(env_copy[i],
 					env_copy[j], ft_strlen(env_copy[i])) > 0)
-				swap_strings(&env_copy[i], &env_copy[j]);
+			{
+				tmp = env_copy[i];
+				env_copy[i] = env_copy[j];
+				env_copy[j] = tmp;
+			}
 			j++;
 		}
 		i++;
 	}
 }
 
-void	swap_strings(char **str1, char **str2)
+void	change_variables(char *new_variable)
 {
-	char	*tmp;
+	t_var	state;
 
-	tmp = *str1;
-	*str1 = *str2;
-	*str2 = tmp;
+	state.args = 0;
+	state.start = 0;
+	state.simple_quote = 0;
+	state.double_quote = 0;
+	while (new_variable[state.args])
+	{
+		state.environ = *get_env_copy(NULL);
+		state.start = state.args;
+		while (new_variable[state.args]
+			&& (new_variable[state.args] != ' '
+				|| state.simple_quote || state.double_quote))
+		{
+			quotes(new_variable[state.args],
+				&(state.simple_quote), &(state.double_quote));
+			(state.args)++;
+		}
+		if (state.start != state.args)
+			processed_var(state.environ, new_variable, state.start, state.args);
+		if (new_variable[state.args] != '\0')
+			(state.args)++;
+	}
+}
+
+void	processed_var(char **environ, char *new_variable, int start, int args)
+{
+	char	*var;
+
+	var = ft_strndup(&new_variable[start], args - start);
+	if (var)
+	{
+		variable_to_environ(environ, var);
+		free (var);
+	}
 }

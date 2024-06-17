@@ -1,17 +1,5 @@
 #include "../../includes/minishell.h"
 
-void	processed_var(char **environ, char *new_variable, int start, int args)
-{
-	char	*var;
-
-	var = ft_strndup(&new_variable[start], args - start);
-	if (var)
-	{
-		variable_to_environ(environ, var);
-		free (var);
-	}
-}
-
 // caso não crie a variável por erro de sintaxe tem que ajustar a saída de erro;
 
 void	variable_to_environ(char **env_copy, char *new_var)
@@ -104,4 +92,31 @@ void	add_new_variable(char **env_copy, char *new_var)
 	}
 	free(*get_env_copy(NULL));
 	*get_env_copy(NULL) = new_environ;
+}
+
+int	check_variable_name(char *var_name)
+{
+	int	i;
+
+	i = 0;
+	if (var_name[i] != '_' && !ft_isalpha(var_name[i]))
+	{
+		ft_printf_fd(STDERR_FILENO,
+			"export: `%s': not a valid identifier\n", var_name);
+		get_status(1);
+		return (1);
+	}
+	while (var_name[i])
+	{
+		if (!ft_isalnum(var_name[i]) && var_name[i] != '_')
+		{
+			ft_printf_fd(STDERR_FILENO,
+				"export: `%s': not a valid identifier\n", var_name);
+			get_status(1);
+			return (1);
+		}
+		i++;
+	}
+	get_status(0);
+	return (0);
 }

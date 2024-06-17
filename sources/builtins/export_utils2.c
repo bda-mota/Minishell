@@ -1,5 +1,22 @@
 #include "../../includes/minishell.h"
 
+char	**create_new_environ(char **environ_copy, int num_vars)
+{
+	int		i;
+	char	**new_environ;
+
+	i = 0;
+	new_environ = ft_calloc(num_vars + 2, sizeof(char *));
+	if (!new_environ)
+		return (NULL);
+	while (i < num_vars)
+	{
+		new_environ[i] = environ_copy[i];
+		i++;
+	}
+	return (new_environ);
+}
+
 char	*copy_var(char *new_var, int size)
 {
 	char	*var;
@@ -27,70 +44,45 @@ char	*copy_var(char *new_var, int size)
 	return (var);
 }
 
-int	check_variable_name(char *var_name)
+int	ft_strlen_without_quotes(const char *str)
 {
-	int	i;
+	int		len;
+	int		simple_quote;
+	int		double_quote;
 
-	i = 0;
-	if (var_name[i] != '_' && !ft_isalpha(var_name[i]))
+	len = 0;
+	simple_quote = 0;
+	double_quote = 0;
+	while (*str)
 	{
-		ft_printf_fd(STDERR_FILENO, "export: `%s': not a valid identifier\n", var_name);
-		get_status(1);
-		return (1);
-	}
-	while (var_name[i])
-	{
-		if (!ft_isalnum(var_name[i]) && var_name[i] != '_')
+		if (quotes(*str, &simple_quote, &double_quote))
 		{
-			ft_printf_fd(STDERR_FILENO, "export: `%s': not a valid identifier\n", var_name);
-			get_status(1);
-			return (1);
+			str++;
+			continue ;
 		}
-		i++;
+		len++;
+		str++;
 	}
-	get_status(0);
-	return (0);
+	return (len);
 }
 
-char	**copy_environ(void)
+void	ft_strcpy_without_quotes(char *dest, const char *src)
 {
-	char	**env;
-	char	**environ_copy;
-	int		i;
+	int	simple_quote;
+	int	double_quote;
 
-	env = __environ;
-	environ_copy = count_size_environ();
-	if (!environ_copy)
-		return (NULL);
-	i = 0;
-	while (env[i])
+	simple_quote = 0;
+	double_quote = 0;
+	while (*src)
 	{
-		environ_copy[i] = ft_strdup(env[i]);
-		if (!environ_copy[i])
+		if (quotes(*src, &simple_quote, &double_quote))
 		{
-			while (i--)
-				free(environ_copy[i]);
-			free(environ_copy);
-			return (NULL);
+			src++;
+			continue ;
 		}
-		i++;
+		*dest = *src;
+		dest++;
+		src++;
 	}
-	return (*get_env_copy(environ_copy));
-}
-
-char	**count_size_environ(void)
-{
-	char	**env;
-	char	**environ_copy;
-	int		num_vars;
-
-	env = __environ;
-	environ_copy = NULL;
-	num_vars = 0;
-	while (env[num_vars])
-		num_vars++;
-	environ_copy = ft_calloc(num_vars + 1, sizeof(char *));
-	if (!environ_copy)
-		return (NULL);
-	return (environ_copy);
+	*dest = '\0';
 }
