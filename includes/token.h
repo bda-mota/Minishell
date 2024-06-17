@@ -47,7 +47,7 @@ t_token	*get_first_word(t_token **tokens);
 
 char	*find_variable(char *content, int *i, char **env_copy, char *data_var);
 void	expand_variable(t_token **token, char **env_copy);
-char	*my_getenv(char **env_copy, char *var);
+char	*ft_getenv(char **env_copy, char *var);
 char	*aux_expand_variable(char *content, char **env_copy);
 
 #endif

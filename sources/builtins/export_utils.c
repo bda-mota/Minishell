@@ -1,25 +1,5 @@
 #include "../../includes/minishell.h"
 
-// caso não crie a variável por erro de sintaxe tem que ajustar a saída de erro;
-
-void	variable_to_environ(char **env_copy, char *new_var)
-{
-	char	*var_name;
-	int		var_len;
-	int		update;
-
-	update = 0;
-	var_len = ft_strcspn(new_var, "=");
-	var_name = ft_strndup(new_var, var_len);
-	update = update_variable(env_copy, var_name, new_var, var_len);
-	if (!update)
-	{
-		if (!check_variable_name(var_name))
-			add_new_variable(env_copy, new_var);
-	}
-	free(var_name);
-}
-
 int	update_variable(char **env_copy, char *var_name, char *new_var, int var_len)
 {
 	int		i;

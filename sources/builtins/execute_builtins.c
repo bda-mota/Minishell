@@ -13,7 +13,6 @@ void	free_split_command(char **cmd_args)
 	free(cmd_args);
 }
 
-
 int	is_builtin(char *content)
 {
 	char	*command;
