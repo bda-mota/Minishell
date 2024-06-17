@@ -17,7 +17,7 @@ int	pipe_execution(t_tree *left, t_tree *right)
 		second_child(right, tube);
 	close_tubes(tube);
 	wait_forks(pid, status);
-	return (EXIT_SUCCESS);
+	return (((status & 0xff00)) >> 8);
 }
 
 void	fork_error(void)

@@ -42,6 +42,7 @@ static char	*prompt(void)
 	shell.env_copy = copy_environ();
 	init_shell(&shell);
 	get_minishell(&shell);
+	get_status(0);
 	while (1)
 	{
 		init_structs(&shell);
@@ -82,5 +83,3 @@ void	processor(t_minishell *shell)
 	down_tree(&shell->tree);
 }
 
-	//print_list(&shell->token);
-	//deallocate_lst(&shell->token);

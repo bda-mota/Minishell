@@ -50,7 +50,8 @@ static int	chance_directory(char *path)
 		path = my_getenv(*get_env_copy(NULL), "HOME");
 		if (path == NULL)
 		{
-			ft_printf_fd(STDERR_FILENO, "cd: Could not get the home directory.\n");
+			ft_printf_fd(STDERR_FILENO,
+				"cd: Could not get the home directory.\n");
 			get_status(1);
 			return (1);
 		}

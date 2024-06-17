@@ -1,16 +1,16 @@
 #include "../../includes/minishell.h"
 
-void free_split_command(char **cmd_args)
+void	free_split_command(char **cmd_args)
 {
-    int i;
-	
+	int	i;
+
 	i = 0;
-    while (cmd_args[i] != NULL)
-    {
-        free(cmd_args[i]);
-        i++;
-    }
-    free(cmd_args);
+	while (cmd_args[i] != NULL)
+	{
+		free(cmd_args[i]);
+		i++;
+	}
+	free(cmd_args);
 }
 
 
