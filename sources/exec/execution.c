@@ -65,13 +65,13 @@ void	treat_errors(t_tree *tree, int *status)
 	else if (access(tree->executable, X_OK) == -1
 		&& access(tree->executable, F_OK) == 0)
 	{
-		ft_printf_fd(STDERR_FILENO, "Babyshell: %s: Permission denied\n",
+		ft_printf_fd(STDERR_FILENO, "babyshell: %s: Permission denied\n",
 			tree->executable);
 		get_status(126);
 	}
 	else if (access(tree->executable, F_OK) == 0)
 	{
-		ft_printf_fd(STDERR_FILENO, "Babyshell: %s: Is a directory\n",
+		ft_printf_fd(STDERR_FILENO, "babyshell: %s: Is a directory\n",
 			tree->executable);
 		get_status(126);
 	}
@@ -85,13 +85,13 @@ static void	print_execve_error(char *command, int type)
 {
 	if (type == 1)
 	{
-		ft_printf_fd(STDERR_FILENO, "Babyshell: %s: No such file or directory\n",
+		ft_printf_fd(STDERR_FILENO, "babyshell: %s: No such file or directory\n",
 			command);
 		get_status(1);
 	}
 	else if (type == 127)
 	{
-		ft_printf_fd(STDERR_FILENO, "Babyshell: %s: command not found\n",
+		ft_printf_fd(STDERR_FILENO, "babyshell: %s: command not found\n",
 			command);
 		get_status(127);
 	}

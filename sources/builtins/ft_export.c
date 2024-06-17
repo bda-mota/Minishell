@@ -3,7 +3,10 @@
 void	ft_export(char **env_copy, char *new_variable)
 {
 	if (new_variable == NULL)
+	{
 		print_variables(env_copy);
+		get_status(0);
+	}
 	else
 		change_variables(new_variable);
 }
