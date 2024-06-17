@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-char	*my_getenv(char **env_copy, char *var)
+char	*ft_getenv(char **env_copy, char *var)
 {
 	int status;
 	char *status_str;
@@ -79,7 +79,7 @@ char	*find_variable(char *content, int *i, char **env_copy, char *data_var)
 	while (content[end] && content[end] != ' ' && content[end] != '$')
 		end++;
 	var_name = ft_strndup(content + start, end - start);
-	expand_variable = my_getenv(env_copy, var_name);
+	expand_variable = ft_getenv(env_copy, var_name);
 	if (expand_variable)
 	{
 		tmp = data_var;

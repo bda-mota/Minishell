@@ -84,11 +84,25 @@ void	change_variables(char *new_variable)
 void	processed_var(char **environ, char *new_variable, int start, int args)
 {
 	char	*var;
+	char	*var_name;
+	int		var_len;
+	int		update;
 
 	var = ft_strndup(&new_variable[start], args - start);
 	if (var)
 	{
-		variable_to_environ(environ, var);
-		free (var);
+		var_len = ft_strcspn(var, "=");
+		var_name = ft_strndup(var, var_len);
+		if (var_name)
+		{
+			update = update_variable(environ, var_name, var, var_len);
+			if (!update)
+			{
+				if (!check_variable_name(var_name))
+					add_new_variable(environ, var);
+			}
+			free(var_name);
+		}
+		free(var);
 	}
 }
