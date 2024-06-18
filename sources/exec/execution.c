@@ -39,9 +39,11 @@ int	execute(t_tree *tree, char *command)
 		execve(tree->executable, tree->command_child, *get_env_copy(NULL));
 		treat_errors(tree, &status);
 	}
+	is_fork(1);
 	waitpid(pid, &status, 0);
 	free_simple_child(tree->command_child, tree->executable);
 	set_status(status);
+	is_fork(0);
 	return (status);
 }
 

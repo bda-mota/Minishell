@@ -32,6 +32,7 @@ void		free_execution(void);
 void		display_error_tokens(char *error, char c);
 
 /* ==== GET_SET ==== */
+int			is_fork(int fork);
 int			get_status(int status);
 char		*get_path(char *path);
 char		***get_env_copy(char **copy);
