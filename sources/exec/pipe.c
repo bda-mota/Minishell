@@ -17,8 +17,8 @@ int	pipe_execution(t_tree *left, t_tree *right)
 	close_tubes(tube);
 	waitpid(pid[0], &status[0], 0);
 	waitpid(pid[1], &status[1], 0);
-	//wait_forks(pid, status);
-	return (((status[1] & 0xff00)) >> 8);
+	get_status(((status[1] & 0xff00)) >> 8);
+	return (1);
 }
 
 void	fork_error(void)
@@ -37,7 +37,7 @@ void	first_child(t_tree *left, int *tube)
 	status = executor(left);
 	free_pipe_child();
 	close_all();
-	exit(status);
+	exit(WEXITSTATUS(status));
 }
 
 void	second_child(t_tree *right, int *tube)
@@ -50,5 +50,5 @@ void	second_child(t_tree *right, int *tube)
 	status = executor(right);
 	free_pipe_child();
 	close_all();
-	exit(status);
+	exit(WEXITSTATUS(status));
 }

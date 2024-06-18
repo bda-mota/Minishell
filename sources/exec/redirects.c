@@ -14,7 +14,7 @@ int	redirs_execution(t_tree *tree)
 		dup2(saved_std[1], STDOUT_FILENO);
 		ft_printf_fd(STDERR_FILENO, "Babyshell: %s: %s\n",
 			tree->right->content, strerror(errno));
-		set_status(1);
+		get_status(1);
 		return (1);
 	}
 	dup_file(tree, &fd);

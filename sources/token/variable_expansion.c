@@ -2,19 +2,19 @@
 
 char	*ft_getenv(char **env_copy, char *var)
 {
-	int status;
-	char *status_str;
-	int	i;
-	int	len;
+	int		status;
+	char	*status_str;
+	int		i;
+	int		len;
 
 	i = 0;
 	status = 0;
 	len = ft_strlen(var);
 	if (ft_strcmp(var, "?") == 0)
 	{
-    	status = get_status(-1);
+		status = get_status(-1);
 		status_str = ft_itoa(status);
-    	return (status_str);
+		return (status_str);
 	}
 	while (env_copy[i])
 	{
@@ -86,7 +86,7 @@ char	*find_variable(char *content, int *i, char **env_copy, char *data_var)
 		data_var = ft_strjoin(data_var, expand_variable);
 		free(tmp);
 	 	if (ft_strcmp(var_name, "?") == 0)
-            free(expand_variable);
+			free(expand_variable);
 	}
 	free(var_name);
 	*i = end - 1;
