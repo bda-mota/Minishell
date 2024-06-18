@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_special_split.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 11:41:19 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/05/22 13:45:08 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/18 16:43:35 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "libft.h"
+
+static void	init_variables(size_t *i, size_t *y, int *single, int *in_double);
 
 static int	ft_count_words(char const *s)
 {
@@ -58,18 +59,23 @@ static char	*ft_copy(char const *str, size_t start, size_t end)
 	return (new_str);
 }
 
+static void	init_variables(size_t *i, size_t *y, int *single, int *in_double)
+{
+	*i = 0;
+	*y = 0;
+	*single = 0;
+	*in_double = 0;
+}
+
 static void	ft_count_char(char const *str, char **array, size_t s_array)
 {
 	size_t	i;
-	size_t	start;
 	size_t	y;
+	size_t	start;
 	int		in_single_quote;
 	int		in_double_quote;
 
-	i = 0;
-	y = 0;
-	in_single_quote = 0;
-	in_double_quote = 0;
+	init_variables(&i, &y, &in_single_quote, &in_double_quote);
 	while (str[i] && y < s_array)
 	{
 		while (str[i] == ' ')
@@ -84,9 +90,7 @@ static void	ft_count_char(char const *str, char **array, size_t s_array)
 			i++;
 		}
 		if (i > start)
-		{
 			array[y++] = ft_copy(str, start, i);
-		}
 	}
 }
 

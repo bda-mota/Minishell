@@ -59,19 +59,20 @@ void	set_status(int status)
 void	treat_errors(t_tree *tree, int *status)
 {
 	if (access(tree->executable, F_OK) == -1
-		&& (ft_strncmp(tree->executable, "./", 2) == 0
+		&& (ft_strncmp(tree->executable, "/", 1) == 0
+			|| ft_strncmp(tree->executable, "./", 2) == 0
 			|| ft_strncmp(tree->executable, "../", 3) == 0))
 		print_execve_error(tree->executable, 1);
-	else if (access(tree->executable, X_OK) == -1
-		&& access(tree->executable, F_OK) == 0 && tree->type == ARCHIVE)
+	else if (is_directory(tree->executable) == 1)
 	{
-		ft_printf_fd(STDERR_FILENO, "babyshell: %s: Permission denied\n",
+		ft_printf_fd(STDERR_FILENO, "babyshell: %s: Is a directory\n",
 			tree->executable);
 		get_status(126);
 	}
-	else if (access(tree->executable, F_OK) == 0)
+	else if (access(tree->executable, X_OK) == -1
+		&& access(tree->executable, F_OK) == 0)
 	{
-		ft_printf_fd(STDERR_FILENO, "babyshell: %s: Is a directory\n",
+		ft_printf_fd(STDERR_FILENO, "babyshell: %s: Permission denied\n",
 			tree->executable);
 		get_status(126);
 	}
@@ -95,4 +96,13 @@ static void	print_execve_error(char *command, int type)
 			command);
 		get_status(127);
 	}
+}
+
+int	is_directory(const char *path)
+{
+	struct stat	info;
+
+	if (stat(path, &info) != 0)
+		return (-1);
+	return (S_ISDIR(info.st_mode));
 }

@@ -7,13 +7,13 @@
 /* ==== COMMAND ==== */
 void	check_command(t_tree *tree, char *command);
 void	find_command(t_tree *tree, char *cmd);
-void	remove_quotes_cmd(char **cmd);
 
 /* ==== EXECUTION ==== */
 int		executor(t_tree *tree);
 int		execute(t_tree *tree, char *command);
 void	set_status(int status);
 void	treat_errors(t_tree *tree, int *status);
+int		is_directory(const char *path);
 
 /* ==== FREE CHILD ==== */
 void	free_pipe_child(void);

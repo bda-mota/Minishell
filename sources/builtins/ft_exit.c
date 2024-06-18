@@ -2,8 +2,8 @@
 
 static int	ft_exit_aux(char *args);
 static int	calc_exit(int number);
-static int	check_quotes_exit(char *args);
 static char	*remove_quotes(char *args);
+static int	contains_syntax_error(char *new);
 
 int	ft_exit(char *args)
 {
@@ -26,34 +26,54 @@ int	ft_exit(char *args)
 static int	ft_exit_aux(char *args)
 {
 	int		i;
-	char	*new;
+	int		type;
 	int		number;
+	char	*new;
 
 	i = 0;
 	new = remove_quotes(args);
 	number = ft_atoi(new);
+	type = contains_syntax_error(new);
+	if (type == 1)
+		return (1);
+	else if (type == 2)
+		return (2);
+	if (number >= 0 && number <= 255)
+	{
+		free(new);
+		return (number);
+	}
+	else
+	{
+		free(new);
+		return (calc_exit(number));
+	}
+}
+
+static int	contains_syntax_error(char *new)
+{
+	int	i;
+
+	i = 0;
 	while (new[i])
 	{
 		if (ft_isalpha(new[i]) == 1)
 		{
+			ft_printf_fd(STDIN_FILENO, "exit\n");
 			ft_printf_fd(STDERR_FILENO,
 				"babyshell: exit: %s: numeric argument required\n", new);
+			free(new);
 			return (2);
 		}
 		if (ft_isspace(new[i]) == 1)
 		{
 			ft_printf_fd(STDIN_FILENO, "exit\n");
 			ft_printf_fd(STDERR_FILENO, "babyshell: exit: too many arguments\n");
+			free(new);
 			return (1);
 		}
 		i++;
 	}
-	if (number > 0 && number < 255)
-	{
-		return (ft_atoi(new));
-	}
-	else if (number < 0 || number > 255)
-		return (calc_exit(number));
 	return (0);
 }
 
@@ -67,20 +87,6 @@ static int	calc_exit(int number)
 	return (result);
 }
 
-static int	check_quotes_exit(char *args)
-{
-	int	i;
-
-	i = 0;
-	while (args[i])
-	{
-		if (args[i] == '\'' || args[i] == '\"')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 static char	*remove_quotes(char *args)
 {
 	int		i;
@@ -91,19 +97,17 @@ static char	*remove_quotes(char *args)
 	i = 0;
 	j = 0;
 	len = ft_strlen(args);
-	if (check_quotes_exit(args) == 1)
+	new_args = ft_calloc(sizeof(char), len + 1);
+	if (!new_args)
+		return (NULL);
+	while (args[i])
 	{
-		new_args = ft_calloc(sizeof(char), len - 2);
-		while (args[i])
+		if (args[i] != '\'' && args[i] != '\"')
 		{
-			while (args[i] && (args[i] == '\'' || args[i] == '\"'))
-				i++;
 			new_args[j] = args[i];
 			j++;
-			i++;
 		}
-		return (new_args);
+		i++;
 	}
-	else
-		return (args);
+	return (new_args);
 }

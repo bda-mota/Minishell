@@ -2,7 +2,12 @@
 
 int	check_sintax(char *input)
 {
-	if (!check_untreatable(input) || !check_quotes(input))
+	if (!check_quotes(input))
+	{
+		get_status(2);
+		return (0);
+	}
+	if (!check_untreatable(input))
 	{
 		get_status(2);
 		return (0);
