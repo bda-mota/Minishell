@@ -12,6 +12,8 @@ void	find_command(t_tree *tree, char *cmd);
 int		executor(t_tree *tree);
 int		execute(t_tree *tree, char *command);
 void	set_status(int status);
+
+/* ==== TREAT ERRORS ==== */
 void	treat_errors(t_tree *tree, int *status);
 int		is_directory(const char *path);
 

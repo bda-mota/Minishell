@@ -51,7 +51,7 @@ char	*aux_expand_variable(char *content, char **env_copy)
 	i = 0;
 	while (content[i])
 	{
-		if (content[i] == '$')
+		if (content[i] == '$' && content[i + 1] != '\0')
 			data_var = find_variable(content, &i, env_copy, data_var);
 		else
 		{
@@ -85,7 +85,7 @@ char	*find_variable(char *content, int *i, char **env_copy, char *data_var)
 		tmp = data_var;
 		data_var = ft_strjoin(data_var, expand_variable);
 		free(tmp);
-	 	if (ft_strcmp(var_name, "?") == 0)
+		if (ft_strcmp(var_name, "?") == 0)
 			free(expand_variable);
 	}
 	free(var_name);
