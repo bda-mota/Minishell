@@ -40,11 +40,23 @@ void	expand_variable(t_token **token, char **env_copy)
 	}
 }
 
+char	*process_character(char *content, int i, char *data_var, char quote)
+{
+	char	*temp;
+	char	*new_data_var;
+
+	if (content[i] == '"' && quote == '"')
+		return (data_var);
+	temp = ft_strndup(&content[i], 1);
+	new_data_var = ft_strjoin(data_var, temp);
+	free(temp);
+	free(data_var);
+	return (new_data_var);
+}
+
 char	*aux_expand_variable(char *content, char **env_copy)
 {
 	char	*data_var;
-	char	*temp;
-	char	*new_data_var;
 	int		i;
 	char	quote;
 
@@ -59,27 +71,11 @@ char	*aux_expand_variable(char *content, char **env_copy)
 				quote = content[i];
 			else if (quote == content[i])
 				quote = 0;
-			if (content[i] == '"')
-			{
-				i++;
-				continue ;
-			}
-			temp = ft_strndup(&content[i], 1);
-			new_data_var = ft_strjoin(data_var, temp);
-			free(temp);
-			free(data_var);
-			data_var = new_data_var;
 		}
-		if (content[i] == '$' && quote != '\'')
+		else if (content[i] == '$' && quote != '\'')
 			data_var = find_variable(content, &i, env_copy, data_var);
 		else
-		{
-			temp = ft_strndup(&content[i], 1);
-			new_data_var = ft_strjoin(data_var, temp);
-			free(temp);
-			free(data_var);
-			data_var = new_data_var;
-		}
+			data_var = process_character(content, i, data_var, quote);
 		i++;
 	}
 	return (data_var);
