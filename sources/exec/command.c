@@ -26,6 +26,7 @@ void	find_command(t_tree *tree, char *cmd)
 	if (ft_strncmp(cmd, "./", 2) == 0 || ft_strncmp(cmd, "../", 3) == 0)
 	{
 		tree->executable = ft_strdup(cmd);
+		get_status(127);
 		return ;
 	}
 	paths = get_paths(NULL);

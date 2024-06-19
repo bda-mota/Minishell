@@ -72,7 +72,7 @@ char	*aux_expand_variable(char *content, char **env_copy)
 			else if (quote == content[i])
 				quote = 0;
 		}
-		else if (content[i] == '$' && quote != '\'')
+		else if (content[i] == '$' && content[i + 1] != '\0' && quote != '\'')
 			data_var = find_variable(content, &i, env_copy, data_var);
 		else
 			data_var = process_character(content, i, data_var, quote);

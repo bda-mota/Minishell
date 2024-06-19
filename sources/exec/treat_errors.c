@@ -1,7 +1,5 @@
 #include "../../includes/minishell.h"
 
-static void	print_execve_error(char *command, int type);
-
 void	treat_errors(t_tree *tree, int *status)
 {
 	if (access(tree->executable, F_OK) == -1
@@ -12,9 +10,7 @@ void	treat_errors(t_tree *tree, int *status)
 	else if (is_directory(tree->executable) == 1
 		&& (ft_strncmp(tree->executable, "/", 1) == 0
 			|| ft_strncmp(tree->executable, "./", 2) == 0))
-		printf_execve_error(tree->executable, 126);
-	else if (get_status(-1) == 127)
-		print_execve_error(tree->executable, 127);
+		print_execve_error(tree->executable, 126);
 	else if (access(tree->executable, X_OK) == -1
 		&& access(tree->executable, F_OK) == 0
 		&& access(tree->executable, R_OK | W_OK) == -1)
@@ -23,11 +19,13 @@ void	treat_errors(t_tree *tree, int *status)
 			tree->executable);
 		get_status(126);
 	}
+	else if (get_status(-1) == 127)
+		print_execve_error(tree->executable, 127);
 	*status = get_status(-1);
 	free_fail_execve(tree->command_child, tree->executable);
 }
 
-static void	print_execve_error(char *command, int type)
+void	print_execve_error(char *command, int type)
 {
 	if (type == 1)
 	{

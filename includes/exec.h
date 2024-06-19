@@ -16,6 +16,7 @@ void	set_status(int status);
 /* ==== TREAT ERRORS ==== */
 void	treat_errors(t_tree *tree, int *status);
 int		is_directory(const char *path);
+void	print_execve_error(char *command, int type);
 
 /* ==== FREE CHILD ==== */
 void	free_pipe_child(void);
