@@ -19,11 +19,8 @@ void	tokenizer(t_minishell *shell);
 void	handle_one(t_token **token, char *input, size_t *i);
 void	handle_two(t_token **token, char *input, size_t *i);
 void	handle_word(t_token **token, char *input, size_t *i);
-void	handle_block(t_token **token, char *input, size_t *i);
 
 /* ====  CHECK - INPUTS ==== */
-int		check_blocks(char *input);
-int		check_blocks_aux(char *input);
 int		check_untreatable(char *input);
 int		check_quotes(char *input);
 int		check_quotes_aux(char *input, int *i, char c);
@@ -31,8 +28,8 @@ int		check_quotes_aux(char *input, int *i, char c);
 /* ==== CHECK GRAMMAR ==== */
 int		check_sintax(char *input);
 int		check_grammar(t_token **token);
-int		is_invalid_redir_or_heredoc(t_token *curr);
 int		is_invalid_pipe(t_token *curr);
+int		is_invalid_redir_or_heredoc(t_token *curr);
 
 /* ==== REARRANGE ==== */
 void	inspect_types(t_token **tokens);
