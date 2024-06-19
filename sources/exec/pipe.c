@@ -15,6 +15,7 @@ int	pipe_execution(t_tree *left, t_tree *right)
 	if (pid[1] == 0)
 		second_child(right, tube);
 	close_tubes(tube);
+	is_fork(1);
 	waitpid(pid[0], &status[0], 0);
 	waitpid(pid[1], &status[1], 0);
 	get_status(((status[1] & 0xff00)) >> 8);

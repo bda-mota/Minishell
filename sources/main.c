@@ -2,20 +2,6 @@
 
 static char	*prompt(void);
 
-static void	signal_handler(int signal)
-{
-	if (signal == SIGINT)
-	{
-		get_status(130);
-		ft_putchar_fd('\n', 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-	if (signal == SIGQUIT)
-		return ;
-}
-
 int	main(void)
 {
 	char	*input;
