@@ -23,6 +23,8 @@ int	quotes(char c, int *simple_quote, int *double_quote)
 
 static int	check_n_flag(char *args, int *i)
 {
+	if (!args)
+		return (0);
 	if (args[*i] == '-')
 	{
 		(*i)++;
@@ -54,6 +56,8 @@ void	ft_echo(char *args)
 	flag = check_n_flag(args, &i);
 	simple_quote = 0;
 	double_quote = 0;
+	if (!args)
+		return ;
 	while (args[i])
 	{
 		if (quotes(args[i], &simple_quote, &double_quote))

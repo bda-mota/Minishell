@@ -26,7 +26,13 @@ void	handle_word(t_token **token, char *input, size_t *i)
 		return ;
 	(*i) -= len;
 	while (input[*i] && j < len)
+	{
+		if (input[*i] == '"' && input[*i + 1] == '"')
+			(*i) += 2;
+		else if (input[*i] == '\'' && input[*i + 1] == '\'')
+			(*i) += 2;
 		content[j++] = input[(*i)++];
+	}
 	(*i)--;
 	insert_token(token, create_token(content, WORD));
 }

@@ -34,7 +34,6 @@ int		open_tubes(int *tube);
 void	first_child(t_tree *left, int *tube);
 void	second_child(t_tree *right, int *tube);
 void	close_tubes(int *tube);
-void	wait_forks(pid_t *pid, int status);
 void	close_all(void);
 void	fork_error(void);
 

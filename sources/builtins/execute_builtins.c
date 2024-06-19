@@ -75,7 +75,7 @@ void	aux_execute_builtins(char **environ, char *command, char *args)
 		ft_exit(args);
 }
 
-void	execute_builtins(t_tree *tree)
+int	execute_builtins(t_tree *tree)
 {
 	t_minishell	*shell_ptr;
 	char		**old_cmd_args;
@@ -92,4 +92,5 @@ void	execute_builtins(t_tree *tree)
 	aux_execute_builtins(environ, command, args);
 	free_split_command(shell_ptr->cmd_args);
 	shell_ptr->cmd_args = old_cmd_args;
+	return (get_status(-1));
 }

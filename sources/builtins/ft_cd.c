@@ -1,5 +1,7 @@
 #include "../../includes/minishell.h"
 
+static int	check_arguments(char *path);
+
 static void	variables_update(char **env_copy,
 	char *var_name, char *new_var, int var_len)
 {
@@ -56,6 +58,8 @@ static int	chance_directory(char *path)
 			return (1);
 		}
 	}
+	if (check_arguments(path) == 1)
+		return (1);
 	if (chdir(path) != 0)
 	{
 		ft_printf_fd(STDERR_FILENO, "cd: %s: No such file or directory\n", path);
@@ -63,6 +67,24 @@ static int	chance_directory(char *path)
 		return (1);
 	}
 	get_status(0);
+	return (0);
+}
+
+static int	check_arguments(char *path)
+{
+	int	i;
+
+	i = 0;
+	while (path[i])
+	{
+		if (ft_isspace(path[i]) == 1)
+		{
+			ft_printf_fd(STDERR_FILENO, "cd: %s: too many arguments\n", path);
+			get_status(1);
+			return (1);
+		}
+		i++;
+	}
 	return (0);
 }
 

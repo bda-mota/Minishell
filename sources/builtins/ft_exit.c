@@ -20,6 +20,7 @@ int	ft_exit(char *args)
 	rl_clear_history();
 	free_minishell(&shell);
 	get_status(status);
+	printf("exit\n");
 	exit (status);
 }
 

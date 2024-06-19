@@ -16,7 +16,7 @@ typedef struct s_var
 /* ==== GET_INPUT ==== */
 
 void	free_split_command(char **cmd_args);
-void	execute_builtins(t_tree *tree);
+int		execute_builtins(t_tree *tree);
 char	**split_command(char *content);
 int		is_builtin(char *content);
 

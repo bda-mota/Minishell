@@ -6,16 +6,13 @@ int	main(void)
 {
 	char	*input;
 
-	signal(SIGINT, signal_handler);
-	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
+		signal(SIGINT, signal_handler);
+		signal(SIGQUIT, SIG_IGN);
 		input = prompt();
 		if (input == NULL)
-		{
-			ft_printf_fd(STDERR_FILENO, "\n", 1);
 			return (EXIT_SUCCESS);
-		}
 		pause();
 	}
 	return (EXIT_SUCCESS);
@@ -38,6 +35,7 @@ static char	*prompt(void)
 		{
 			rl_clear_history();
 			free_minishell(&shell);
+			printf("exit\n");
 			return (NULL);
 		}
 		processor(&shell);
