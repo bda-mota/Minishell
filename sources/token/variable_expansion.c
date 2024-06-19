@@ -46,12 +46,31 @@ char	*aux_expand_variable(char *content, char **env_copy)
 	char	*temp;
 	char	*new_data_var;
 	int		i;
+	char	quote;
 
 	data_var = ft_strdup("");
 	i = 0;
+	quote = 0;
 	while (content[i])
 	{
-		if (content[i] == '$')
+		if (content[i] == '\'')
+		{
+			if (quote == 0)
+				quote = content[i];
+			else if (quote == content[i])
+				quote = 0;
+			if (content[i] == '"')
+			{
+				i++;
+				continue ;
+			}
+			temp = ft_strndup(&content[i], 1);
+			new_data_var = ft_strjoin(data_var, temp);
+			free(temp);
+			free(data_var);
+			data_var = new_data_var;
+		}
+		if (content[i] == '$' && quote != '\'')
 			data_var = find_variable(content, &i, env_copy, data_var);
 		else
 		{
@@ -76,7 +95,8 @@ char	*find_variable(char *content, int *i, char **env_copy, char *data_var)
 
 	start = (*i) + 1;
 	end = start;
-	while (content[end] && content[end] != ' ' && content[end] != '$')
+	while (content[end] && content[end] != ' '
+		&& content[end] != '$' && content[end] != '"')
 		end++;
 	var_name = ft_strndup(content + start, end - start);
 	expand_variable = ft_getenv(env_copy, var_name);
@@ -85,7 +105,7 @@ char	*find_variable(char *content, int *i, char **env_copy, char *data_var)
 		tmp = data_var;
 		data_var = ft_strjoin(data_var, expand_variable);
 		free(tmp);
-	 	if (ft_strcmp(var_name, "?") == 0)
+		if (ft_strcmp(var_name, "?") == 0)
 			free(expand_variable);
 	}
 	free(var_name);

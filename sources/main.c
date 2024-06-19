@@ -2,34 +2,6 @@
 
 static char	*prompt(void);
 
-static void	signal_handler(int signal)
-{
-	char		**env_copy;
-
-	env_copy = *get_env_copy(NULL);
-	if (signal == SIGINT)
-	{
-		if (is_fork(-1) == 1)
-		{
-			if (env_copy)
-			{
-				ft_free_matrix(env_copy);
-				*get_env_copy(NULL) = NULL;
-			}
-		}
-		else
-		{
-			get_status(130);
-			ft_putchar_fd('\n', 1);
-			rl_on_new_line();
-			rl_replace_line("", 0);
-			rl_redisplay();
-		}
-	}
-	if (signal == SIGQUIT)
-		return ;
-}
-
 int	main(void)
 {
 	char	*input;

@@ -32,12 +32,16 @@ void		free_execution(void);
 void		display_error_tokens(char *error, char c);
 
 /* ==== GET_SET ==== */
-int			is_fork(int fork);
 int			get_status(int status);
 char		*get_path(char *path);
 char		***get_env_copy(char **copy);
 char		**get_paths(char **paths);
 t_minishell	*get_minishell(t_minishell *shell);
+
+/* ==== SIGNALS ==== */
+void		signal_handler(int signal);
+int			is_fork(int fork);
+int			is_heredoc(int heredoc);
 
 /* ==== UTILS ==== */
 void		init_shell(t_minishell *shell);

@@ -22,6 +22,7 @@ CFILES		:= trash.c main.c \
 				exec/execution.c exec/path.c exec/pipe.c exec/free_child.c exec/redirects.c exec/pipe_aux.c \
 				builtins/execute_builtins.c builtins/ft_echo.c builtins/ft_export.c builtins/export_utils.c builtins/export_utils2.c \
 				builtins/ft_pwd.c builtins/ft_unset.c builtins/ft_env.c builtins/ft_cd.c builtins/ft_exit.c \
+				signals/handler_signal.c
 
 #PATH_FILES
 SRCS		:= $(addprefix $(SRC_PATH)/, $(CFILES))
