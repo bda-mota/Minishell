@@ -57,20 +57,8 @@ char	**split_command(char *content)
 	return (result);
 }
 
-void	execute_builtins(t_tree *tree)
+void	aux_execute_builtins(char **environ, char *command, char *args)
 {
-	t_minishell	*shell_ptr;
-	char		**old_cmd_args;
-	char		**environ;
-	char		*command;
-	char		*args;
-
-	shell_ptr = get_minishell(NULL);
-	environ = *get_env_copy(NULL);
-	old_cmd_args = shell_ptr->cmd_args;
-	shell_ptr->cmd_args = split_command(tree->content);
-	command = shell_ptr->cmd_args[0];
-	args = shell_ptr->cmd_args[1];
 	if (ft_strcmp("echo", command) == 0)
 		ft_echo(args);
 	else if (ft_strcmp("pwd", command) == 0)
@@ -85,6 +73,23 @@ void	execute_builtins(t_tree *tree)
 		ft_cd(args);
 	else if (ft_strcmp("exit", command) == 0)
 		ft_exit(args);
+}
+
+void	execute_builtins(t_tree *tree)
+{
+	t_minishell	*shell_ptr;
+	char		**old_cmd_args;
+	char		**environ;
+	char		*command;
+	char		*args;
+
+	shell_ptr = get_minishell(NULL);
+	environ = *get_env_copy(NULL);
+	old_cmd_args = shell_ptr->cmd_args;
+	shell_ptr->cmd_args = split_command(tree->content);
+	command = shell_ptr->cmd_args[0];
+	args = shell_ptr->cmd_args[1];
+	aux_execute_builtins(environ, command, args);
 	free_split_command(shell_ptr->cmd_args);
 	shell_ptr->cmd_args = old_cmd_args;
 }
