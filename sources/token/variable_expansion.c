@@ -4,17 +4,20 @@ char	*ft_getenv(char **env_copy, char *var)
 {
 	int		status;
 	char	*status_str;
+	char	*result;
 	int		i;
 	int		len;
 
 	i = 0;
 	status = 0;
 	len = ft_strlen(var);
-	if (ft_strcmp(var, "?") == 0)
+	if (var[0] == '?')
 	{
 		status = get_status(-1);
 		status_str = ft_itoa(status);
-		return (status_str);
+		result = ft_strjoin(status_str, var + 1);
+		free(status_str);
+		return (result);
 	}
 	while (env_copy[i])
 	{
@@ -54,9 +57,37 @@ char	*process_character(char *content, int i, char *data_var, char quote)
 	return (new_data_var);
 }
 
+// char	*aux_expand_variable(char *content, char **env_copy)
+// {
+// 	char	*data_var;
+// 	int		i;
+// 	char	quote;
+
+// 	data_var = ft_strdup("");
+// 	i = 0;
+// 	quote = 0;
+// 	while (content[i])
+// 	{
+// 		if (content[i] == '\'')
+// 		{
+// 			if (quote == 0)
+// 				quote = content[i];
+// 			else if (quote == content[i])
+// 				quote = 0;
+// 		}
+// 		else if (content[i] == '$' && content[i + 1] != '\0' && quote != '\'')
+// 			data_var = find_variable(content, &i, env_copy, data_var);
+// 		else
+// 			data_var = process_character(content, i, data_var, quote);
+// 		i++;
+// 	}
+// 	return (data_var);
+// }
+
 char	*aux_expand_variable(char *content, char **env_copy)
 {
 	char	*data_var;
+	char	*tmp;
 	int		i;
 	char	quote;
 
@@ -72,8 +103,25 @@ char	*aux_expand_variable(char *content, char **env_copy)
 			else if (quote == content[i])
 				quote = 0;
 		}
-		else if (content[i] == '$' && content[i + 1] != '\0' && quote != '\'')
-			data_var = find_variable(content, &i, env_copy, data_var);
+		else if (content[i] == '"')
+		{
+			if (quote == 0)
+				quote = content[i];
+			else if (quote == content[i])
+				quote = 0;
+		}
+		else if (content[i] == '$' && quote != '\'')
+		{
+			if (content[i + 1] == '"'
+				|| content[i + 1] == '\0' || content[i + 1] == ' ')
+			{
+				tmp = data_var;
+				data_var = ft_strjoin(data_var, "$");
+				free(tmp);
+			}
+			else
+				data_var = find_variable(content, &i, env_copy, data_var);
+		}
 		else
 			data_var = process_character(content, i, data_var, quote);
 		i++;
@@ -101,10 +149,11 @@ char	*find_variable(char *content, int *i, char **env_copy, char *data_var)
 		tmp = data_var;
 		data_var = ft_strjoin(data_var, expand_variable);
 		free(tmp);
-		if (ft_strcmp(var_name, "?") == 0)
+		if (var_name[0] == '?')
 			free(expand_variable);
 	}
 	free(var_name);
 	*i = end - 1;
 	return (data_var);
 }
+

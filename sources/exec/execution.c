@@ -25,7 +25,7 @@ int	execute(t_tree *tree, char *command)
 	pid = fork();
 	if (pid == -1)
 		fork_error();
-	is_fork(pid);
+	//is_fork(pid);
 	if (pid == 0)
 	{
 		execve(tree->executable, tree->command_child, *get_env_copy(NULL));

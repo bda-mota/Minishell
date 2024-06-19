@@ -9,9 +9,11 @@ int	pipe_execution(t_tree *left, t_tree *right)
 	if (!open_tubes(tube))
 		return (-1);
 	pid[0] = fork();
+	//is_fork(pid[0]);
 	if (pid[0] == 0)
 		first_child(left, tube);
 	pid[1] = fork();
+	//is_fork(pid[1]);
 	if (pid[1] == 0)
 		second_child(right, tube);
 	close_tubes(tube);
