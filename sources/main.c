@@ -8,11 +8,9 @@ int	main(void)
 
 	while (1)
 	{
-		initialize_signals();
 		input = prompt();
 		if (input == NULL)
 			return (EXIT_SUCCESS);
-		pause();
 	}
 	return (EXIT_SUCCESS);
 }
@@ -28,6 +26,7 @@ static char	*prompt(void)
 	while (1)
 	{
 		init_structs(&shell);
+		initialize_signals();
 		shell.input = readline(PURPLE"$BaByshell: "WHITE);
 		add_history(shell.input);
 		if (shell.input == NULL)

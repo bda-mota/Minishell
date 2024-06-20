@@ -44,7 +44,7 @@ void        signal_readline(int signal);
 void        signal_execution(int pid);
 void        signal_heredoc(void);
 void        handler_heredoc(int signal);
-void        restore_signals(void);
+void	signal_readline_in_execution(int signal);
 
 /* ==== UTILS ==== */
 void		init_shell(t_minishell *shell);

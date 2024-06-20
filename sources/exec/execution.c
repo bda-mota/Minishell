@@ -28,11 +28,10 @@ int	execute(t_tree *tree, char *command)
 	signal_execution(pid);
 	if (pid == 0)
 	{
-		signal_execution(pid);
+		rl_clear_history();
 		execve(tree->executable, tree->command_child, *get_env_copy(NULL));
 		treat_errors(tree, &status);
 	}
-	signal_execution(pid);
 	waitpid(pid, &status, 0);
 	free_simple_child(tree->command_child, tree->executable);
 	set_status(status);
