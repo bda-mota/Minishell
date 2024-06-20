@@ -50,8 +50,14 @@ int	is_invalid_redir_or_heredoc(t_token *curr)
 
 int	is_invalid_pipe(t_token *curr)
 {
-	return (curr->type == PIPE && ((!curr->prev || !curr->next)
-			|| (curr->prev->type != WORD && curr->prev->type != SIMPLE
-				&& curr->prev->type != DOUBLE)));
+	if (curr->type == PIPE)
+	{
+		if (!curr->prev || !curr->next)
+			return (1);
+		if (curr->prev->type != WORD && curr->prev->type != SIMPLE
+			&& curr->prev->type != DOUBLE)
+			return (1);
+	}
+	return (0);
 }
 

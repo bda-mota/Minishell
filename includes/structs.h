@@ -18,7 +18,8 @@ enum e_numerator
 	BLOCK,
 	ARCHIVE,
 	DELIMITER,
-	REDIRECT
+	REDIRECT,
+	OR
 };
 
 enum e_size

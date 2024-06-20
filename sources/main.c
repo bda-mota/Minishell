@@ -32,8 +32,8 @@ static char	*prompt(void)
 		if (shell.input == NULL)
 		{
 			rl_clear_history();
-			free_minishell(&shell);
 			printf("exit\n");
+			free_minishell(&shell);
 			return (NULL);
 		}
 		processor(&shell);

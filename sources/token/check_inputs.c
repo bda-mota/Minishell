@@ -8,8 +8,6 @@ void	display_error_tokens(char *error, char c)
 	if (ft_strcmp(error, "newline") == 0)
 		ft_printf_fd(STDERR_FILENO,
 			"babyshell: syntax error near unexpected token `newline´\n", c);
-	if (ft_strcmp(error, "||") == 0 || ft_strcmp(error, "&&") == 0)
-		ft_printf_fd(STDERR_FILENO, WARNING_OR, 2);
 	get_status(2);
 }
 
@@ -69,12 +67,8 @@ int	check_untreatable(char *input)
 		display_error_tokens("sintaxe", '<');
 	else if (ft_strstr(input, ">>>"))
 		display_error_tokens("sintaxe", '>');
-	else if (ft_strstr(input, "||"))
-		display_error_tokens("||", '|');
 	else if (ft_strstr(input, "|||"))
 		display_error_tokens("sintaxe", '|');
-	else if (ft_strstr(input, "&&"))
-		display_error_tokens("&&", '&');
 	else
 		return (1);
 	return (0);

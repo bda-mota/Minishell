@@ -1,9 +1,9 @@
 #include "../../includes/minishell.h"
 
 static int	ft_exit_aux(char *args);
-static int	calc_exit(int number);
-static char	*remove_quotes(char *args);
 static int	contains_syntax_error(char *new);
+static int	print_exit_error(char *new, char *error);
+static char	*remove_quotes_exit(char *args);
 
 int	ft_exit(char *args)
 {
@@ -26,13 +26,12 @@ int	ft_exit(char *args)
 
 static int	ft_exit_aux(char *args)
 {
-	//int		i;
 	int		type;
 	int		number;
 	char	*new;
+	char	result;
 
-	//i = 0;
-	new = remove_quotes(args);
+	new = remove_quotes_exit(args);
 	number = ft_atoi(new);
 	type = contains_syntax_error(new);
 	if (type == 1)
@@ -44,51 +43,56 @@ static int	ft_exit_aux(char *args)
 		free(new);
 		return (number);
 	}
-	else
-	{
-		free(new);
-		return (calc_exit(number));
-	}
-}
-
-static int	contains_syntax_error(char *new)
-{
-	int	i;
-
-	i = 0;
-	while (new[i])
-	{
-		if (ft_isalpha(new[i]) == 1)
-		{
-			ft_printf_fd(STDIN_FILENO, "exit\n");
-			ft_printf_fd(STDERR_FILENO,
-				"babyshell: exit: %s: numeric argument required\n", new);
-			free(new);
-			return (2);
-		}
-		if (ft_isspace(new[i]) == 1)
-		{
-			ft_printf_fd(STDIN_FILENO, "exit\n");
-			ft_printf_fd(STDERR_FILENO, "babyshell: exit: too many arguments\n");
-			free(new);
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-}
-
-static int	calc_exit(int number)
-{
-	int	result;
-
 	result = number % 256;
 	if (number < 0)
 		result += 256;
 	return (result);
 }
 
-static char	*remove_quotes(char *args)
+static int	contains_syntax_error(char *new)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	while (*new && *new == '0')
+		new++;
+	len = ft_strlen(new);
+	if ((len == 19 && ft_strncmp(new, "9223372036854775807", 19) > 0)
+		|| (len == 20 && ft_strncmp(new, "-9223372036854775808", 20) > 0)
+		|| len > 20)
+		return (print_exit_error(new, "long"));
+	while (new[i])
+	{
+		if (ft_isalpha(new[i]) == 1)
+			return (print_exit_error(new, "alpha"));
+		if (ft_isspace(new[i]) == 1)
+			return (print_exit_error(new, "arguments"));
+		i++;
+	}
+	return (0);
+}
+
+static int	print_exit_error(char *new, char *error)
+{
+	if (ft_strcmp(error, "long") == 0 || ft_strcmp(error, "alpha") == 0)
+	{
+		ft_printf_fd(STDIN_FILENO, "exit\n");
+		ft_printf_fd(STDERR_FILENO,
+			"babyshell: exit: %s: numeric argument required\n", new);
+		free(new);
+		return (2);
+	}
+	else
+	{
+		ft_printf_fd(STDIN_FILENO, "exit\n");
+		ft_printf_fd(STDERR_FILENO, "babyshell: exit: too many arguments\n");
+		free(new);
+		return (1);
+	}
+}
+
+static char	*remove_quotes_exit(char *args)
 {
 	int		i;
 	int		j;

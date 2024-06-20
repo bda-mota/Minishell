@@ -8,6 +8,8 @@ int	catalog_inputs(char *c, size_t *i)
 		return (HEREDOC);
 	else if (!ft_strnchr(&c[*i], '>', 2))
 		return (APPEND);
+	else if (!ft_strnchr(&c[*i], '|', 2))
+		return (OR);
 	else if (!ft_strnchr(&c[*i], '<', 1))
 		return (INPUT);
 	else if (!ft_strnchr(&c[*i], '>', 1))
@@ -33,7 +35,7 @@ void	tokenizer(t_minishell *shell)
 	while (shell->input[i] && (i != ft_strlen(shell->input)))
 	{
 		type = catalog_inputs(shell->input, &i);
-		if (type == WORD || type == DOUBLE || type == SIMPLE)
+		if (type == WORD || type == DOUBLE || type == SIMPLE || type == OR)
 			handle_word(&shell->token, shell->input, &i);
 		else if (type == PIPE || type == INPUT || type == OUTPUT)
 			handle_one(&shell->token, shell->input, &i);

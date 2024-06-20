@@ -22,14 +22,13 @@
 
 # define PURPLE	"\001\033[1;35m\002"
 # define WHITE	"\001\033[1;37m\002"
-# define WARNING_OR "The BaByshell do not work with '||' or '&&'\n"
 
 /* ==== FREE MEMORY ==== */
 void		free_minishell(t_minishell *shell);
 void		free_execution(void);
-void	    free_pipe_child(void);
-void	    free_simple_child(char **child, char *executable);
-void	    free_fail_execve(char **child, char *executable);
+void		free_pipe_child(void);
+void		free_simple_child(char **child, char *executable);
+void		free_fail_execve(char **child, char *executable);
 
 /* ==== GET_SET ==== */
 int			get_status(int status);
@@ -44,7 +43,7 @@ void        signal_readline(int signal);
 void        signal_execution(int pid);
 void        signal_heredoc(void);
 void        handler_heredoc(int signal);
-void	signal_readline_in_execution(int signal);
+void		signal_readline_in_execution(int signal);
 
 /* ==== UTILS ==== */
 void		init_shell(t_minishell *shell);

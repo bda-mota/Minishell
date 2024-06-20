@@ -46,8 +46,17 @@ void	ft_unset(char **env_copy, char *variables)
 		{
 			remove_var = ft_calloc(end - start + 1, 1);
 			ft_strncpy(remove_var, variables + start, end - start);
-			aux_unset(env_copy, remove_var);
-			free(remove_var);
+			if (check_variable_name(remove_var) == 0)
+			{
+				aux_unset(env_copy, remove_var);
+				free(remove_var);
+			}
+			else
+			{
+				free(remove_var);
+				get_status(1);
+				return ;
+			}
 		}
 		start = end + 1;
 	}

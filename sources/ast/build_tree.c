@@ -78,20 +78,12 @@ static char	*remove_quotes(char *file)
 	i = 0;
 	new_file = NULL;
 	len = ft_strlen(file);
-	if (file[0] == '\'' || file[0] == '"')
+	new_file = ft_calloc(len + 1, sizeof(char));
+	while (file[i] && i < len)
 	{
-		new_file = ft_calloc(len - 1, sizeof(char));
-		while (i < len - 2)
-		{
-			new_file[i] = file[i + 1];
-			i++;
-		}
+		if (file[i] != '\'' || file[i] != '"')
+			new_file[i] = file[i];
+		i++;
 	}
-	if (new_file)
-		return (new_file);
-	else
-	{
-		free(new_file);
-		return (file);
-	}
+	return (new_file);
 }

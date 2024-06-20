@@ -13,6 +13,7 @@ void	down_tree(t_tree **root);
 void	aux_pull_all_together(t_token **new, t_token **curr);
 t_token	*put_all_together(t_token **tokens);
 
+
 /* ==== SEARCH BRANCH ==== */
 t_token	**search_branchs(t_token **tokens);
 t_token	*search_pipe(t_token **tokens);
