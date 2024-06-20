@@ -5,7 +5,7 @@ void	close_all(void)
 	int	i;
 
 	i = 0;
-	while (i < 1024 && i > 2)
+	while (i < 1024)
 		close(i++);
 }
 

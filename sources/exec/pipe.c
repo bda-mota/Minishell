@@ -31,8 +31,8 @@ void	first_child(t_tree *left, int *tube)
 	close(tube[1]);
 	status = executor(left);
 	free_pipe_child();
-	close_all();
 	close(STDOUT_FILENO);
+	close_all();
 	exit(status);
 }
 
@@ -45,7 +45,7 @@ void	second_child(t_tree *right, int *tube)
 	close(tube[0]);
 	status = executor(right);
 	free_pipe_child();
-	close_all();
 	close(STDIN_FILENO);
+	close_all();
 	exit(status);
 }
