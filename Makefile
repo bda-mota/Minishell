@@ -14,10 +14,14 @@ OBJ_PATH	:= objects
 
 # SOURCES
 CFILES		:= trash.c main.c \
-				token/token.c token/linked_list_token.c token/1_handle_inputs.c token/2_handle_inputs.c \
-				token/quotes_aux.c token/check_inputs.c token/rearrange.c token/rearrange_utils.c\
-				utils/error.c utils/get_last_node.c utils/get_first_node.c utils/get_list_size.c \
-				ast/build_tree.c ast/tree_utils.c \
+				token/token.c token/linked_list_token.c token/handle_word.c token/check_grammar.c token/handle_metha.c \
+				token/check_inputs.c token/rearrange.c token/rearrange_utils.c token/variable_expansion.c token/variable_expansion2.c \
+				utils/free_memory.c utils/init.c utils/get_set.c utils/is_redir.c utils/environ_copy.c \
+				ast/build_tree.c ast/tree_utils.c ast/search_branch.c exec/heredoc.c exec/heredoc_aux.c exec/command.c \
+				exec/execution.c exec/path.c exec/pipe.c exec/redirects.c exec/execution_aux.c exec/treat_errors.c \
+				builtins/execute_builtins.c builtins/ft_echo.c builtins/ft_export.c builtins/export_utils.c builtins/export_utils2.c \
+				builtins/ft_pwd.c builtins/ft_unset.c builtins/ft_env.c builtins/ft_cd.c builtins/ft_exit.c \
+				signals/initialize_signals.c signals/handler_signals.c
 
 #PATH_FILES
 SRCS		:= $(addprefix $(SRC_PATH)/, $(CFILES))
@@ -25,7 +29,7 @@ OBJS		:= $(addprefix $(OBJ_PATH)/, $(CFILES:%.c=%.o))
 
 #HEADERS
 HEADERS		:= -I ./includes
-HEADER_FILE := includes/structs.h includes/minishell.h includes/token.h includes/ast.h
+HEADER_FILE := includes/structs.h includes/minishell.h includes/token.h includes/ast.h includes/exec.h includes/builtins.h
 
 # COLORS
 GREEN	:=	\033[1;32m
@@ -78,6 +82,13 @@ fclean: clean
 	@make fclean -C $(LIBFT_PATH)
 	@echo "$(WHITE)    ✨ Cleaning - MINISHELL - complete! ✨"
 	@echo "                                     "
+
+val: $(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes --trace-children-skip='*/bin/*,*/sbin/*' --suppressions=.readline.supp ./$(NAME)
+
+clear:
+	clear
+	$(MAKE) all
 
 re: fclean all
 

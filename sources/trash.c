@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:17:58 by bsantana          #+#    #+#             */
-/*   Updated: 2024/05/15 12:06:09 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/10 16:34:31 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,19 @@ void	print_list(t_token **lst)
 		type = find_type(current->type);
 		printf("type: %s\n", type);
 		printf("- - - - - - - - - - - - - - \n");
+		current = current->next;
+	}
+}
+
+void	print_redir(t_redir *redirs)
+{
+	t_redir	*current;
+
+	current = redirs;
+	while (current)
+	{
+		printf("fd: %d\n", current->fd);
+		printf("type: %d\n", current->type);
 		current = current->next;
 	}
 }
@@ -56,9 +69,29 @@ static char	*find_type(int type)
 		str = "BLOCK";
 	else if (type == ARCHIVE)
 		str = "ARCHIVE";
-	else if (type == COMMAND)
-		str = "COMMAND";
 	else if (type == DELIMITER)
 		str = "DELIMITER";
 	return (str);
+}
+
+void	print_tree_main(t_tree *tree)
+{
+	print_tree_aux(tree, 0, "root");
+}
+
+void	print_tree_aux(t_tree *tree, int depth, const char *relation)
+{
+	int	i;
+
+	i = 0;
+	if (tree == NULL)
+		return ;
+	print_tree_aux(tree->right, depth + 1, "right");
+	while (i < depth)
+	{
+		printf("  ");
+		i++;
+	}
+	printf("(%s) %s\n", relation, tree->content);
+	print_tree_aux(tree->left, depth + 1, "left");
 }

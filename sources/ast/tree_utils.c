@@ -1,19 +1,14 @@
 #include "../../includes/minishell.h"
 
-int	is_metha(t_token *token)
-{
-	if (token->type == APPEND || token->type == HEREDOC
-		|| token->type == INPUT || token->type == OUTPUT)
-		return (1);
-	return (0);
-}
-
 void	down_tree(t_tree **root)
 {
 	if (*root == NULL)
 		return ;
 	down_tree(&(*root)->left);
 	down_tree(&(*root)->right);
+	if ((*root)->content && ft_strncmp((*root)->content,
+			"/tmp/heredoc", 12) == 0)
+		unlink((*root)->content);
 	if ((*root)->content)
 		free((*root)->content);
 	free(*root);
@@ -25,6 +20,8 @@ t_token	*put_all_together(t_token **token)
 	t_token	*curr;
 	t_token	*new;
 
+	if (!token || !*token)
+		return (NULL);
 	curr = get_first_node(token);
 	if (!curr)
 		return (NULL);
@@ -32,6 +29,7 @@ t_token	*put_all_together(t_token **token)
 	if (!new)
 		return (NULL);
 	new->content = strdup("");
+	new->type = curr->type;
 	aux_pull_all_together(&new, &curr);
 	return (new);
 }
@@ -42,7 +40,7 @@ void	aux_pull_all_together(t_token **new, t_token **curr)
 	t_token	*temp;
 
 	temp = *curr;
-	while (temp)
+	while (temp && temp->type != PIPE)
 	{
 		aux_str = (*new)->content;
 		(*new)->content = ft_strjoin(aux_str, temp->content);
@@ -63,3 +61,4 @@ void	aux_pull_all_together(t_token **new, t_token **curr)
 		*curr = temp;
 	}
 }
+

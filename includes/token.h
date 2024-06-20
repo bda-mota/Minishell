@@ -4,102 +4,51 @@
 # include "../libft/src/libft.h"
 # include "structs.h"
 
-void	insert_token(t_token **token, t_token *new_node);
-t_token	*create_token(char *content, int type);
+/* ==== LINKED LIST ==== */
+void	    deallocate_lst(t_token **token);
+void	    insert_token(t_token **token, t_token *new_node);
+t_token	    *create_token(char *content, int type);
+t_token		*get_last_node(t_token **list);
+t_token		*get_first_node(t_token **list);
 
-/**** linked list ****/
-
-/*
- * Initializes a list of tokens.
- *
- * tail: pointer to the pointer to the last node in the list of tokens.
- * head: pointer to the head pointer of the token list.
- */
-void	init_token(t_token **token);
-
-/*
- * Releases the memory allocated to each node in the list and the list itself.
- */
-void	deallocate_lst(t_token **token);
-
-/*
- * Adds a new node to the token list.
- *
- * token_head: pointer to the head pointer of the token list.
- * content: content to be inserted into the new node.
- */
-//void	insert_token(t_token **token, char *content, int type);
-
-/*
- * Removes the first node from the token list.
- */
-void	remove_first(t_token **token);
-
-/**** inputs ****/
-
-/*
- * Checks and classifies the type of input supplied.
- *
- * Parameters:
- * c: pointer to the string containing the input to be sorted.
- * i: pointer to the current index within the input string.
- *
- * Return:
- * Returns the input type.
- */
+/* ==== TOKEN ==== */
 int		catalog_inputs(char *c, size_t *i);
+void	tokenizer(t_minishell *shell);
 
-/*
- * Identifies the type of entry to insert into the token list.
- */
-void	course_inputs(t_token **token, char *input);
-
-/**** SEPARATORS ****/
-
-/*
- * Handle the processing of a quote in the
- * input and insert it into the token list.
- */
-void	handle_quotes(t_token **token, char *input, size_t *i);
-void	handle_double(t_token **token, char *input, size_t *i, size_t size);
-void	handle_simple(t_token **token, char *input, size_t *i, size_t size);
+/* ==== HANDLE INPUTS ==== */
+void	handle_one(t_token **token, char *input, size_t *i);
+void	handle_two(t_token **token, char *input, size_t *i);
 void	handle_word(t_token **token, char *input, size_t *i);
-void	handle_pipe(t_token **token, char *input, size_t *i);
-void	handle_input(t_token **token, char *input, size_t *i);
-void	handle_output(t_token **token, char *input, size_t *i);
-void	handle_append(t_token **token, char *input, size_t *i);
-void	handle_heredoc(t_token **token, char *input, size_t *i);
-void	handle_block(t_token **token, char *input, size_t *i);
 
-/**** SEPARATORS - AUXILIARS ****/
-int		check_blocks(char *input);
-int		check_blocks_aux(char *input);
-int		check_sintax(char *input);
+/* ====  CHECK - INPUTS ==== */
 int		check_untreatable(char *input);
 int		check_quotes(char *input);
 int		check_quotes_aux(char *input, int *i, char c);
+void	display_error_tokens(char *error, char c);
 
-/*
- * Checks if there is a double quote (") in the current
- * position in the 'input' string. If a double quote is found,
- * the function counts the number of characters between the double
- * quotes, including the quotes themselves.
- * The total length of the string is returned.
-*/
-int		count_double_quote(char *input, size_t *i);
-int		count_simple_quote(char *input, size_t *i);
-int		significant_tokens(t_token *tokens);
+/* ==== CHECK GRAMMAR ==== */
+int		check_sintax(char *input);
+int		check_grammar(t_token **token);
+int		is_invalid_pipe(t_token *curr);
+int		is_invalid_redir_or_heredoc(t_token *curr);
 
-/* REARRANGE */
+/* ==== REARRANGE ==== */
 void	inspect_types(t_token **tokens);
 void	rearrange_tokens(t_token **tokens);
-int		check_redirects_on_pipeline(t_token **tokens);
 int		check_pipeline(t_token **tokens);
 t_token	*get_last_node_of_pipeline(t_token **tokens);
 t_token	*get_first_node_of_pipeline(t_token **tokens);
 t_token	*split_list(t_token **tokens);
 t_token	*get_first_word(t_token **tokens);
 
+/* ==== VARIABLE_EXPANSION ==== */
 
+char	*find_variable(char *content, int *i, char **env_copy, char *data_var);
+void	expand_variable(t_token **token, char **env_copy);
+char	*ft_getenv(char **env_copy, char *var);
+char	*process_character(char *content, int i, char *data_var, char quote);
+char	*concatened_content(char *content, char *data_var, int i);
+char	*handle_quote(char *content, char *data_var, char *quote, int i);
+char	*aux_expand_variable(char *content, char **env_copy);
 
 #endif

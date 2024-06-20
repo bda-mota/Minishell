@@ -1,31 +1,71 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+// INCLUDES
 # include "../libft/src/libft.h"
 # include "structs.h"
 # include "token.h"
 # include "ast.h"
+# include "exec.h"
+# include "builtins.h"
+//LIBRARIES
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <sys/stat.h>
 # include <stdio.h>
 # include <signal.h>
 # include <unistd.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <errno.h>
 
-# define PURPLE	"\033[1;35m"
-# define WHITE	"\033[1;37m"
-# define WARNING_OR "The BaBy do not work with '||' or '&&'\n"
+# define PURPLE	"\001\033[1;35m\002"
+# define WHITE	"\001\033[1;37m\002"
 
-void	manipulate_tokens(t_token **token, t_tree **root, char *input);
+/* ==== FREE MEMORY ==== */
+void		free_minishell(t_minishell *shell);
+void		free_execution(void);
+void		free_pipe_child(void);
+void		free_simple_child(char **child, char *executable);
+void		free_fail_execve(char **child, char *executable);
 
-//UTILS
-void	display_error(char *error, char c);
-void	found_sintaxe(char *str, t_token **token_tail, t_token **token_h);
-t_token	*get_last_node(t_token **list);
-int		get_list_size(t_token *list);
-t_token	*get_first_node(t_token **list);
+/* ==== GET_SET ==== */
+int			get_status(int status);
+char		*get_path(char *path);
+char		***get_env_copy(char **copy);
+char		**get_paths(char **paths);
+t_minishell	*get_minishell(t_minishell *shell);
 
+/* ==== SIGNALS ==== */
+void        initialize_signals(void);
+void        signal_readline(int signal);
+void        signal_execution(int pid);
+void        signal_heredoc(void);
+void        handler_heredoc(int signal);
+void		signal_readline_in_execution(int signal);
+
+/* ==== UTILS ==== */
+void		init_shell(t_minishell *shell);
+void		init_structs(t_minishell *shell);
+void		processor(t_minishell *shell);
+int			is_redir(t_token **token);
+int			is_redir_or_heredoc(t_token **token);
+int			the_branch_is_redir(t_tree *branch);
+
+/* ==== HEREDOC ==== */
+int			has_heredoc(t_token *token);
+int			open_heredoc(char *file);
+void		heredoc(t_token **token);
+void		update_heredoc(t_token **heredoc, char *file);
+char		*generate_file_name(void);
+t_token		*find_heredoc(t_token **heredoc);
 
 /* EXCLUIR AO FINAL DO PROJETO */
-void	print_list(t_token **lst);
+void		print_list(t_token **lst);
+void		print_tree(t_tree *tree);
+void		print_tree_main(t_tree *tree);
+void		print_tree_aux(t_tree *tree, int depth, const char *relation);
+void		print_redir(t_redir *redirs);
 
 #endif

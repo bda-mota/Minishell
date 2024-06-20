@@ -1,84 +1,125 @@
 #include "../../includes/minishell.h"
 
-t_token	*search_delimiter(t_token **tokens)
-{
-	t_token	*curr;
+static void	branch_aux(t_tree **branch, t_token **token, int type, int meta);
+static char	*remove_quotes_from_branch(char *file);
+static void	remove_quotes_from_branch_aux(char *file, char *new_file, int len);
 
-	curr = get_last_node(tokens);
-	while (curr)
+void	build_tree(t_tree **root, t_token **tokens)
+{
+	t_token	**branchs;
+
+	branchs = search_branchs(tokens);
+	if (branchs[0] == NULL && branchs[2] == NULL)
+		*root = create_branch(branchs, WORD);
+	else if (branchs && (branchs[1]->type == PIPE))
 	{
-		if (curr->type == PIPE)
-			return (curr);
-		curr = curr->prev;
+		*root = create_branch(branchs, PIPE);
+		build_tree(&((*root)->left), &branchs[0]);
+		build_tree(&((*root)->right), &branchs[2]);
 	}
-	curr = get_last_node(tokens);
-	while (curr)
+	else if (branchs && is_redir_or_heredoc(&branchs[1]))
 	{
-		if (is_metha(curr))
-			return (curr);
-		curr = curr->prev;
+		*root = create_branch(branchs, (branchs[1])->type);
+		tokens = &branchs[0];
+		if (branchs[0] != NULL)
+			build_tree(&((*root)->left), tokens);
 	}
-	return (NULL);
+	free(branchs);
 }
 
-t_tree	*create_root(t_token *tokens)
+t_tree	*create_branch(t_token **token_list, int type)
 {
-	t_tree	*new_root;
+	t_tree	*new_branch;
 
-	new_root = ft_calloc(sizeof(t_tree), 1);
-	if (!new_root)
+	new_branch = ft_calloc(sizeof(t_tree), 1);
+	if (!new_branch)
 		return (NULL);
-	new_root->type = tokens->type;
-	new_root->content = ft_strdup(tokens->content);
-	return (new_root);
+	branch_aux(&new_branch, token_list, type, 1);
+	if (type == INPUT || type == OUTPUT || type == APPEND || type == HEREDOC)
+	{
+		new_branch->right = ft_calloc(1, sizeof(t_tree));
+		if (!new_branch->right)
+		{
+			free(new_branch->content);
+			free(new_branch);
+			return (NULL);
+		}
+		branch_aux(&new_branch->right, token_list, type, 2);
+	}
+	return (new_branch);
 }
 
-void	bloom_tree(t_tree **root, t_tree *new_branch, int side)
+static void	branch_aux(t_tree **branch, t_token **token, int type, int meta)
 {
-	t_tree	*parent;
-
-	parent = *root;
-	if (*root == NULL)
-		*root = new_branch;
-	else if (side == LEFT)
+	if (meta == 1)
 	{
-		while (parent->left != NULL)
-			parent = parent->left;
-		parent->left = new_branch;
+		(*branch)->content = ft_strdup(token[1]->content);
+		(*branch)->type = type;
+		free(token[1]->content);
+		free(token[1]);
 	}
 	else
 	{
-		while (parent->right != NULL)
-			parent = parent->right;
-		parent->right = new_branch;
+		(*branch)->content = remove_quotes_from_branch(token[2]->content);
+		(*branch)->type = ARCHIVE;
+		free(token[2]->content);
+		free(token[2]);
 	}
-	return ;
 }
 
-void	build_tree(t_tree **root, t_token **tokens, int side)
+static char	*remove_quotes_from_branch(char *file)
 {
-	t_token	*new_node;
-	t_token	*left;
-	t_token	*right;
-	t_tree	*new_branch;
+	char	*new_file;
+	int		len;
+	int		i;
+	int		j;
+	char	c;
 
-	new_node = search_delimiter(tokens);
-	if (new_node == NULL)
-		new_node = put_all_together(tokens);
-	new_branch = create_root(new_node);
-	bloom_tree(root, new_branch, side);
-	left = new_node->prev;
-	if (left != NULL)
+
+	i = 0;
+	j = 0;
+	len = ft_strlen(file);
+	new_file = ft_calloc(len + 1, sizeof(char));
+	if (file[0] == '\'' || file[0] == '\"')
 	{
-		left->next = NULL;
-		build_tree(&new_branch, &left, LEFT);
+		c = file[0];
+		while (file[i] && i < len)
+		{
+			if (file[i] != c)
+				new_file[j++] = file[i];
+			i++;
+		}
 	}
-	right = new_node->next;
-	if (right != NULL)
+	else
+		remove_quotes_from_branch_aux(file, new_file, len);
+	return (new_file);
+}
+
+static void	remove_quotes_from_branch_aux(char *file, char *new_file, int len)
+{
+	int		i;
+	int		j;
+	char	c;
+
+	i = 0;
+	j = 0;
+	while (file[i])
 	{
-		right->prev = NULL;
-		build_tree(&new_branch, &right, RIGHT);
+		if (file[i] == '\'' || file[i] == '\"')
+		{
+			c = file[i];
+			break ;
+		}
+		i++;
 	}
-	free(new_node->content);
-	free(new_node);
+	i = 0;
+	while (file[i] && i < len)
+	{
+		if (file[i] != c)
+		{
+			new_file[j] = file[i];
+			j++;
+		}
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 11:41:49 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/05/08 11:41:51 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:26:29 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ char		*ft_strrchr(const char *s, int c);
 char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strndup(const char *s, size_t len);
+char		*ft_strcpy(char *dest, char *src);
+char		*ft_strncpy(char *dest, char *src, unsigned int n);
 char		**ft_split(char const *s, char c);
+char		**ft_special_split(char const *s);
 int			ft_strstr(char *str, char *to_find);
 int			ft_strnchr(char *str, char c, int len);
 int			ft_atoi(const char *nptr);
@@ -66,8 +69,8 @@ int			ft_tolower(int c);
 int			ft_toupper(int c);
 int			ft_putchar_fd(char c, int fd);
 int			ft_putstr_fd(char *s, int fd);
-int			ft_printf_fd(const char *type_format, ...);
-int			ft_flags(char flag, va_list args);
+int			ft_printf_fd(int fd, const char *type_format, ...);
+int			ft_flags(int fd, char flag, va_list args);
 void		ft_bzero(void *s, size_t n);
 void		*ft_calloc(size_t nmemb, size_t size);
 void		ft_free_matrix(char **matrix);
@@ -82,6 +85,7 @@ size_t		ft_strlcat(char *dst, const char *src, size_t size);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 size_t		ft_strlen(const char *s);
 size_t		ft_strcat(char *dst, const char *src);
+size_t		ft_strcspn(char *s, char	*reject);
 long int	ft_atol(const char *nptr);
 
 /*

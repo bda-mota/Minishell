@@ -3,7 +3,9 @@
 
 # include "../libft/src/libft.h"
 
-enum e_numerator {
+/* ======= ENUMS ======== */
+enum e_numerator
+{
 	SSPACE,
 	PIPE,
 	INPUT,
@@ -15,17 +17,20 @@ enum e_numerator {
 	SIMPLE,
 	BLOCK,
 	ARCHIVE,
-	COMMAND,
-	DELIMITER
+	DELIMITER,
+	REDIRECT,
+	OR
 };
 
-enum e_size {
+enum e_size
+{
 	LEFT,
 	RIGHT
 };
 
 /* ======= TOKEN ======== */
-typedef struct s_token {
+typedef struct s_token
+{
 	int				type;
 	char			*content;
 	struct s_token	*next;
@@ -33,17 +38,35 @@ typedef struct s_token {
 }	t_token;
 
 /* ======== AST ======== */
-typedef struct s_data_token { // struct não implementada ainda
-	int		size;
-	t_token	*first;
-	t_token	*last;
-}	t_data_token;
-
-typedef struct s_tree {
+typedef struct s_tree
+{
 	int				type;
 	char			*content;
+	char			*executable;
+	char			**command_child;
 	struct s_tree	*right;
 	struct s_tree	*left;
 }	t_tree;
+
+/* ==== REDIRECTS ==== NÃO IMPLEMENTADA AINDA */
+typedef struct s_redir
+{
+	int				fd;
+	int				type;
+	struct s_redir	*next;
+}	t_redir;
+
+/* ===== MINISHELL ===== */
+typedef struct s_minishell
+{
+	int			status;
+	t_tree		*tree;
+	t_token		*token;
+	char		*input;
+	char		*complete_path;
+	char		**env_copy;
+	char		**paths;
+	char		**cmd_args;
+}	t_minishell;
 
 #endif

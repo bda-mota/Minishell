@@ -1,55 +1,63 @@
 #include "../../includes/minishell.h"
 
-static t_token	*rearrange_more_than_one(t_token **tokens);
+static t_token	*rearrange_aux(t_token **tokens);
+static t_token	*find_redir(t_token **redir);
 
 void	rearrange_tokens(t_token **tokens)
 {
 	t_token	*curr;
-	int		redir;
 
 	curr = *tokens;
 	while (curr)
 	{
-		if (curr->type == OUTPUT && curr->next)
+		if (is_redir_or_heredoc(&curr) && curr->next)
 		{
-			redir = check_redirects_on_pipeline(&curr);
 			while (check_pipeline(&curr) == 1)
 			{
-				curr = rearrange_more_than_one(&curr);
+				curr = rearrange_aux(&curr);
 				curr = curr->next;
 			}
 		}
 		curr = curr->next;
 	}
+	if ((*tokens)->prev)
+		*tokens = (*tokens)->prev;
 }
 
-static t_token	*rearrange_more_than_one(t_token **tokens)
+static t_token	*rearrange_aux(t_token **tokens)
 {
 	t_token	*word;
 	t_token	*first;
-	t_token	*new;
-	t_token	*output;
+	t_token	*redir;
 
-	new = NULL;
 	word = *tokens;
-	output = get_first_node_of_pipeline(&word);
-	first = (get_first_word(&output));
-	while (output && output->type != OUTPUT)
-		output = output->next;
+	redir = get_first_node_of_pipeline(&word);
+	first = (get_first_word(&redir));
+	redir = find_redir(&redir);
 	while (word)
 	{
-		if (word->type != OUTPUT && word->type != ARCHIVE)
+		if (!is_redir_or_heredoc(&word) && word->type != ARCHIVE)
 		{
-			new = split_list(&word);
+			word = split_list(&word);
 			break ;
 		}
 		word = word->next;
 	}
-	new->prev = first;
-	first->next = new;
-	new->next = output;
-	output->prev = new;
+	word->prev = first;
+	if (first)
+		first->next = word;
+	word->next = redir;
+	redir->prev = word;
+	if (word && word->prev == NULL)
+		*tokens = word;
 	return (word);
+}
+
+static t_token	*find_redir(t_token **redir)
+{
+	while (redir && !is_redir_or_heredoc(redir))
+		redir = &(*redir)->next;
+	return (*redir);
 }
 
 t_token	*split_list(t_token **tokens)
@@ -59,7 +67,8 @@ t_token	*split_list(t_token **tokens)
 	new_node = *tokens;
 	if (new_node->next)
 	{
-		new_node->next->prev = new_node->prev;
+		if (new_node->prev)
+			new_node->next->prev = new_node->prev;
 		new_node->prev->next = new_node->next;
 	}
 	else
@@ -76,15 +85,10 @@ void	inspect_types(t_token **tokens)
 	curr = *tokens;
 	while (curr)
 	{
-		if (curr->type == INPUT || curr->type == OUTPUT || curr->type == APPEND)
+		if (is_redir_or_heredoc(&curr))
 		{
 			if (curr->next)
 				curr->next->type = ARCHIVE;
-		}
-		else if (curr->type == HEREDOC)
-		{
-			if (curr->next)
-				curr->next->type = DELIMITER;
 		}
 		curr = curr->next;
 	}
