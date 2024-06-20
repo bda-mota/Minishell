@@ -28,7 +28,6 @@ void	heredoc(t_token **token)
 				break ;
 			write_on_heredoc(line, fd_heredoc);
 		}
-		restore_signals();
 		finish_heredoc(&heredoc, &fd_heredoc, line, file);
 		heredoc = find_heredoc(&heredoc->next);
 	}
