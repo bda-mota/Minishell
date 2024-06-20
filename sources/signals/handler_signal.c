@@ -1,5 +1,4 @@
 #include "../../includes/minishell.h"
-#include <signal.h>
 
 void	initialize_signals(void)
 {
@@ -36,6 +35,13 @@ void	signal_execution(int pid)
 	}
 }
 
+void signal_heredoc(void)
+{
+    fprintf(stderr,"Sinais inicializados: SIGINT -> signal_heredoc, SIGQUIT -> SIG_IGN\n");
+	signal(SIGINT, handler_heredoc);
+	signal(SIGQUIT, SIG_IGN);
+}
+
 void	handler_heredoc(int signal)
 {
 	fprintf(stderr,"HEREDOC: Entrou em handler_heredoc com sinal: %d\n", signal);
@@ -46,12 +52,6 @@ void	handler_heredoc(int signal)
  		rl_replace_line("", 0);
  		rl_redisplay();
 	}
-}
-
-void signal_heredoc(void)
-{
-    signal(SIGINT, handler_heredoc);
-	signal(SIGQUIT, SIG_IGN);
 }
 
 void restore_signals(void)
