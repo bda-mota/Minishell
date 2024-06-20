@@ -8,8 +8,7 @@ int	main(void)
 
 	while (1)
 	{
-		signal(SIGINT, signal_handler);
-		signal(SIGQUIT, SIG_IGN);
+		initialize_signals();
 		input = prompt();
 		if (input == NULL)
 			return (EXIT_SUCCESS);
@@ -66,4 +65,3 @@ void	processor(t_minishell *shell)
 	executor(shell->tree);
 	down_tree(&shell->tree);
 }
-

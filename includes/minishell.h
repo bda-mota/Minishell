@@ -39,9 +39,12 @@ char		**get_paths(char **paths);
 t_minishell	*get_minishell(t_minishell *shell);
 
 /* ==== SIGNALS ==== */
-void		signal_handler(int signal);
-int			is_fork(int fork);
-int			is_heredoc(int heredoc);
+void        initialize_signals(void);
+void        signal_readline(int signal);
+void        signal_execution(int pid);
+void        signal_heredoc(void);
+void        handler_heredoc(int signal);
+void        restore_signals(void);
 
 /* ==== UTILS ==== */
 void		init_shell(t_minishell *shell);

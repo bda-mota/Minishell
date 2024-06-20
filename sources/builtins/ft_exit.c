@@ -26,10 +26,18 @@ int	ft_exit(char *args)
 
 static int	ft_exit_aux(char *args)
 {
+<<<<<<< HEAD
+=======
+	//int		i;
+>>>>>>> 44d6adbfc8f084fc6d45085e0c3eea53d3e281bd
 	int		type;
 	int		number;
 	char	*new;
 
+<<<<<<< HEAD
+=======
+	//i = 0;
+>>>>>>> 44d6adbfc8f084fc6d45085e0c3eea53d3e281bd
 	new = remove_quotes(args);
 	number = ft_atoi(new);
 	type = contains_syntax_error(new);

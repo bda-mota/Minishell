@@ -1,40 +1,61 @@
 #include "../../includes/minishell.h"
 
-void	signal_handler(int signal)
+void	initialize_signals(void)
 {
-	if (signal == SIGINT)
-	{
-		ft_putchar_fd('\n', 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		get_status(130);
-
-	}
-	if (signal == SIGQUIT)
-		return ;
+	fprintf(stderr,"Inicializando sinais...\n");
+	signal(SIGINT, signal_readline);
+	signal(SIGQUIT, SIG_IGN);
+	fprintf(stderr,"Sinais inicializados: SIGINT -> signal_readline, SIGQUIT -> SIG_IGN\n");
 }
 
-int	is_fork(int pid)
+void	signal_readline(int signal)
+{
+	fprintf(stderr,"Entrou em signal_readline com sinal: %d\n", signal);
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	rl_on_new_line();
+ 	rl_replace_line("", 0);
+ 	rl_redisplay();
+}
+
+void	signal_execution(int pid)
 {
 	if (pid == 0)
 	{
-		printf("estamos dentro do fork :D\n");
-		ft_putchar_fd('\n', 1);
+		fprintf(stderr,"FILHO: configurando sinais para comportamento padrão.\n");
+		fprintf(stderr,"FILHO: SIGINT configurado para SIG_DFL.\n");
+		signal(SIGINT, SIG_DFL);
+		fprintf(stderr,"FILHO: SIGQUIT configurado para SIG_DFL.\n");
+		signal(SIGQUIT, SIG_DFL);
 	}
 	else
-		printf("não estamos no fork, okay?\n");
-	return (0);
+	{
+		fprintf(stderr,"PAI: configurando sinais para comportamento padrão.\n");
+		signal(SIGINT, signal_readline);
+		signal(SIGQUIT, SIG_DFL);
+	}
 }
 
-// void	is_heredoc(int heredoc)
-// {
-// 	static int	in_heredoc;
+void signal_heredoc(void)
+{
+    fprintf(stderr,"Sinais inicializados: SIGINT -> signal_heredoc, SIGQUIT -> SIG_IGN\n");
+	signal(SIGINT, handler_heredoc);
+	signal(SIGQUIT, SIG_IGN);
+}
 
-// 	if (heredoc != -1)
-// 		in_heredoc = heredoc;
-// 	if (heredoc == 1)
-// 	{
-// 		return ;
-// 	}
-// }
+void	handler_heredoc(int signal)
+{
+	fprintf(stderr,"HEREDOC: Entrou em handler_heredoc com sinal: %d\n", signal);
+	if (signal == SIGINT)
+	{
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		rl_on_new_line();
+ 		rl_replace_line("", 0);
+ 		rl_redisplay();
+	}
+}
+
+void restore_signals(void)
+{
+    signal(SIGINT, SIG_DFL);
+    signal(SIGQUIT, SIG_DFL);
+}
