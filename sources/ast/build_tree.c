@@ -1,7 +1,8 @@
 #include "../../includes/minishell.h"
 
 static void	branch_aux(t_tree **branch, t_token **token, int type, int meta);
-static char	*remove_quotes(char *file);
+static char	*remove_quotes_from_branch(char *file);
+static void	remove_quotes_from_branch_aux(char *file, char *new_file, int len);
 
 void	build_tree(t_tree **root, t_token **tokens)
 {
@@ -59,31 +60,66 @@ static void	branch_aux(t_tree **branch, t_token **token, int type, int meta)
 	}
 	else
 	{
-		if (token[2]->content[0] == '\'' || token[2]->content[0] == '"')
-			(*branch)->content = remove_quotes(token[2]->content);
-		else
-			(*branch)->content = ft_strdup(token[2]->content);
+		(*branch)->content = remove_quotes_from_branch(token[2]->content);
 		(*branch)->type = ARCHIVE;
 		free(token[2]->content);
 		free(token[2]);
 	}
 }
 
-static char	*remove_quotes(char *file)
+static char	*remove_quotes_from_branch(char *file)
 {
 	char	*new_file;
 	int		len;
 	int		i;
+	int		j;
+	char	c;
+
 
 	i = 0;
-	new_file = NULL;
+	j = 0;
 	len = ft_strlen(file);
 	new_file = ft_calloc(len + 1, sizeof(char));
-	while (file[i] && i < len)
+	if (file[0] == '\'' || file[0] == '\"')
 	{
-		if (file[i] != '\'' || file[i] != '"')
-			new_file[i] = file[i];
+		c = file[0];
+		while (file[i] && i < len)
+		{
+			if (file[i] != c)
+				new_file[j++] = file[i];
+			i++;
+		}
+	}
+	else
+		remove_quotes_from_branch_aux(file, new_file, len);
+	return (new_file);
+}
+
+static void	remove_quotes_from_branch_aux(char *file, char *new_file, int len)
+{
+	int		i;
+	int		j;
+	char	c;
+
+	i = 0;
+	j = 0;
+	while (file[i])
+	{
+		if (file[i] == '\'' || file[i] == '\"')
+		{
+			c = file[i];
+			break ;
+		}
 		i++;
 	}
-	return (new_file);
+	i = 0;
+	while (file[i] && i < len)
+	{
+		if (file[i] != c)
+		{
+			new_file[j] = file[i];
+			j++;
+		}
+		i++;
+	}
 }
