@@ -18,11 +18,6 @@ void	treat_errors(t_tree *tree, int *status);
 int		is_directory(const char *path);
 void	print_execve_error(char *command, int type);
 
-/* ==== FREE CHILD ==== */
-void	free_pipe_child(void);
-void	free_simple_child(char **child, char *executable);
-void	free_fail_execve(char **child, char *executable);
-
 /* ==== REDIRECTS ==== */
 int		redirs_execution(t_tree *tree);
 int		dup_file(t_tree *tree, int *fd);

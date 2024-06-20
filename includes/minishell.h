@@ -27,9 +27,9 @@
 /* ==== FREE MEMORY ==== */
 void		free_minishell(t_minishell *shell);
 void		free_execution(void);
-
-/* ===== ERRORS =====*/
-void		display_error_tokens(char *error, char c);
+void	    free_pipe_child(void);
+void	    free_simple_child(char **child, char *executable);
+void	    free_fail_execve(char **child, char *executable);
 
 /* ==== GET_SET ==== */
 int			get_status(int status);
@@ -47,10 +47,6 @@ int			is_heredoc(int heredoc);
 void		init_shell(t_minishell *shell);
 void		init_structs(t_minishell *shell);
 void		processor(t_minishell *shell);
-void		found_sintaxe(char *str, t_token **token_tail, t_token **token_h);
-t_token		*get_last_node(t_token **list);
-t_token		*get_first_node(t_token **list);
-int			get_list_size(t_token *list);
 int			is_redir(t_token **token);
 int			is_redir_or_heredoc(t_token **token);
 int			the_branch_is_redir(t_tree *branch);

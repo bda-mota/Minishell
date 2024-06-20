@@ -26,12 +26,10 @@ int	ft_exit(char *args)
 
 static int	ft_exit_aux(char *args)
 {
-	int		i;
 	int		type;
 	int		number;
 	char	*new;
 
-	i = 0;
 	new = remove_quotes(args);
 	number = ft_atoi(new);
 	type = contains_syntax_error(new);

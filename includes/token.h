@@ -5,11 +5,11 @@
 # include "structs.h"
 
 /* ==== LINKED LIST ==== */
-void	init_token(t_token **token);
-void	deallocate_lst(t_token **token);
-void	remove_first(t_token **token);
-void	insert_token(t_token **token, t_token *new_node);
-t_token	*create_token(char *content, int type);
+void	    deallocate_lst(t_token **token);
+void	    insert_token(t_token **token, t_token *new_node);
+t_token	    *create_token(char *content, int type);
+t_token		*get_last_node(t_token **list);
+t_token		*get_first_node(t_token **list);
 
 /* ==== TOKEN ==== */
 int		catalog_inputs(char *c, size_t *i);
@@ -24,6 +24,7 @@ void	handle_word(t_token **token, char *input, size_t *i);
 int		check_untreatable(char *input);
 int		check_quotes(char *input);
 int		check_quotes_aux(char *input, int *i, char c);
+void	display_error_tokens(char *error, char c);
 
 /* ==== CHECK GRAMMAR ==== */
 int		check_sintax(char *input);
