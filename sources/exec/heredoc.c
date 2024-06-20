@@ -18,6 +18,7 @@ void	heredoc(t_token **token)
 			return ;
 		file = generate_file_name();
 		fd_heredoc = open_heredoc(file);
+		signal_heredoc();
 		while (1 && fd_heredoc != -1)
 		{
 			line = readline("> ");
@@ -27,6 +28,7 @@ void	heredoc(t_token **token)
 				break ;
 			write_on_heredoc(line, fd_heredoc);
 		}
+		restore_signals();
 		finish_heredoc(&heredoc, &fd_heredoc, line, file);
 		heredoc = find_heredoc(&heredoc->next);
 	}
