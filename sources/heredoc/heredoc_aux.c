@@ -70,4 +70,3 @@ char	*generate_file_name(void)
 	i++;
 	return (file_name);
 }
-

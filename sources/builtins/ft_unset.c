@@ -1,18 +1,23 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_unset.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/21 14:46:11 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 14:46:13 by bda-mota         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../includes/minishell.h"
 
 static int	check_syntax_unset(char *remove_var, char **env_copy);
+static void	aux_unset(char **env_copy, char *remove_var);
+
+static int	check_syntax_unset(char *remove_var, char **env_copy)
+{
+	if (check_variable_name(remove_var) == 0)
+	{
+		aux_unset(env_copy, remove_var);
+		free(remove_var);
+	}
+	else
+	{
+		free(remove_var);
+		get_status(1);
+		return (1);
+	}
+	return (0);
+}
 
 static void	aux_unset(char **env_copy, char *remove_var)
 {
@@ -40,9 +45,9 @@ static void	aux_unset(char **env_copy, char *remove_var)
 
 void	ft_unset(char **env_copy, char *variables)
 {
-	char	*remove_var;
-	size_t	start;
-	size_t	end;
+	char		*remove_var;
+	size_t		start;
+	size_t		end;
 
 	start = 0;
 	if (!variables)
@@ -64,20 +69,4 @@ void	ft_unset(char **env_copy, char *variables)
 		start = end + 1;
 	}
 	get_status(0);
-}
-
-static int	check_syntax_unset(char *remove_var, char **env_copy)
-{
-	if (check_variable_name(remove_var) == 0)
-	{
-		aux_unset(env_copy, remove_var);
-		free(remove_var);
-	}
-	else
-	{
-		free(remove_var);
-		get_status(1);
-		return (1);
-	}
-	return (0);
 }

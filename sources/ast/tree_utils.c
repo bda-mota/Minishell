@@ -73,4 +73,3 @@ void	aux_pull_all_together(t_token **new, t_token **curr)
 		*curr = temp;
 	}
 }
-
