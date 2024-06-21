@@ -2,6 +2,7 @@
 
 static void	write_on_heredoc(char *line, int fd_heredoc);
 static void	finish_heredoc(t_token **heredoc, int *fd, char *line, char *file);
+static char	*expand_heredoc(char *line, int *pos);
 
 void	heredoc(t_token **token)
 {
@@ -33,20 +34,6 @@ void	heredoc(t_token **token)
 	}
 }
 
-static void	write_on_heredoc(char *line, int fd_heredoc)
-{
-	write(fd_heredoc, line, ft_strlen(line));
-	write(fd_heredoc, "\n", 1);
-	free(line);
-}
-
-static void	finish_heredoc(t_token **heredoc, int *fd, char *line, char *file)
-{
-	close(*fd);
-	free(line);
-	update_heredoc(heredoc, file);
-}
-
 int	open_heredoc(char *file)
 {
 	int	fd;
@@ -58,4 +45,64 @@ int	open_heredoc(char *file)
 		return (-1);
 	}
 	return (fd);
+}
+
+static void	write_on_heredoc(char *line, int fd_heredoc)
+{
+	int		i;
+	char	*variable;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '$' && line[i + 1] != '\0')
+		{
+			variable = expand_heredoc(line, &i);
+			if (variable != NULL)
+				write(fd_heredoc, variable, ft_strlen(variable));
+		}
+		if (line[i])
+			write(fd_heredoc, &line[i], 1);
+		i++;
+	}
+	write(fd_heredoc, "\n", 1);
+	free(line);
+}
+
+static void	finish_heredoc(t_token **heredoc, int *fd, char *line, char *file)
+{
+	close(*fd);
+	free(line);
+	update_heredoc(heredoc, file);
+}
+
+static char	*expand_heredoc(char *line, int *pos)
+{
+	int		i;
+	int		j;
+	char	**env_copy;
+	char	*var;
+
+	i = 0;
+	j = 0;
+	var = ft_calloc(sizeof(char), ft_strlen(line) + 1);
+	env_copy = *get_env_copy(NULL);
+	(*pos)++;
+	while (line[*pos] && line[*pos] != ' ' && line[*pos] != '\'' && line[*pos] != '"')
+	{
+		var[j] = line[*pos];
+		j++;
+		(*pos)++;
+	}
+	while (env_copy[i])
+	{
+		if (ft_strncmp(env_copy[i], var, j) == 0 && env_copy[i][j] == '=')
+		{
+			free(var);
+			return (env_copy[i] + j + 1);
+		}
+		i++;
+	}
+	free(var);
+	return (NULL);
 }

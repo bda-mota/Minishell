@@ -75,14 +75,13 @@ static char	*remove_quotes_from_branch(char *file)
 	int		j;
 	char	c;
 
-
 	i = 0;
 	j = 0;
 	len = ft_strlen(file);
 	new_file = ft_calloc(len + 1, sizeof(char));
+	c = file[0];
 	if (file[0] == '\'' || file[0] == '\"')
 	{
-		c = file[0];
 		while (file[i] && i < len)
 		{
 			if (file[i] != c)
@@ -103,6 +102,7 @@ static void	remove_quotes_from_branch_aux(char *file, char *new_file, int len)
 
 	i = 0;
 	j = 0;
+	c = '\0';
 	while (file[i])
 	{
 		if (file[i] == '\'' || file[i] == '\"')
