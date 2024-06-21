@@ -8,6 +8,7 @@
 # include "ast.h"
 # include "exec.h"
 # include "builtins.h"
+# include "heredoc.h"
 //LIBRARIES
 # include <sys/types.h>
 # include <sys/wait.h>
@@ -52,14 +53,6 @@ void		processor(t_minishell *shell);
 int			is_redir(t_token **token);
 int			is_redir_or_heredoc(t_token **token);
 int			the_branch_is_redir(t_tree *branch);
-
-/* ==== HEREDOC ==== */
-int			has_heredoc(t_token *token);
-int			open_heredoc(char *file);
-void		heredoc(t_token **token);
-void		update_heredoc(t_token **heredoc, char *file);
-char		*generate_file_name(void);
-t_token		*find_heredoc(t_token **heredoc);
 
 /* EXCLUIR AO FINAL DO PROJETO */
 void		print_list(t_token **lst);

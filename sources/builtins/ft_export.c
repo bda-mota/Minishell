@@ -60,11 +60,10 @@ void	order_env(char **env_copy)
 void	change_variables(char *new_variable)
 {
 	t_var	state;
+	int		status;
 
-	state.args = 0;
-	state.start = 0;
-	state.simple_quote = 0;
-	state.double_quote = 0;
+	status = 0;
+	ft_bzero(&state, sizeof(t_var));
 	while (new_variable[state.args])
 	{
 		state.environ = *get_env_copy(NULL);
@@ -78,19 +77,23 @@ void	change_variables(char *new_variable)
 			(state.args)++;
 		}
 		if (state.start != state.args)
-			processed_var(state.environ, new_variable, state.start, state.args);
+			if (processed_var(state.environ,
+					new_variable, state.start, state.args) == 1)
+				status = 1;
 		if (new_variable[state.args] != '\0')
 			(state.args)++;
 	}
+	get_status(status);
 }
 
-void	processed_var(char **environ, char *new_variable, int start, int args)
+int	processed_var(char **environ, char *new_variable, int start, int args)
 {
 	char	*var;
 	char	*var_name;
 	int		var_len;
-	int		update;
+	int		status;
 
+	status = 0;
 	var = ft_strndup(&new_variable[start], args - start);
 	if (var)
 	{
@@ -98,14 +101,15 @@ void	processed_var(char **environ, char *new_variable, int start, int args)
 		var_name = ft_strndup(var, var_len);
 		if (var_name)
 		{
-			update = update_variable(environ, var_name, var, var_len);
-			if (!update)
+			if (!update_variable(environ, var_name, var, var_len))
 			{
-				if (!check_variable_name(var_name))
+				status = check_variable_name(var_name);
+				if (!status)
 					add_new_variable(environ, var);
 			}
 			free(var_name);
 		}
 		free(var);
 	}
+	return (status);
 }

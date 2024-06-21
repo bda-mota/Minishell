@@ -83,7 +83,6 @@ int	check_variable_name(char *var_name)
 	{
 		ft_printf_fd(STDERR_FILENO,
 			"export: `%s': not a valid identifier\n", var_name);
-		get_status(1);
 		return (1);
 	}
 	while (var_name[i])
@@ -92,11 +91,9 @@ int	check_variable_name(char *var_name)
 		{
 			ft_printf_fd(STDERR_FILENO,
 				"export: `%s': not a valid identifier\n", var_name);
-			get_status(1);
 			return (1);
 		}
 		i++;
 	}
-	get_status(0);
 	return (0);
 }

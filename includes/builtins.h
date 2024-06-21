@@ -34,7 +34,7 @@ int		ft_exit(char *args);
 
 void	change_variables(char *new_variable);
 void	print_variables(char	**env_copy);
-void	processed_var(char **environ, char *new_variable, int start, int args);
+int		processed_var(char **environ, char *new_variable, int start, int args);
 void	variable_to_environ(char **env_copy, char *new_var);
 int		update_variable(char **env_copy,
 			char *var_name, char *new_var, int var_len);

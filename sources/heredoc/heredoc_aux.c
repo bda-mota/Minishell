@@ -37,6 +37,13 @@ void	update_heredoc(t_token **heredoc, char *file)
 	delimiter->content = file;
 }
 
+void	finish_heredoc(t_token **heredoc, int *fd, char *line, char *file)
+{
+	close(*fd);
+	free(line);
+	update_heredoc(heredoc, file);
+}
+
 char	*generate_file_name(void)
 {
 	char		*dir_name;
