@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   build_tree.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/21 14:44:51 by bda-mota          #+#    #+#             */
+/*   Updated: 2024/06/21 14:44:52 by bda-mota         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 static void	branch_aux(t_tree **branch, t_token **token, int type, int meta);
@@ -116,10 +128,7 @@ static void	remove_quotes_from_branch_aux(char *file, char *new_file, int len)
 	while (file[i] && i < len)
 	{
 		if (file[i] != c)
-		{
-			new_file[j] = file[i];
-			j++;
-		}
+			new_file[j++] = file[i];
 		i++;
 	}
 }
