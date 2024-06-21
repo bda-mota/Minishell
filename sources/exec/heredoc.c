@@ -109,3 +109,5 @@ static char	*expand_heredoc(char *line, int *pos)
 	free(var);
 	return (NULL);
 }
+
+nodqehfnkwnelgnwlirg
