@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:47:50 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 14:47:52 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:26:36 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,22 @@ void	update_heredoc(t_token **heredoc, char *file)
 	delimiter->content = file;
 }
 
-void	finish_heredoc(t_token **heredoc, int *fd, char *line, char *file)
+int	if_sigint_heredoc(int *std, char *file, int status)
 {
-	close(*fd);
-	free(line);
-	update_heredoc(heredoc, file);
+	t_minishell	*shell;
+
+	shell = get_minishell(NULL);
+	if (status == 130)
+	{
+		dup2(*std, STDIN_FILENO);
+		free(file);
+		close(*std);
+		deallocate_lst(&shell->token);
+		return (1);
+	}
+	return (0);
 }
+
 
 char	*generate_file_name(void)
 {

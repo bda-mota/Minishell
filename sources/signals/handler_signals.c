@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:48:10 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 14:51:45 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/21 18:58:19 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	signal_readline_in_execution(int signal)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_on_new_line();
 		rl_replace_line("", 0);
+		get_status(130);
 	}
 }
 
@@ -44,5 +45,8 @@ void	handler_heredoc(int signal)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_on_new_line();
 		rl_replace_line("", 0);
+		close(0);
+		get_status(130);
 	}
 }
+

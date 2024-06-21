@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:46:33 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 14:46:34 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:41:16 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,18 @@ int	execute(t_tree *tree, char *command)
 
 void	set_status(int status)
 {
-	if (WIFEXITED(status))
+	if (WIFSIGNALED(status))
+	{
+		status = WTERMSIG(status);
+		if (status == SIGQUIT)
+		{
+			signal(SIGPIPE, SIG_IGN);
+			get_status(131);
+		}
+		else if (status == SIGINT)
+			get_status(130);
+	}
+	else if (WIFEXITED(status))
 	{
 		status = WEXITSTATUS(status);
 		get_status(status);

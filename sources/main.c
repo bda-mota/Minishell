@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:44:20 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 14:44:22 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:25:25 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	processor(t_minishell *shell)
 		return ;
 	}
 	if (!has_heredoc(shell->token))
-		heredoc(&shell->token);
+		if (heredoc(&shell->token) == 1)
+			return ;
 	build_tree(&shell->tree, &shell->token);
 	find_path(shell);
 	executor(shell->tree);

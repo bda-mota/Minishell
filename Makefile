@@ -13,7 +13,7 @@ SRC_PATH 	:= sources
 OBJ_PATH	:= objects
 
 # SOURCES
-CFILES		:= main.c \
+CFILES		:= trash.c main.c \
 				token/token.c token/linked_list_token.c token/handle_word.c token/check_grammar.c token/handle_metha.c \
 				token/check_inputs.c token/rearrange.c token/rearrange_utils.c token/variable_expansion.c token/variable_expansion2.c \
 				utils/free_memory.c utils/init.c utils/get_set.c utils/is_redir.c utils/environ_copy.c \
@@ -85,7 +85,7 @@ fclean: clean
 	@echo "                                     "
 
 val: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes --trace-children=yes --trace-children-skip='*/bin/*,*/sbin/*' --suppressions=.readline.supp ./$(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all -q --track-origins=yes --track-fds=yes --trace-children=yes --trace-children-skip='*/bin/*,*/sbin/*' --suppressions=.readline.supp ./$(NAME)
 
 clear:
 	clear

@@ -6,20 +6,22 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:48:00 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 14:48:02 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:26:18 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	heredoc(t_token **token)
+int	heredoc(t_token **token)
 {
 	t_token	*heredoc;
 	char	*file;
-	char	*line;
 	int		fd_heredoc;
+	int		std;
 
+	get_status(0);
 	heredoc = *token;
+	std = dup(STDIN_FILENO);
 	heredoc = find_heredoc(&heredoc);
 	while (heredoc)
 	{
@@ -27,18 +29,32 @@ void	heredoc(t_token **token)
 		file = generate_file_name();
 		fd_heredoc = open_heredoc(file);
 		remove_quotes_from_delim(heredoc->next->content);
-		while (1 && fd_heredoc != -1)
-		{
-			line = readline("> ");
-			if (!line)
-				break ;
-			if (ft_strcmp(line, heredoc->next->content) == 0)
-				break ;
-			write_on_heredoc(line, fd_heredoc);
-		}
-		finish_heredoc(&heredoc, &fd_heredoc, line, file);
+		heredoc_on_file(&heredoc, &fd_heredoc);
+		if (if_sigint_heredoc(&std, file, get_status(-1)) == 1)
+			return (1);
+		close(fd_heredoc);
+		update_heredoc(&heredoc, file);
 		heredoc = find_heredoc(&heredoc->next);
 	}
+	return (0);
+}
+
+void	heredoc_on_file(t_token **token, int *fd_heredoc)
+{
+	char	*line;
+
+	line = NULL;
+	while (1 && *fd_heredoc != -1 && get_status(-1) != 130)
+	{
+		line = readline("> ");
+		if (!line || ft_strncmp(line, (*token)->next->content,
+				ft_strlen((*token)->next->content) - 1) == 0)
+			break ;
+		if (get_status(-1) == 130)
+			break ;
+		write_on_heredoc(line, *fd_heredoc);
+	}
+	free(line);
 }
 
 void	remove_quotes_from_delim(char *delimiter)

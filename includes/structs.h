@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:43:38 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 14:43:40 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:27:28 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct s_minishell
 	char		**env_copy;
 	char		**paths;
 	char		**cmd_args;
+	int			sig_hd;
 }	t_minishell;
 
 #endif

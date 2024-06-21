@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:47:11 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 14:47:13 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:55:59 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ int	pipe_execution(t_tree *left, t_tree *right)
 	if (pid[1] == 0)
 		second_child(right, tube);
 	close_tubes(tube);
+
 	waitpid(pid[0], &status[0], 0);
 	waitpid(pid[1], &status[1], 0);
+
 	return (get_status(WEXITSTATUS(status[1])));
 }
 

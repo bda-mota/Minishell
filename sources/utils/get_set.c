@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:49:53 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 14:49:55 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/21 16:59:21 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,3 +56,5 @@ t_minishell	*get_minishell(t_minishell *shell)
 		new = shell;
 	return (new);
 }
+
+
