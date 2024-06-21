@@ -37,7 +37,6 @@ void	free_execution(void)
 		down_tree(&shell->tree);
 }
 
-
 void	free_simple_child(char **child, char *executable)
 {
 	if (child)

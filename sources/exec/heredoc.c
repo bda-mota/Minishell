@@ -86,9 +86,12 @@ static char	*expand_heredoc(char *line, int *pos)
 	i = 0;
 	j = 0;
 	var = ft_calloc(sizeof(char), ft_strlen(line) + 1);
+	if (!var)
+		return (NULL);
 	env_copy = *get_env_copy(NULL);
 	(*pos)++;
-	while (line[*pos] && line[*pos] != ' ' && line[*pos] != '\'' && line[*pos] != '"')
+	while (line[*pos] && line[*pos] != ' '
+		&& line[*pos] != '\'' && line[*pos] != '"')
 	{
 		var[j] = line[*pos];
 		j++;
