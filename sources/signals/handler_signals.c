@@ -27,7 +27,6 @@ void	signal_execution(int pid)
 
 void	handler_heredoc(int signal)
 {
-
 	if (signal == SIGINT)
 	{
 		ft_putchar_fd('\n', STDOUT_FILENO);

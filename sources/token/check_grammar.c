@@ -39,7 +39,6 @@ int	check_grammar(t_token **token)
 	return (1);
 }
 
-
 int	is_invalid_redir_or_heredoc(t_token *curr)
 {
 	return (is_redir_or_heredoc(&curr)
@@ -60,4 +59,3 @@ int	is_invalid_pipe(t_token *curr)
 	}
 	return (0);
 }
-
