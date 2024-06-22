@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:47:50 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 19:26:36 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/21 19:39:43 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	if_sigint_heredoc(int *std, char *file, int status)
 	}
 	return (0);
 }
-
 
 char	*generate_file_name(void)
 {

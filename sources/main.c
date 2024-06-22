@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:44:20 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 19:25:25 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/21 21:23:53 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	processor(t_minishell *shell)
 		&& shell->token->content[0] == '\0')
 	{
 		deallocate_lst(&shell->token);
+		ft_printf_fd(STDOUT_FILENO, "\n");
 		return ;
 	}
 	if (!has_heredoc(shell->token))

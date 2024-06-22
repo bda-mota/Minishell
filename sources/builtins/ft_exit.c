@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:45:52 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 14:45:54 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/21 20:54:20 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ int	ft_exit(char *args)
 	free_minishell(&shell);
 	get_status(status);
 	printf("exit\n");
-	exit (status);
+	exit(status);
 }
 
 static int	ft_exit_aux(char *args)
 {
 	int		type;
 	int		number;
+	int		result;
 	char	*new;
-	char	result;
 
 	new = remove_quotes_exit(args);
 	number = ft_atoi(new);
@@ -56,6 +56,7 @@ static int	ft_exit_aux(char *args)
 		return (number);
 	}
 	result = number % 256;
+	free(new);
 	if (number < 0)
 		result += 256;
 	return (result);
@@ -100,6 +101,7 @@ static int	print_exit_error(char *new, char *error)
 		ft_printf_fd(STDIN_FILENO, "exit\n");
 		ft_printf_fd(STDERR_FILENO, "babyshell: exit: too many arguments\n");
 		free(new);
+		rl_clear_history();
 		return (1);
 	}
 }

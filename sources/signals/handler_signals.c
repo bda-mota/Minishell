@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:48:10 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 18:58:19 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/21 21:26:35 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	signal_readline_in_execution(int signal)
 {
+	t_minishell	*shell;
+
+	shell = get_minishell(NULL);
 	if (signal == SIGINT)
 	{
 		ft_putchar_fd('\n', STDOUT_FILENO);
@@ -21,20 +24,16 @@ void	signal_readline_in_execution(int signal)
 		rl_replace_line("", 0);
 		get_status(130);
 	}
-}
-
-void	signal_execution(int pid)
-{
-	if (pid == 0)
+	else if (signal == SIGQUIT)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGPIPE, SIG_IGN);
-	}
-	else
-	{
-		signal(SIGINT, signal_readline_in_execution);
-		signal(SIGQUIT, SIG_DFL);
+		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
+		get_status(131);
+		rl_clear_history();
+		free_pipe_child();
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		get_status(131);
 	}
 }
 
@@ -50,3 +49,14 @@ void	handler_heredoc(int signal)
 	}
 }
 
+void	signal_readline(int signal)
+{
+	if (signal == SIGINT)
+	{
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		get_status(130);
+	}
+}
