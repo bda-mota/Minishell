@@ -70,14 +70,17 @@ static void	remove_quotes_cmd(char **cmd)
 {
 	int		i;
 	int		len;
+	char	c;
 	char	*new_content;
 
-	len = ft_strlen(*cmd);
 	i = 0;
+	len = ft_strlen(*cmd);
+	c = '\0';
 	if ((*cmd)[0] == '\'' || (*cmd)[0] == '"')
 	{
+		c = (*cmd)[0];
 		new_content = ft_calloc(sizeof(char), len + 1);
-		while ((*cmd)[i + 1] && cmd[0][i + 1] != '\'' && cmd[0][i + 1] != '"')
+		while ((*cmd)[i + 1] && cmd[0][i + 1] != c)
 		{
 			new_content[i] = (*cmd)[i + 1];
 			i++;

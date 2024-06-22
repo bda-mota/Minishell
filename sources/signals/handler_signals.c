@@ -14,9 +14,10 @@
 
 void	signal_readline_in_execution(int signal)
 {
-	//t_minishell	*shell;
+	t_minishell	*shell;
 
-	//shell = get_minishell(NULL);
+	shell = get_minishell(NULL);
+	(void)shell;
 	if (signal == SIGINT)
 	{
 		ft_putchar_fd('\n', STDOUT_FILENO);
@@ -29,7 +30,7 @@ void	signal_readline_in_execution(int signal)
 		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
 		get_status(131);
 		rl_clear_history();
-		free_pipe_child();
+		//free_pipe_child(); -> se tirar isso n da leak no cat 
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_on_new_line();
 		rl_replace_line("", 0);
