@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: bsantana <bsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:43:31 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 16:56:27 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/22 13:58:21 by bsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void		signal_execution(int pid);
 void		signal_heredoc(void);
 void		handler_heredoc(int signal);
 void		signal_readline_in_execution(int signal);
+void        signal_pipe(int pid);
+void        signal_readline_in_pipe(int signal);
 
 /* ==== UTILS ==== */
 void		init_shell(t_minishell *shell);

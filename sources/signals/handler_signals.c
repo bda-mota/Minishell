@@ -6,7 +6,7 @@
 /*   By: bsantana <bsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:48:10 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/22 13:51:46 by bsantana         ###   ########.fr       */
+/*   Updated: 2024/06/22 14:04:48 by bsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	signal_readline_in_execution(int signal)
 	}
 }
 
-// aqui tem que liberar memória -> essa função foi chamada logo após abrir um fork na função pipe_execution
+// aqui tem que liberar memória -> a função signal_pipe () que chama esta função foi chamada logo após abrir um fork na função pipe_execution
 void	signal_readline_in_pipe(int signal)
 {
 	t_minishell	*shell;
@@ -57,7 +57,7 @@ void	signal_readline_in_pipe(int signal)
 		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
 		get_status(131);
 		rl_clear_history();
-		//free_pipe_child(); -> se tirar isso n da leak no cat 
+		free_pipe_child();
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_on_new_line();
 		rl_replace_line("", 0);
