@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_signals.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: bsantana <bsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:48:15 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 21:14:49 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/22 13:49:55 by bsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,21 @@ void	initialize_signals(void)
 }
 
 void	signal_execution(int pid)
+{
+	if (pid == 0)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGPIPE, SIG_DFL);
+	}
+	else
+	{
+		signal(SIGINT, signal_readline_in_execution);
+		signal(SIGQUIT, signal_readline_in_execution);
+	}
+}
+
+void	signal_pipe(int pid)
 {
 	if (pid == 0)
 	{
