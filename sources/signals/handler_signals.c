@@ -14,9 +14,9 @@
 
 void	signal_readline_in_execution(int signal)
 {
-	t_minishell	*shell;
+	//t_minishell	*shell;
 
-	shell = get_minishell(NULL);
+	//shell = get_minishell(NULL);
 	if (signal == SIGINT)
 	{
 		ft_putchar_fd('\n', STDOUT_FILENO);
