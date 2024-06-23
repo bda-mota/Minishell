@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:45:52 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 20:54:20 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/23 20:50:05 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	contains_syntax_error(char *new)
 	len = ft_strlen(new);
 	if ((len == 19 && ft_strncmp(new, "9223372036854775807", 19) > 0)
 		|| (len == 20 && ft_strncmp(new, "-9223372036854775808", 20) > 0)
-		|| (len > 20))
+		|| (len > 20 && check_spaces_on_exit(new) != 1))
 		return (print_exit_error(new, "long"));
 	while (new[i])
 	{

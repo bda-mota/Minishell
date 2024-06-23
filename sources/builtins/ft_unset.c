@@ -54,21 +54,22 @@ static void	aux_unset(char **env_copy, char *remove_var)
 		i++;
 	}
 }
-void    ft_unset(char **env_copy, char *variables)
-{
-    char    *remove_var;
-    size_t	start;
-    size_t  end;
 
-    start = 0;
-    if (!variables)
-        return ;
-    while (start < ft_strlen(variables))
-    {
-        while (start < ft_strlen(variables) && variables[start] == ' ')
-            start++;
-        end = start;
-        while (end < ft_strlen(variables) && variables[end] != ' ')
+void	ft_unset(char **env_copy, char *variables)
+{
+	char	*remove_var;
+	size_t	start;
+	size_t	end;
+
+	start = 0;
+	if (!variables)
+		return ;
+	while (start < ft_strlen(variables))
+	{
+		while (start < ft_strlen(variables) && variables[start] == ' ')
+			start++;
+		end = start;
+		while (end < ft_strlen(variables) && variables[end] != ' ')
 			end++;
 		if (start < end)
 		{
@@ -76,8 +77,8 @@ void    ft_unset(char **env_copy, char *variables)
 			ft_strncpy(remove_var, variables + start, end - start);
 			if (check_syntax_unset(remove_var, env_copy) == 1)
 				return ;
-        }
-        start = end + 1;
-    }
-    get_status(0);
-}	
+		}
+		start = end + 1;
+	}
+	get_status(0);
+}

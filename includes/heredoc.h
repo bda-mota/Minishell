@@ -20,10 +20,10 @@
 int		open_heredoc(char *file);
 int		has_heredoc(t_token *token);
 int		heredoc(t_token **token);
+int		if_sigint_heredoc(int *std, char *file, int fd, int status);
 void	heredoc_on_file(t_token **token, int *fd_heredoc);
 void	remove_quotes_from_delim(char *delimiter);
 void	write_on_heredoc(char *line, int fd_heredoc);
-int	    if_sigint_heredoc(int *std, char *file, int fd, int status);
 void	update_heredoc(t_token **heredoc, char *file);
 char	*generate_file_name(void);
 char	*expand_heredoc(char *line, int *pos);

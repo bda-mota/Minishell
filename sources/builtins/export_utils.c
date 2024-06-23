@@ -30,7 +30,7 @@ int	update_variable(char **env_copy, char *var_name, char *new_var, int var_len)
 			env_copy[i] = new_env;
 			return (1);
 		}
-			i++;
+		i++;
 	}
 	return (0);
 }

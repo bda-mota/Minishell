@@ -16,7 +16,7 @@ OBJ_PATH	:= objects
 CFILES		:=  main.c \
 				token/token.c token/linked_list_token.c token/handle_word.c token/check_grammar.c token/handle_metha.c \
 				token/check_inputs.c token/rearrange.c token/rearrange_utils.c token/variable_expansion.c token/variable_expansion2.c \
-				utils/free_memory.c utils/init.c utils/get_set.c utils/is_redir.c utils/environ_copy.c\
+				utils/free_memory.c utils/init.c utils/get_set.c utils/is_redir.c utils/utils.c utils/environ_copy.c\
 				heredoc/heredoc.c heredoc/heredoc_aux.c heredoc/heredoc_expansion.c \
 				ast/build_tree.c ast/tree_utils.c ast/search_branch.c exec/command.c \
 				exec/execution.c exec/path.c exec/pipe.c exec/redirects.c exec/execution_aux.c exec/treat_errors.c \

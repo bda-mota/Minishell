@@ -39,7 +39,7 @@ static void	variables_update(char **env_copy,
 			free(env_copy[i]);
 			env_copy[i] = new_env;
 		}
-			i++;
+		i++;
 	}
 }
 
@@ -74,7 +74,8 @@ static int	chance_directory(char *path)
 		return (1);
 	if (chdir(path) != 0)
 	{
-		ft_printf_fd(STDERR_FILENO, "cd: %s: No such file or directory\n", path);
+		ft_printf_fd(STDERR_FILENO, "cd: %s: No such file or directory\n",
+			path);
 		get_status(1);
 		return (1);
 	}

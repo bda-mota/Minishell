@@ -9,69 +9,50 @@
 /*   Updated: 2024/06/21 14:49:19 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../../includes/minishell.h"
 
-static int	valid_name(char *var_name);
-static char	*handle_valid_variable(char *data_var, char **env_copy, char *var_name);
-static char *extract_var_name(char *content, int *i);
-static char	*concatenate_invalid_variable(char *data_var, char *var_name);
-
-char *find_variable(char *content, int *i, char **env_copy, char *data_var)
+char	*aux_expand_variable(char *content, char **env_copy)
 {
-    char *var_name;
+	char	*data_var;
+	char	quote;
+	int		i;
 
-    var_name = extract_var_name(content, i);
-    if (var_name == NULL)
-        return (data_var);
-    if (valid_name(var_name) == 0)
-        data_var = handle_valid_variable(data_var, env_copy, var_name);
-    else
-        data_var = concatenate_invalid_variable(data_var, var_name);
-    free(var_name);
-    return (data_var);
-}
-
-static char *extract_var_name(char *content, int *i)
-{
-    int start;
-    int end;
-    char *var_name;
-
-    start = *i + 1;
-    end = start;
-    while (content[end] && content[end] != ' ' && content[end] != '$' && content[end] != '"' && content[end] != '\'')
-        end++;
-    var_name = ft_strndup(content + start, end - start);
-    if (var_name == NULL)
-        return (NULL);
-    *i = end - 1;
-    return (var_name);
-}
-
-static int	valid_name(char *var_name)
-{
-	int	i;
-
-	if (var_name[0] == '?' && var_name[1] == '\0')
-		return (0);
+	data_var = ft_strdup("");
 	i = 0;
-	if (var_name[i] != '_' && !ft_isalpha(var_name[i]))
-		return (1);
-	while (var_name[i])
+	quote = 0;
+	while (content[i])
 	{
-		if (!ft_isalnum(var_name[i]) && var_name[i] != '_')
-			return (1);
+		if (content[i] == '\'' || content[i] == '"')
+			data_var = handle_quote(content, data_var, &quote, i);
+		else if (content[i] == '$' && (quote != '\'' || quote == '"'))
+		{
+			if (content[i + 1] == '\0'
+				|| content[i + 1] == ' ' || content[i + 1] == quote)
+				data_var = concatened_content(content, data_var, i);
+			else
+				data_var = find_variable(content, &i, env_copy, data_var);
+		}
+		else
+			data_var = concatened_content(content, data_var, i);
 		i++;
 	}
-	return (0);
+	return (data_var);
 }
 
-static char	*handle_valid_variable(char *data_var, char **env_copy, char *var_name)
+char	*find_variable(char *content, int *i, char **env_copy, char *data_var)
 {
+	char	*var_name;
 	char	*expand_variable;
 	char	*tmp;
+	int		start;
+	int		end;
 
+	start = (*i) + 1;
+	end = start;
+	while (content[end] && content[end] != ' '
+		&& content[end] != '$' && content[end] != '"' && content[end] != '\'')
+		end++;
+	var_name = ft_strndup(content + start, end - start);
 	expand_variable = ft_getenv(env_copy, var_name);
 	if (expand_variable)
 	{
@@ -81,20 +62,7 @@ static char	*handle_valid_variable(char *data_var, char **env_copy, char *var_na
 		if (var_name[0] == '?')
 			free(expand_variable);
 	}
-	else
-		data_var = concatenate_invalid_variable(data_var, var_name);
+	free(var_name);
+	*i = end - 1;
 	return (data_var);
-}
-
-static char *concatenate_invalid_variable(char *data_var, char *var_name)
-{
-    char *tmp;
-    char *new_data_var;
-
-    new_data_var = ft_strjoin(data_var, "$");
-    free(data_var);
-    tmp = new_data_var;
-    new_data_var = ft_strjoin(new_data_var, var_name);
-    free(tmp);
-    return (new_data_var);
 }

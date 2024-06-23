@@ -61,14 +61,14 @@ int	check_quotes_aux(char *input, int *i, char c)
 		while (input[*i] && input[*i] != '"')
 			(*i)++;
 		if (input[*i] == '"')
-				quote++;
+			quote++;
 	}
 	else if (c == '\'')
 	{
 		while (input[*i] && input[*i] != '\'')
 			(*i)++;
 		if (input[*i] == '\'')
-				quote++;
+			quote++;
 	}
 	return (quote);
 }

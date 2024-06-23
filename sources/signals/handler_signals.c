@@ -53,7 +53,6 @@ void	signal_readline_in_pipe(int signal)
 		free_pipe();
 		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
 		rl_clear_history();
-		//free_pipe_child();
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -80,7 +79,6 @@ void	free_pipe(void)
 		ft_free_matrix(shell->tree->command_child);
 	if (env_copy)
 		ft_free_matrix(env_copy);
-
 }
 
 void	handler_heredoc(int signal)

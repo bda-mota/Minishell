@@ -41,8 +41,8 @@ void	print_execve_error(char *command, int type)
 {
 	if (type == 1)
 	{
-		ft_printf_fd(STDERR_FILENO, "babyshell: %s: No such file or directory\n",
-			command);
+		ft_printf_fd(STDERR_FILENO,
+			"babyshell: %s: No such file or directory\n", command);
 		if (get_status(-1) == 127)
 			return ;
 		get_status(1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsantana <bsantana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:43:31 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/22 13:58:21 by bsantana         ###   ########.fr       */
+/*   Updated: 2024/06/23 20:44:22 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void		processor(t_minishell *shell);
 int			is_redir(t_token **token);
 int			is_redir_or_heredoc(t_token **token);
 int			the_branch_is_redir(t_tree *branch);
+int			check_spaces_on_exit(char *args);
 
 /* EXCLUIR AO FINAL DO PROJETO */
 void		print_list(t_token **lst);
