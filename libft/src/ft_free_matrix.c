@@ -23,5 +23,4 @@ void	ft_free_matrix(char **matrix)
 		i++;
 	}
 	free(matrix);
-	*matrix = NULL;
 }
