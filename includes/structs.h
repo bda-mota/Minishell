@@ -79,7 +79,6 @@ typedef struct s_minishell
 	char		**env_copy;
 	char		**paths;
 	char		**cmd_args;
-	int			sig_hd;
 }	t_minishell;
 
 #endif

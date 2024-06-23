@@ -21,11 +21,6 @@ void	free_minishell(t_minishell *shell)
 		free(shell->input);
 	if (env_copy)
 		ft_free_matrix(env_copy);
-	if (shell->paths)
-	{
-		ft_free_matrix(shell->paths);
-		shell->paths = NULL;
-	}
 	if (shell->tree)
 		down_tree(&shell->tree);
 	if (shell->cmd_args)
@@ -40,11 +35,8 @@ void	free_execution(void)
 	shell = get_minishell(NULL);
 	if (shell->input)
 		free (shell->input);
-	if (shell->paths)
-	{
+	if (shell->paths && shell->complete_path != NULL)
 		ft_free_matrix(shell->paths);
-		shell->paths = NULL;
-	}
 	if (shell->tree)
 		down_tree(&shell->tree);
 }
@@ -68,7 +60,7 @@ void	free_pipe_child(void)
 		free(shell->input);
 	if (env_copy)
 		ft_free_matrix(env_copy);
-	if (shell->paths)
+	if (shell->paths && shell->complete_path != NULL)
 		ft_free_matrix(shell->paths);
 	if (shell->tree && shell->tree->executable)
 		free(shell->tree->executable);
@@ -88,7 +80,7 @@ void	free_fail_execve(char **child, char *executable)
 	env_copy = *get_env_copy(NULL);
 	shell = get_minishell(NULL);
 	free_simple_child(child, executable);
-	if (shell->paths)
+	if (shell->paths && shell->complete_path != NULL)
 		ft_free_matrix(shell->paths);
 	if (shell->input)
 		free(shell->input);

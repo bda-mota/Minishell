@@ -31,24 +31,27 @@ void	check_command(t_tree *tree, char *command)
 
 void	find_command(t_tree *tree, char *cmd)
 {
-	int		i;
-	char	**paths;
+	int			i;
+	t_minishell	*shell;
 
 	i = 0;
+	shell = get_minishell(NULL);
 	if (ft_strncmp(cmd, "./", 2) == 0 || ft_strncmp(cmd, "../", 3) == 0)
 	{
 		tree->executable = ft_strdup(cmd);
 		get_status(127);
 		return ;
 	}
-	paths = get_paths(NULL);
-	while (paths[i])
+	if (shell->complete_path != NULL)
 	{
-		tree->executable = ft_strjoin(paths[i], cmd);
-		if (access(tree->executable, X_OK) == 0)
-			return ;
-		free(tree->executable);
-		i++;
+		while (shell->paths[i])
+		{
+			tree->executable = ft_strjoin(shell->paths[i], cmd);
+			if (access(tree->executable, X_OK) == 0)
+				return ;
+			free(tree->executable);
+			i++;
+		}
 	}
 	tree->executable = ft_strdup(cmd);
 	get_status(127);

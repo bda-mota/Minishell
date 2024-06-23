@@ -39,15 +39,6 @@ char	***get_env_copy(char **copy)
 	return (&s_copy);
 }
 
-char	**get_paths(char **paths)
-{
-	static char	**new;
-
-	if (paths != NULL)
-		new = &*paths;
-	return (new);
-}
-
 t_minishell	*get_minishell(t_minishell *shell)
 {
 	static t_minishell	*new;

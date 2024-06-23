@@ -40,7 +40,6 @@ int	execute(t_tree *tree, char *command)
 	signal_execution(pid);
 	if (pid == 0)
 	{
-		//rl_clear_history();
 		execve(tree->executable, tree->command_child, *get_env_copy(NULL));
 		treat_errors(tree, &status);
 	}

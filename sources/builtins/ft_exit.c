@@ -26,7 +26,7 @@ int	ft_exit(char *args)
 		status = ft_exit_aux(args);
 	else
 		status = 0;
-	if (status == -1)
+	if (status == 1)
 		return (get_status(status));
 	get_status(status);
 	shell = *get_minishell(NULL);
@@ -74,7 +74,6 @@ static int	contains_syntax_error(char *new)
 		|| (len == 20 && ft_strncmp(new, "-9223372036854775808", 20) > 0)
 		|| len > 20)
 		return (print_exit_error(new, "long"));
-	
 	while (new[i])
 	{
 		if (ft_issign(new[i]) == 1)

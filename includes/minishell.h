@@ -47,7 +47,6 @@ void		free_fail_execve(char **child, char *executable);
 int			get_status(int status);
 char		*get_path(char *path);
 char		***get_env_copy(char **copy);
-char		**get_paths(char **paths);
 t_minishell	*get_minishell(t_minishell *shell);
 
 /* ==== SIGNALS ==== */
@@ -57,9 +56,9 @@ void		signal_execution(int pid);
 void		signal_heredoc(void);
 void		handler_heredoc(int signal);
 void		signal_readline_in_execution(int signal);
-void	signal_readline_in_pipe(int signal);
-void	signal_pipe(int pid);
-void	free_pipe(void);
+void		signal_readline_in_pipe(int signal);
+void		signal_pipe(int pid);
+void		free_pipe(void);
 
 /* ==== UTILS ==== */
 void		init_shell(t_minishell *shell);
