@@ -72,7 +72,7 @@ static int	contains_syntax_error(char *new)
 	len = ft_strlen(new);
 	if ((len == 19 && ft_strncmp(new, "9223372036854775807", 19) > 0)
 		|| (len == 20 && ft_strncmp(new, "-9223372036854775808", 20) > 0)
-		|| (len > 20 && check_spaces(new) == 1))
+		|| (len > 20))
 		return (print_exit_error(new, "long"));
 	while (new[i])
 	{
