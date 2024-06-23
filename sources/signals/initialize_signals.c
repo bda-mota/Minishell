@@ -6,7 +6,7 @@
 /*   By: bsantana <bsantana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:48:15 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/22 13:49:55 by bsantana         ###   ########.fr       */
+/*   Updated: 2024/06/23 12:05:34 by bsantana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	signal_pipe(int pid)
 	}
 	else
 	{
-		signal(SIGINT, signal_readline_in_execution);
-		signal(SIGQUIT, signal_readline_in_execution);
+		signal(SIGINT, signal_readline_in_pipe);
+		signal(SIGQUIT, signal_readline_in_pipe);
 	}
 }
 
