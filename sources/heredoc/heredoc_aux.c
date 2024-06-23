@@ -49,7 +49,7 @@ void	update_heredoc(t_token **heredoc, char *file)
 	delimiter->content = file;
 }
 
-int	if_sigint_heredoc(int *std, char *file, int status)
+int	if_sigint_heredoc(int *std, char *file, int fd, int status)
 {
 	t_minishell	*shell;
 
@@ -59,6 +59,7 @@ int	if_sigint_heredoc(int *std, char *file, int status)
 		dup2(*std, STDIN_FILENO);
 		free(file);
 		close(*std);
+		close(fd);
 		deallocate_lst(&shell->token);
 		return (1);
 	}

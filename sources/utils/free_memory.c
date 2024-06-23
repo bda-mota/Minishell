@@ -98,6 +98,7 @@ void	free_fail_execve(char **child, char *executable)
 	if (shell->tree)
 		down_tree(&shell->tree);
 	rl_clear_history();
+	close_all();
 	status = get_status(-1);
 	exit(status);
 }

@@ -61,6 +61,7 @@ void		signal_pipe(int pid);
 void		free_pipe(void);
 
 /* ==== UTILS ==== */
+int         check_spaces(char *str);
 void		init_shell(t_minishell *shell);
 void		init_structs(t_minishell *shell);
 void		processor(t_minishell *shell);

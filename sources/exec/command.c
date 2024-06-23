@@ -36,6 +36,7 @@ void	find_command(t_tree *tree, char *cmd)
 
 	i = 0;
 	shell = get_minishell(NULL);
+	find_path(shell);
 	if (ft_strncmp(cmd, "./", 2) == 0 || ft_strncmp(cmd, "../", 3) == 0)
 	{
 		tree->executable = ft_strdup(cmd);

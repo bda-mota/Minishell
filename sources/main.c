@@ -74,7 +74,6 @@ void	processor(t_minishell *shell)
 		if (heredoc(&shell->token) == 1)
 			return ;
 	build_tree(&shell->tree, &shell->token);
-	find_path(shell);
 	executor(shell->tree);
 	down_tree(&shell->tree);
 }

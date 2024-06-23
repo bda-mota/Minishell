@@ -72,16 +72,16 @@ static int	contains_syntax_error(char *new)
 	len = ft_strlen(new);
 	if ((len == 19 && ft_strncmp(new, "9223372036854775807", 19) > 0)
 		|| (len == 20 && ft_strncmp(new, "-9223372036854775808", 20) > 0)
-		|| len > 20)
+		|| (len > 20 && check_spaces(new) == 1))
 		return (print_exit_error(new, "long"));
 	while (new[i])
 	{
 		if (ft_issign(new[i]) == 1)
 			sign++;
-		if (ft_isalpha(new[i]) == 1 || sign > 1)
-			return (print_exit_error(new, "alpha"));
 		if (ft_isspace(new[i]) == 1)
 			return (print_exit_error(new, "arguments"));
+		if (ft_isalpha(new[i]) == 1 || sign > 1)
+			return (print_exit_error(new, "alpha"));
 		i++;
 	}
 	return (0);

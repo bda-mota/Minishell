@@ -30,7 +30,7 @@ int	heredoc(t_token **token)
 		fd_heredoc = open_heredoc(file);
 		remove_quotes_from_delim(heredoc->next->content);
 		heredoc_on_file(&heredoc, &fd_heredoc);
-		if (if_sigint_heredoc(&std, file, get_status(-1)) == 1)
+		if (if_sigint_heredoc(&std, file, fd_heredoc, get_status(-1)) == 1)
 			return (1);
 		close(fd_heredoc);
 		update_heredoc(&heredoc, file);
