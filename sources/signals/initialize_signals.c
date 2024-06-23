@@ -43,8 +43,8 @@ void	signal_pipe(int pid)
 	}
 	else
 	{
-		signal(SIGINT, signal_readline_in_execution);
-		signal(SIGQUIT, signal_readline_in_execution);
+		signal(SIGINT, signal_readline_in_pipe);
+		signal(SIGQUIT, signal_readline_in_pipe);
 	}
 }
 

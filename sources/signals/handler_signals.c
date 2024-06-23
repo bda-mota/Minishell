@@ -47,6 +47,7 @@ void	signal_readline_in_pipe(int signal)
 	(void)shell;
 	if (signal == SIGINT)
 	{
+		free_pipe();
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -54,15 +55,37 @@ void	signal_readline_in_pipe(int signal)
 	}
 	else if (signal == SIGQUIT)
 	{
+		free_pipe();
 		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
 		get_status(131);
-		rl_clear_history();
-		//free_pipe_child(); -> se tirar isso n da leak no cat 
+		rl_clear_history(); 
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		get_status(131);
 	}
+}
+
+void	free_pipe(void)
+{
+	t_minishell	*shell;
+	char		**env_copy;
+
+	shell = get_minishell(NULL);
+	rl_clear_history();
+	env_copy = *get_env_copy(NULL);
+	if (shell->paths)
+	{
+		ft_free_matrix(shell->paths);
+		shell->paths = NULL;
+	}
+	if (shell->tree)
+		down_tree(&shell->tree);
+	if (shell->tree->command_child)
+		ft_free_matrix(shell->tree->command_child);
+	if (env_copy)
+		ft_free_matrix(env_copy);
+
 }
 
 void	handler_heredoc(int signal)
