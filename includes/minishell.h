@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bsantana <bsantana@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/21 14:43:31 by bda-mota          #+#    #+#             */
+/*   Updated: 2024/06/22 13:58:21 by bsantana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -8,6 +20,7 @@
 # include "ast.h"
 # include "exec.h"
 # include "builtins.h"
+# include "heredoc.h"
 //LIBRARIES
 # include <sys/types.h>
 # include <sys/wait.h>
@@ -34,32 +47,27 @@ void		free_fail_execve(char **child, char *executable);
 int			get_status(int status);
 char		*get_path(char *path);
 char		***get_env_copy(char **copy);
-char		**get_paths(char **paths);
 t_minishell	*get_minishell(t_minishell *shell);
 
 /* ==== SIGNALS ==== */
-void        initialize_signals(void);
-void        signal_readline(int signal);
-void        signal_execution(int pid);
-void        signal_heredoc(void);
-void        handler_heredoc(int signal);
+void		initialize_signals(void);
+void		signal_readline(int signal);
+void		signal_execution(int pid);
+void		signal_heredoc(void);
+void		handler_heredoc(int signal);
 void		signal_readline_in_execution(int signal);
+void		signal_readline_in_pipe(int signal);
+void		signal_pipe(int pid);
+void		free_pipe(void);
 
 /* ==== UTILS ==== */
+int         check_spaces(char *str);
 void		init_shell(t_minishell *shell);
 void		init_structs(t_minishell *shell);
 void		processor(t_minishell *shell);
 int			is_redir(t_token **token);
 int			is_redir_or_heredoc(t_token **token);
 int			the_branch_is_redir(t_tree *branch);
-
-/* ==== HEREDOC ==== */
-int			has_heredoc(t_token *token);
-int			open_heredoc(char *file);
-void		heredoc(t_token **token);
-void		update_heredoc(t_token **heredoc, char *file);
-char		*generate_file_name(void);
-t_token		*find_heredoc(t_token **heredoc);
 
 /* EXCLUIR AO FINAL DO PROJETO */
 void		print_list(t_token **lst);

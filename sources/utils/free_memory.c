@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_memory.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/21 14:49:40 by bda-mota          #+#    #+#             */
+/*   Updated: 2024/06/21 14:49:42 by bda-mota         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 void	free_minishell(t_minishell *shell)
@@ -9,11 +21,6 @@ void	free_minishell(t_minishell *shell)
 		free(shell->input);
 	if (env_copy)
 		ft_free_matrix(env_copy);
-	if (shell->paths)
-	{
-		ft_free_matrix(shell->paths);
-		shell->paths = NULL;
-	}
 	if (shell->tree)
 		down_tree(&shell->tree);
 	if (shell->cmd_args)
@@ -37,7 +44,6 @@ void	free_execution(void)
 		down_tree(&shell->tree);
 }
 
-
 void	free_simple_child(char **child, char *executable)
 {
 	if (child)
@@ -58,7 +64,10 @@ void	free_pipe_child(void)
 	if (env_copy)
 		ft_free_matrix(env_copy);
 	if (shell->paths)
+	{
 		ft_free_matrix(shell->paths);
+		shell->paths = NULL;
+	}
 	if (shell->tree && shell->tree->executable)
 		free(shell->tree->executable);
 	if (shell->tree && shell->tree->command_child)
@@ -78,7 +87,10 @@ void	free_fail_execve(char **child, char *executable)
 	shell = get_minishell(NULL);
 	free_simple_child(child, executable);
 	if (shell->paths)
+	{
 		ft_free_matrix(shell->paths);
+		shell->paths = NULL;
+	}
 	if (shell->input)
 		free(shell->input);
 	if (env_copy)
@@ -86,6 +98,7 @@ void	free_fail_execve(char **child, char *executable)
 	if (shell->tree)
 		down_tree(&shell->tree);
 	rl_clear_history();
+	close_all();
 	status = get_status(-1);
 	exit(status);
 }

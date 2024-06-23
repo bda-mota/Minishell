@@ -1,4 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/21 14:56:59 by bda-mota          #+#    #+#             */
+/*   Updated: 2024/06/21 14:57:01 by bda-mota         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
+
+static int	check_syntax_unset(char *remove_var, char **env_copy);
+static void	aux_unset(char **env_copy, char *remove_var);
+
+static int	check_syntax_unset(char *remove_var, char **env_copy)
+{
+	if (check_variable_name(remove_var) == 0)
+	{
+		aux_unset(env_copy, remove_var);
+		free(remove_var);
+	}
+	else
+	{
+		free(remove_var);
+		get_status(1);
+		return (1);
+	}
+	return (0);
+}
 
 static void	aux_unset(char **env_copy, char *remove_var)
 {
@@ -23,42 +54,30 @@ static void	aux_unset(char **env_copy, char *remove_var)
 		i++;
 	}
 }
-
-void	ft_unset(char **env_copy, char *variables)
+void    ft_unset(char **env_copy, char *variables)
 {
-	char	*remove_var;
-	int		start;
-	int		end;
-	int		len;
+    char    *remove_var;
+    size_t	start;
+    size_t  end;
 
-	start = 0;
-	if (!variables)
-		return ;
-	len = ft_strlen(variables);
-	while (start < len)
-	{
-		while (start < len && variables[start] == ' ')
-			start++;
-		end = start;
-		while (end < len && variables[end] != ' ')
+    start = 0;
+    if (!variables)
+        return ;
+    while (start < ft_strlen(variables))
+    {
+        while (start < ft_strlen(variables) && variables[start] == ' ')
+            start++;
+        end = start;
+        while (end < ft_strlen(variables) && variables[end] != ' ')
 			end++;
 		if (start < end)
 		{
 			remove_var = ft_calloc(end - start + 1, 1);
 			ft_strncpy(remove_var, variables + start, end - start);
-			if (check_variable_name(remove_var) == 0)
-			{
-				aux_unset(env_copy, remove_var);
-				free(remove_var);
-			}
-			else
-			{
-				free(remove_var);
-				get_status(1);
+			if (check_syntax_unset(remove_var, env_copy) == 1)
 				return ;
-			}
-		}
-		start = end + 1;
-	}
-	get_status(0);
-}
+        }
+        start = end + 1;
+    }
+    get_status(0);
+}	

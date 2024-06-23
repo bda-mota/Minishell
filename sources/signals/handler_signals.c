@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handler_signals.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bsantana <bsantana@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/21 14:48:10 by bda-mota          #+#    #+#             */
+/*   Updated: 2024/06/23 12:07:50 by bsantana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 void	signal_readline_in_execution(int signal)
@@ -7,31 +19,90 @@ void	signal_readline_in_execution(int signal)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_on_new_line();
 		rl_replace_line("", 0);
+		get_status(130);
+	}
+	else if (signal == SIGQUIT)
+	{
+		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
+		get_status(131);
+		rl_clear_history();
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		get_status(131);
 	}
 }
 
-void	signal_execution(int pid)
+void	signal_readline_in_pipe(int signal)
 {
-	if (pid == 0)
+	t_minishell	*shell;
+
+	shell = get_minishell(NULL);
+	(void)shell;
+	if (signal == SIGINT)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGPIPE, SIG_IGN);
+		free_pipe();
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		rl_clear_history();
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		get_status(130);
 	}
-	else
+	else if (signal == SIGQUIT)
 	{
-		signal(SIGINT, signal_readline_in_execution);
-		signal(SIGQUIT, SIG_DFL);
+		free_pipe();
+		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
+		rl_clear_history();
+		//free_pipe_child();
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		get_status(131);
 	}
+}
+
+void	free_pipe(void)
+{
+	t_minishell	*shell;
+	char		**env_copy;
+
+	shell = get_minishell(NULL);
+	rl_clear_history();
+	env_copy = *get_env_copy(NULL);
+	if (shell->paths)
+	{
+		ft_free_matrix(shell->paths);
+		shell->paths = NULL;
+	}
+	if (shell->tree)
+		down_tree(&shell->tree);
+	if (shell->tree->command_child)
+		ft_free_matrix(shell->tree->command_child);
+	if (env_copy)
+		ft_free_matrix(env_copy);
+
 }
 
 void	handler_heredoc(int signal)
 {
-
 	if (signal == SIGINT)
 	{
 		ft_putchar_fd('\n', STDOUT_FILENO);
 		rl_on_new_line();
 		rl_replace_line("", 0);
+		close(0);
+		get_status(130);
+	}
+}
+
+void	signal_readline(int signal)
+{
+	if (signal == SIGINT)
+	{
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		get_status(130);
 	}
 }

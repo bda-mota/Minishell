@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/21 14:45:45 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 14:45:47 by bda-mota         ###   ########.fr       */
+/*   Created: 2024/06/21 14:49:53 by bda-mota          #+#    #+#             */
+/*   Updated: 2024/06/21 19:39:15 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_env(char **env_copy)
+int check_spaces(char *str)
 {
-	int	i;
+    int i;
 
-	i = 0;
-	while (env_copy[i])
-	{
-		if (ft_strchr(env_copy[i], '='))
-			ft_printf_fd(STDOUT_FILENO, "%s\n", env_copy[i]);
-		i++;
-	}
-	get_status(0);
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] != ' ')
+            return (1);
+        i++;
+    }
+    return (0);
 }

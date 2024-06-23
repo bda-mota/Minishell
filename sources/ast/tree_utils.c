@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tree_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/21 14:45:03 by bda-mota          #+#    #+#             */
+/*   Updated: 2024/06/21 14:45:05 by bda-mota         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 void	down_tree(t_tree **root)
@@ -61,4 +73,3 @@ void	aux_pull_all_together(t_token **new, t_token **curr)
 		*curr = temp;
 	}
 }
-

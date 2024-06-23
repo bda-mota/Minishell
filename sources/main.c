@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/21 14:44:20 by bda-mota          #+#    #+#             */
+/*   Updated: 2024/06/21 21:23:53 by bda-mota         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
 static char	*prompt(void);
@@ -55,12 +67,13 @@ void	processor(t_minishell *shell)
 		&& shell->token->content[0] == '\0')
 	{
 		deallocate_lst(&shell->token);
+		ft_printf_fd(STDOUT_FILENO, "\n");
 		return ;
 	}
 	if (!has_heredoc(shell->token))
-		heredoc(&shell->token);
+		if (heredoc(&shell->token) == 1)
+			return ;
 	build_tree(&shell->tree, &shell->token);
-	find_path(shell);
 	executor(shell->tree);
 	down_tree(&shell->tree);
 }

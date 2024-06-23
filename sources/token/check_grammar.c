@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_grammar.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/21 14:48:23 by bda-mota          #+#    #+#             */
+/*   Updated: 2024/06/21 14:48:25 by bda-mota         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 int	check_sintax(char *input)
@@ -39,7 +51,6 @@ int	check_grammar(t_token **token)
 	return (1);
 }
 
-
 int	is_invalid_redir_or_heredoc(t_token *curr)
 {
 	return (is_redir_or_heredoc(&curr)
@@ -60,4 +71,3 @@ int	is_invalid_pipe(t_token *curr)
 	}
 	return (0);
 }
-

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   path.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/21 14:46:37 by bda-mota          #+#    #+#             */
+/*   Updated: 2024/06/21 14:46:39 by bda-mota         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
 void	find_path(t_minishell *shell)
@@ -7,6 +19,7 @@ void	find_path(t_minishell *shell)
 
 	i = 0;
 	env = *get_env_copy(NULL);
+	shell->complete_path = NULL;
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
@@ -16,6 +29,8 @@ void	find_path(t_minishell *shell)
 		}
 		i++;
 	}
+	if (shell->complete_path == NULL)
+		return ;
 	build_path(shell);
 }
 
@@ -25,11 +40,6 @@ void	build_path(t_minishell *shell)
 	char	*aux;
 
 	i = 0;
-	if (shell->complete_path == NULL)
-	{
-		shell->paths = NULL;
-		return ;
-	}
 	shell->paths = ft_split(shell->complete_path, ':');
 	if (shell->paths == NULL)
 		printf("error ao dar split\n");
@@ -43,5 +53,4 @@ void	build_path(t_minishell *shell)
 		free(aux);
 		i++;
 	}
-	get_paths(shell->paths);
 }

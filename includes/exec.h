@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/21 14:43:20 by bda-mota          #+#    #+#             */
+/*   Updated: 2024/06/21 16:03:33 by bda-mota         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef EXEC_H
 # define EXEC_H
 
@@ -12,6 +24,7 @@ void	find_command(t_tree *tree, char *cmd);
 int		executor(t_tree *tree);
 int		execute(t_tree *tree, char *command);
 void	set_status(int status);
+void	signal_received(int status);
 
 /* ==== TREAT ERRORS ==== */
 void	treat_errors(t_tree *tree, int *status);
