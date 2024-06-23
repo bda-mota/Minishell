@@ -22,6 +22,8 @@ int	redirs_execution(t_tree *tree)
 	saved_std[1] = dup(STDOUT_FILENO);
 	if (open_file(tree, &fd) == -1)
 	{
+		close(STDIN_FILENO);
+		close(STDOUT_FILENO);
 		dup2(saved_std[0], STDIN_FILENO);
 		dup2(saved_std[1], STDOUT_FILENO);
 		ft_printf_fd(STDERR_FILENO, "Babyshell: %s: %s\n",
