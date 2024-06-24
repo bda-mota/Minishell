@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:46:21 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/23 21:49:10 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/24 10:13:03 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ void	check_command(t_tree *tree, char *command)
 	remove_quotes_matrix(tree->command_child);
 	first_command = tree->command_child[0];
 	if (access(first_command, X_OK) == 0)
-		tree->executable = first_command;
+	{
+		tree->executable = ft_strdup(first_command);
+		return ;
+	}
 	find_command(tree, first_command);
 }
 
