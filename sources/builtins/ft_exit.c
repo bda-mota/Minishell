@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:45:52 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/23 20:50:05 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/24 11:51:03 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	ft_exit(char *args)
 	shell = *get_minishell(NULL);
 	rl_clear_history();
 	free_minishell(&shell);
-	printf("exit\n");
 	exit(status);
 }
 

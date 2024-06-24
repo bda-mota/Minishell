@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:43:31 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/23 20:44:22 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/24 13:04:20 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,5 @@ int			is_redir(t_token **token);
 int			is_redir_or_heredoc(t_token **token);
 int			the_branch_is_redir(t_tree *branch);
 int			check_spaces_on_exit(char *args);
-
-/* EXCLUIR AO FINAL DO PROJETO */
-void		print_list(t_token **lst);
-void		print_tree(t_tree *tree);
-void		print_tree_main(t_tree *tree);
-void		print_tree_aux(t_tree *tree, int depth, const char *relation);
-void		print_redir(t_redir *redirs);
 
 #endif
