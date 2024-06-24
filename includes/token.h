@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:43:45 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 14:43:56 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/24 00:10:48 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,8 @@ char	*aux_expand_variable(char *content, char **env_copy);
 char	*handle_quote(char *content, char *data_var, char *quote, int i);
 char	*aux_expand_variable(char *content, char **env_copy);
 char	*concatened_content(char *content, char *data_var, int i);
+int		syntax_name_in_expansion(char *var_name);
+char	*is_dollar(char *data_var, char *var_name, int end, int *i);
+void	expand_variable_if_exists(char *var_name, char *data_var);
 
 #endif
