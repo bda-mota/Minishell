@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:46:21 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 14:46:23 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/23 21:49:10 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ void	find_command(t_tree *tree, char *cmd)
 
 	i = 0;
 	shell = get_minishell(NULL);
-	find_path(shell);
 	if (ft_strncmp(cmd, "./", 2) == 0 || ft_strncmp(cmd, "../", 3) == 0)
 	{
 		tree->executable = ft_strdup(cmd);
 		get_status(127);
 		return ;
 	}
+	find_path(shell);
 	if (shell->complete_path != NULL)
 	{
 		while (shell->paths[i])
