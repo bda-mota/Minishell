@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:49:18 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/24 00:11:17 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/24 00:43:21 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,36 +55,26 @@ char	*find_variable(char *content, int *i, char **env_copy, char *data_var)
 		end++;
 	var_name = ft_strndup(content + start, end - start);
 	if (syntax_name_in_expansion(var_name) != 0)
-		return (is_dollar(data_var, var_name, end, i));
+	{
+		tmp = data_var;
+		data_var = ft_strjoin(data_var, "$");
+		free(tmp);
+		tmp = data_var;
+		data_var = ft_strjoin(data_var, var_name);
+		free(tmp);
+		free(var_name);
+		*i = end - 1;
+		return (data_var);
+	}
 	expand_variable = ft_getenv(env_copy, var_name);
 	if (expand_variable)
-		expand_variable_if_exists(var_name, data_var);
-	free(var_name);
-	*i = end - 1;
-	return (data_var);
-}
-
-void	expand_variable_if_exists(char *var_name, char *data_var)
-{
-	char	*tmp;
-
-	tmp = data_var;
-	data_var = ft_strjoin(data_var, expand_variable);
-	free(tmp);
-	if (var_name[0] == '?')
-		free(expand_variable);
-}
-
-char	*is_dollar(char *data_var, char *var_name, int end, int *i)
-{
-	char	*tmp;
-
-	tmp = data_var;
-	data_var = ft_strjoin(data_var, "$");
-	free(tmp);
-	tmp = data_var;
-	data_var = ft_strjoin(data_var, var_name);
-	free(tmp);
+	{
+		tmp = data_var;
+		data_var = ft_strjoin(data_var, expand_variable);
+		free(tmp);
+		if (var_name[0] == '?')
+			free(expand_variable);
+	}
 	free(var_name);
 	*i = end - 1;
 	return (data_var);
