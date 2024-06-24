@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:43:45 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/24 00:42:51 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/24 09:02:10 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,8 @@ char	*handle_quote(char *content, char *data_var, char *quote, int i);
 char	*aux_expand_variable(char *content, char **env_copy);
 char	*concatened_content(char *content, char *data_var, int i);
 int		syntax_name_in_expansion(char *var_name);
+char	*handle_syntax_error(char *data_var, char *var_name);
+int		find_variable_end(char *content, int start);
+char	*expand_variable_data(char *data_var, char **env_copy, char *var_name);
 
 #endif

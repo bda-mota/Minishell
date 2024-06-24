@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:49:12 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 14:49:14 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/06/24 08:59:04 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,22 @@ char	*handle_quote(char *content, char *data_var, char *quote, int i)
 	else if (*quote == content[i])
 		*quote = 0;
 	return (concatened_content(content, data_var, i));
+}
+
+int	syntax_name_in_expansion(char *var_name)
+{
+	int	i;
+
+	i = 0;
+	if (var_name[0] == '?')
+		return (0);
+	if (var_name[i] != '_' && !ft_isalpha(var_name[i]))
+		return (1);
+	while (var_name[i])
+	{
+		if (!ft_isalnum(var_name[i]) && var_name[i] != '_')
+			return (1);
+		i++;
+	}
+	return (0);
 }
