@@ -25,7 +25,7 @@ int	ft_exit(char *args)
 	if (args != NULL)
 		status = ft_exit_aux(args);
 	else
-		status = 0;
+		status = get_status(-1);
 	if (status == 1)
 		return (get_status(status));
 	get_status(status);
