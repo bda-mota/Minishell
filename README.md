@@ -1,4 +1,4 @@
-#Minishell
+##Minishell
 
 O Minishell é um projeto desafiador e gratificante onde criamos nossa própria versão simplificada do bash. Esta jornada nos levou a explorar os meandros dos sistemas operacionais, desde o tratamento de entrada do usuário até a execução de comandos.
 
