@@ -6,7 +6,7 @@
 /*   By: bda-mota <bda-mota@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 14:49:00 by bda-mota          #+#    #+#             */
-/*   Updated: 2024/06/21 14:49:02 by bda-mota         ###   ########.fr       */
+/*   Updated: 2024/07/19 15:13:53 by bda-mota         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static t_token	*rearrange_aux(t_token **tokens)
 
 	word = *tokens;
 	redir = get_first_node_of_pipeline(&word);
-	first = (get_first_word(&redir));
+	first = get_first_word(&redir);
 	redir = find_redir(&redir);
 	while (word)
 	{
